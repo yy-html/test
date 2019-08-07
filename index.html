@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="box1"></div>
+    <div class="box2"></div>
+  </div>
+  
+
+  <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box')
+
+
+    // Promise: then catch 方法会默认返回一个最终 promiseStatus 为 resolved 的 new Promise resolve(returnValue)
+
+    // const promise = new Promise((resolve, r) => {
+    //     // setTimeout(resolve, 1000, 'succ')
+    //     setTimeout(r, 1000, 'err')
+    //   })
+    //     // .catch(err => {
+    //     //   // throw new Error('catch')
+    //     //   return 2222
+    //     // })
+    
+    // async function fn() {
+    //   // async会返回一个promise 它的最终状态是根据内部await拿到的状态决定的
+    //   //    如果有一个await接收到了reject状态 那么此函数的promise直接返回reject并return
+    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolve(returnValue)
+    //   const res = await promise
+    //   log('resolving') // await如果不返回resolve状态（返回reject或者不返回这两个状态也就是pending状态） 会直接return此promise 所以这行代码及以后的不执行
+    //   return res // resolve(res)
+    // }
+
+    // const f = fn()
+
+    // log(f)
+
+    // f
+    //   .then(res => {
+    //     log('then')
+    //     log(res)
+    //   })
+    //   .catch(err => {
+    //     log('catch')
+    //     log(err)
+    //   })
+
+    
+
+    // Generator: 状态机, 还是一个遍历器对象生成函数
+    // 调用它：返回一个指向内部状态的指针对象, 还是一个遍历器对象
+
+    // function* fn() {
+    //   yield 1
+    //   yield 2
+    //   return 3 // {value: 3, done: true}: for of 不会遍历3（遍历到true就不返回了）
+    // }
+
+    // const f = fn()
+
+    // for(let value of f) {
+    //   log(value)
+    // }
+
+    function* fn() {
+    	const y = yield fetch('https://api.github.com/users/github')
+    	return y
+    }
+
+	  const f = fn()
+  
+
+
+    // Iterator遍历器：是一种接口，为各种不同的数据结构提供统一的访问机制
+      // 使得数据结构的成员能够按某种次序排列
+      // 供for...of消费
+
+    // 一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）
+
+    // Array
+    // Map
+    // Set
+    // String
+    // TypedArray
+    // 函数的 arguments 对象
+    // NodeList 对象
+
+    // 会默认调用iterator的方法：for of;  解构赋值; 扩展运算符; yield* []; Array.from(); Promise.all()
+
+    // const o = {
+    //   a: 1,
+    //   b: 2,
+    //   c: 3,
+    //   // [Symbol.iterator]() {
+    //   //   const values = Object.values(this)
+    //   //   let i = 0
+    //   //   return {
+    //   //     next: () => (
+    //   //       {
+    //   //         value: values[i ++],
+    //   //         done: i > keys.length
+    //   //       }
+    //   //     )
+    //   //   }
+    //   // }
+    //   * [Symbol.iterator]() {
+    //     for (let key in this) {
+    //       yield this[key]
+    //     }
+        // const values = Object.values(this)
+        // yield * values
+    //   }
+    
+    // }
+
+    // const iterator = o[Symbol.iterator]()
+
+    // log(iterator.next())
+    // log(iterator.next())
+    // log(iterator.next())
+    // log(iterator.next())
+
+    // log([ ...o ])
+
+    // for (let key of o) {
+    //   log(key)
+    // }
+
+
+    // function* entries(obj) {
+    //   for (let key of Object.keys(obj)) {
+    //     yield [key, obj[key]];
+    //   }
+    // }
+
+    // for (let [key, value] of entries(obj)) {
+    //   console.log(key, '->', value);
+    // }
+  
+    // 链表 VS 数组
+    // 链表： 1. 内存上存储：不需要连续空间
+    //       2. 增删：效率高
+    //       3. 读取：效率低（因为要从head开始遍历）
+
+    // 数组： 1. 内存上存储：是一块连续的区域
+    //       2. 增删：效率低（因为所操作的索引之后的元素都要移动）
+    //       3. 读取：效率高（因为内存中是连续的 知道每一个元素的内存地址）
+
+
+    // 上移下移
+    // const arr = [1,2,3,4,5]
+
+    // function fn(i, t) {
+
+    //   if (i < t) {
+    //     t -= 1
+    //   }
+      
+    //   arr.splice(t, 0, ...arr.splice(i, 1))
+    // }
+
+    // fn(2, 3)
+
+    
+    // Object.is()，其行为与===基本一致，不过有两处不同：
+
+    // +0不等于-0。
+    // NaN等于自身。
+
+  
+// React 合成事件注册 && 分发 过程
+		// mounted && updated
+		// 	=>	_updateDOMProperties(处理props):
+		// 				对DOM元素设置唯一_rootNodeID
+		// 	=>	enqueuePutListener(事件注册;事件存储): 
+		// 				在document上注册事件(litsenTo(事件类型, doc)) 处理事件冒泡 && 捕获 同一类型只注册一次 拥有统一回调dispatchEvent;
+		// 				将事件压入事件队列(EventPluginHub.putListener()) listenerBank中: { 'click': { `${vNode._rootNodeID}`: callback } }
+		// 	=>	ReactEventListener.dispatchEvent(事件执行):
+		// 				根据原生事件对象找到事件触发的DOM元素(event.target._rootNodeID: 也就能拿到对应的事件回调) 及该对象对应的Component对象(handleTopLevelImpl)
+		// 				生成合成事件对象(ReactEventEmitterMixin)并批量执行回调函数(默认冒泡依次执行target到其父元素的同类事件)
+		// 				进行批量更新(runEventQueueInBatch)
+		// event._dispatchListeners: 判断父组件有没有同类型事件 将有eventType属性的ReactElement放入 event._dispatchInstances 将对应的回调依次放入event._dispatchListeners
+
+		// react阻止冒泡: event.nativeEvent 获取原生事件对象
+		// 1. 阻止合成事件间的冒泡：e.stopPropagation()
+		// 2. 阻止合成事件冒泡到原生document事件：e.nativeEvent.stopstopImmediatePropagation()
+		// 3. 组织合成事件冒泡到除document以外的其他原生事件：在该原生事件上通过e.target来排除目标元素return
+		
+
+		// js 文本框监听粘贴事件，获取粘贴板上的图片实现预览:  在事件对象e.clipboardData.items(arr)下
+		// 虽然使用的 HTML 元素都支持 onpaste 事件，但实际上并非支持所有元素，例如 <p> 元素， 除非设置了 contenteditable 为 "true" 
+		
+
+			// document.body.oncopy = (e) => {
+				
+			// 	return true
+			// }
+
+		// DOM
+
+		// const box = document.getElementById('box')
+		// const element = document.createElement('div')
+		// const attribute = document.createAttribute('id')
+		// const text = document.createTextNode(`yyy`)
+
+		// log(element.nodeType)		// 1
+		// log(attribute.nodeType)	// 2
+		// log(text.nodeType)			// 3
+		// log(document.nodetype) // 9
+
+		// log(element.nodeName)		// DIV: 标签名大写
+		// log(attribute.nodeName)	// id: 属性名
+		// log(text.nodeName)			// '#text': 始终为#text
+		// log(document.nodeName) // '#document': 始终为
+
+		// log(element.nodeValue)	// null: 始终为null
+		// log(attribute.nodeValue)// 对应属性值attribute.nodeValue = 'box'
+		// log(text.nodeValue)			// 'yyy'
+		// log(document.nodeValue) // null: 始终为null
+
+		// getAttribute()	// 不存在返回null
+		// setAttribute()
+		// removeAttribute()
+
+		// 查看元素是否有孩子节点更便捷的方法
+		// hasChildNodes() === nodeList.childNodes.length
+
+		// 如果传入到 appendChild()中的节点已经是文档的一部分了，那结果就是将该节点从原来的位置 转移到新位置。即使可以将 DOM 树看成是由一系列指针连接起来的，但任何 DOM 节点也不能同时出 现在文档中的多个位置上。因此，如果在调用 appendChild()时传入了父节点的第一个子节点，那么 
+		//someNode 有多个子节点
+		// const returnedNode = someNode.appendChild(someNode.firstChild)
+		// log(returnedNode === someNode.firstChild) //false
+		// log(returnedNode === someNode.lastChild) //true
+
+		// appendChild()
+		// insertBefore()
+		// replaceChild()
+		// removeChild()
+		// cloneNode() // true: 深克隆 同时克隆其子节点; false 浅克隆 只克隆节点本身
+		// normalize() // 这个方法唯一的作用就是处理文档树中的文本节点。 由于解析器的实现或 DOM 操作等原因，可能会出现文本节点不包含文本，或者接连出现两个文本节点 的情况。当在某个节点上调用这个方法时，就会在该节点的后代节点中查找上述两种情况。如果找到了 空文本节点，则删除它;如果找到相邻的文本节点，则将它们合并为一个文本节点
+
+		// log(document.referrer) // 取得来源页面的URL
+
+		// 修改 className 时，如果新类关联了与此前不同的 CSS 样式，那么就会立即应用新的样式。
+
+		// 动态添加样式：1. 动态创建style标签, createTextNode到标签内, 添加到head中；2. 动态创建link标签引入(createElement('link'))；
+		// script同理。
+
+		// classList 属性是新集合类型 DOMTokenList 的实例
+		// add(value):将给定的字符串值添加到列表中。如果值已经存在，就不添加了
+		// remove(value):从列表中删除给定的字符串
+		// toggle(value):如果列表中已经存在给定的值，删除它;如果列表中没有给定的值，添加它
+
+		// DOM焦点
+		// document.activeElement 属性，这个 属性始终会引用 DOM 中当前获得了焦点的元素
+		// document.hasFocus()
+
+		// 当前选择的内容
+		// window.getSelection().toString()
+
+
+		// try catch 做兼容小技巧
+		// function convertToArray(nodes){
+		// 	let array = null
+		// 	try {
+		// 		array = Array.prototype.slice.call(nodes, 0) //针对非 IE 浏览器
+		// 	} catch (ex) {	
+		// 		array = []
+		// 		for (let i=0, len=nodes.length; i < len; i++){
+		// 			array.push(nodes[i])
+		// 		}
+		// 	}
+		// 	return array
+		// }
+
+
+		// 监听函数是否被调用
+		// function fn () {	// 全局函数
+		// 	console.log('function var')
+		// }
+		
+		// const obj = {	// 对象内函数
+		// 	name: 'obj',
+		// 	fn(a, b) {
+		// 		console.log(a, b)
+		// 	}
+		// }
+
+		// Object.prototype.monitor = function(targetName, listenerBefore = () => true, listenerAfter) {
+		// 	this[targetName] = function() {
+		// 		if (listenerBefore() === true) {
+		// 			this[targetName].apply(this, arguments)
+		// 			listenerAfter && listenerAfter()
+		// 		}
+		// 	}
+		// }
+
+		// obj.monitor('fn', () => true, () => console.log('done'))
+		// obj.fn(1, 2)
+
+		// monitor('fn', () => true, () => console.log('done'))
+		// fn()
+
+
+
+
+	// 函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）
+	// 尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用帧，取代外层函数的调用帧就可以了
+	// 这就叫做"尾调用优化"（Tail call optimization），即只保留内层函数的调用记录
+		// function fn(num) { 
+		// 	if(num == 1) return 1
+		// 	return n * arguments.callee(num - 1)
+		// }
+		// 5 * (4 * (3 * (2 * 1)))
+		// function fn(num, total) {
+		// 	if (num == 1) return total
+		// 	return arguments.callee(num - 1, total * num)
+		// }
+		// log(fn(5, 1))
+
+
+		// 函数式编程有一个概念，叫做柯里化（currying），意思是将多参数的函数转换成单参数的形式。这里也可以使用柯里化。
+		// function currying(fn, n) {
+		// 	return function (m) {
+		// 		return fn.call(this, m, n);
+		// 	};
+		// }
+		// 第二种方法就简单多了，就是采用ES6的函数默认值。
+		// function factorial(n, total = 1) {
+		// 	if (n === 1) return total;
+		// 	return factorial(n - 1, n * total);
+		// }
+
+		// factorial(5)
+
+		// function tailFactorial(n, total) {
+		// 	if (n === 1) return total;
+		// 	return tailFactorial(n - 1, n * total);
+		// }
+
+		// const factorial = currying(tailFactorial, 1);
+
+		// factorial(5) // 120
+
+	// // rest: 剩余参数
+	// function fn({ a, ...rest }) {
+	// 	log(rest)	// { b: 2, c: 3 }
+	// }
+	// fn({ a: 1, b: 2, c: 3 })
+
+	// 设置函数参数必传小技巧
+	// function err(params) {throw new Error(params + 'is required')}
+	// function fn(params = err('params')) {}
+	// fn()
+
+// 子代 不同于 后代
+// document.querySelector('input[type=file]').files[0];
+// document.querySelectorAll("div.note, div.alert")
+// document.querySelector("#my-id").querySelectorAll("img")
+
+// React 标准化了事件对象，因此在不同的浏览器中都会有相同的属性
+
+	// // 二叉树遍历
+	// const tree = {
+	// 	value: "tree",
+	// 	left: {
+	// 		value: '1',
+	// 		left: {
+	// 			value: '2',
+	// 		},
+	// 		right: {
+	// 			value: '3',
+	// 			left: {
+	// 				value: '4',
+	// 			},
+	// 			right: {
+	// 				value: '5',
+	// 			}
+	// 		}
+	// 	},
+	// 	right: {
+	// 		value: 'a',
+	// 		left: {
+	// 			value: 'b',
+	// 		},
+	// 		right: {
+	// 			value: 'c',
+	// 			left: {
+	// 					value: 'd',
+	// 			},
+	// 			right: {
+	// 					value: 'e',
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// let result = []
+
+	// // myBfs
+	// function fn(data) {
+	// 	if (typeof data !== 'object') return
+	// 	for	(let key in data) {
+	// 		if (key === 'value') {
+	// 			result.push(data.value)
+	// 		} else {
+	// 			fn(data[key])
+	// 		}
+	// 	}
+	// }
+	// fn(tree)
+	// log(result)
+
+	// // 深度遍历
+	// function bfs(item) {
+	// 	if (item) {
+	// 		bfs(item.left)
+	// 		result.push(item.value)
+	// 		bfs(item.right)
+	// 	}
+	// }
+	// bfs(tree)
+	// log(result)
+	// // 广度遍历
+	// let result = []
+	// let stack = [tree] // 先将要遍历的树压入栈
+	// let count = 0 // 用来记录执行到第一层
+	// let bfs = function () {
+	// 	let node = stack[count]
+	// 	if (node) {
+	// 		result.push(node.value)
+	// 		if (node.left) stack.push(node.left)
+	// 		if (node.right) stack.push(node.right)
+	// 		count ++
+	// 		bfs()
+	// 	}
+	// }
+	// bfs();
+	// log(stack)
+	// log(count)
+	// console.log(result)
+		
+
+		// let o = {
+    //   a: {
+    //     b: {}
+    //   },
+    //   c: {
+    //     d: {
+    //       e: {},
+    //       f: {
+    //         g: {
+    //           x: 'x'
+    //         }
+    //       },
+    //       h: {
+    //         i: 'i'
+    //       }
+    //     }
+    //   },
+    //   j: {
+    //     k: 'j'
+    //   }
+    // }
+
+    // o = {
+    //   a: {
+    //     b: {
+    //       c: 'c'
+		// 		},
+		// 		x: {}
+    //   },
+    //   d: {
+    //     e: 'e'
+    //   },
+    //   f: {
+    //     g: {
+		// 			h: {
+		// 				k: 'k'
+		// 			}
+		// 		}
+    //   }
+		// }
+
+		// // 深度遍历
+		// let a
+		// function fn(obj) {
+		// 	if (typeof obj == 'object') {
+		// 		for (let key in obj) {
+		// 			log(key)
+		// 			if (fn(obj[key]) == 'e') {
+		// 				a = obj[key]
+		// 				return 'e'
+		// 			}
+		// 		}
+		// 	}
+		// 	return obj
+		// }
+		// 广度遍历
+		// let data = [o]
+		// let count = 0
+		// function fn() {
+		// 	const node = data[count]
+		// 	if (node && typeof node === 'object') {
+		// 		for (let key in node) {
+		// 			log(key)
+		// 			const item = node[key]
+		// 			if (typeof item === 'object') {
+		// 				data.push(item)
+		// 			}
+		// 			if (item == 'e') {
+		// 				return node
+		// 			}
+		// 		}
+		// 	}
+		// 	count ++
+		// 	return fn()
+		// }
+		// log(fn(data))
+		// log(count)
+		// log(data)
+
+		// // 实例原型优先级 && 覆盖
+		// class Ft {
+		// 	constructor() {
+		// 		// this.a = () => {log('ft-实例')}
+		// 		this.ft = 'ft'
+		// 	}
+
+		// 	static st1 = 'st'
+		// 	static st2() {log('st')}
+
+		// 	a() {log('ft-原型')}
+		// }
+
+		// class Fn extends Ft {
+		// 	constructor(props) {
+		// 		super(props)
+		// 		// this.a = () => {log('实例')}
+		// 	}
+
+		// 	a() {log('原型')}
+		// }
+
+
+		// const f = new Fn()
+
+		// log(f)
+		// f.a()
+
+		// log(Object.getPrototypeOf(f) === Fn.prototype)
+		// log(Object.getPrototypeOf(Fn.prototype) === Ft.prototype)
+		// log(Object.getPrototypeOf(Ft.prototype) === Object.prototype)
+
+		// log(Ft.st1)
+		// Ft.st2()
+
+		// log(Fn.st1)
+		// Fn.st2()
+
+		// log(Object.getPrototypeOf(Fn) === Ft.prototype)
+
+
+
+		//解构加拓展运算符
+
+		// 数组解构
+		// const [ a, ...b ] = [ 1, 2, 3 ]
+		// console.log(b)// [2,3]
+		// 对象解构
+		// const { a, defaulT: d = 'default', ...b } = { a:1, b:2, c:3 }
+		// console.log(b,d)// {b:2}, 'default'
+		// 字符串解构
+		// const str = 'abcd'
+		// const [ a, b, ...c ] = str
+		// const { length: le } = str
+		// console.log(a,b,c,le)// a,b,['c','d'],7
+		// 函数变量解构
+		// function fn({ component: C = 'default', ...rest }, ...n){
+		//   console.log(C, rest, n)// 'component', {b:2,c:3}, ['a'] //参数arguments其实是一个数组
+		// }
+		// fn({ component: 'component', b:2, c:3 }, 'a')
+		// function fn([ a, b, ...c]){
+		//   console.log(a,b,c)// 1,2,[3,4]
+		// }
+		// fn([1,2,3,4])
+
+		// document.onclick = (function() {
+		// 	// 事件自调用，函数内代码只会运行一次
+		// 	log(1)
+		// 	var div = null	// 闭包变量
+		// 	return function() {
+		// 		// 每点击一次都会运行的部分
+		// 		if (!div) {
+		// 			// 只第一次点击会运行的部分，因为闭包变量
+		// 			log(3)
+		// 			div = 1
+		// 		}
+		// 		log(2)
+		// 		return div
+		// 	}
+		// })()
+
+		// // 遍历数组
+		// const arr = [1,2,3,4,5]
+		// for (let i = 0, item; item = arr[i ++]; ) {
+		// 	log(item)
+		// }
+
+
+		// NaN.toString() == 'NaN' || Number.isNaN() == true  判断是否为NaN
+		// true.toString() === 'true' 判断是否为true
+		
+		// 实现钱币 100.00  number.toFied(2)
+
+		// 隐式类型转换规则
+		// null == undefined 和自己; 除此之外不和任何类型 ==
+		// ①、如果有一个操作数是布尔值，则在比较相等性之前先将其转换为数值——false转换为0，而true转换为1；
+		// ②、如果一个操作数是字符串，另一个操作数是数值，在比较相等性之前先将字符串转换为数值
+		// ③、如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的基本类型值按照前面的规则进行比较
+		// const a = {
+		// 	i: 0,
+		// 	valueOf: function() {
+		// 		return ++ this.i
+		// 	}
+		// }
+		// if (a == 1 && a == 2 && a ==3) {
+		// 	console.log(1)
+		// }
+
+		// 刷新页面
+		// window.location.href = window.locatin.href
+		// window.location.replace = window.location.href
+		// window.history.go(0) // back;forward
+		// window.location.reload() // true 重新发送http请求获取最新页；默认false 从浏览器缓存读取数据
+		// document.referrer
+
+		// eval
+		// eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。
+		// 这里我使用eval() 来解析JSON字符串。
+		// var dataObj=eval("("+data+")");//转换为json对象 
+		// eval这里要添加"("+data+")" 一对小括号，原因在于：eval本身的问题。 由于json是以{}的方式来开始以及结束的，在JS中，它会被当成一个语句块来处理，所以必须强制性的将它转换成一种表达式。
+		// 加上圆括号的目的是迫使eval函数在处理JavaScript代码的时候强制将括号内的表达式（expression）转化为对象，而不是作为语句（statement）来执行。
+
+    
+
+
+
+  // 0.1 + 0.2 === 0.30000000000000004 //15
+  // 数据存储过程中的浮点数运算误差值：
+  // 一种双精度浮点数编码方式导致的运算误差值
+
+
+  // 1、如果两个值类型相同，进行 === 比较。
+  // 2、如果两个值类型不同，他们可能相等。根据下面规则进行类型转换再比较： 
+  // （1）如果一个是null、一个是undefined，那么[相等]。 
+  // （2）如果任一值是字符串，另一个值是数值，在比较相等性之前先将字符串转换为数值；即是调用Number()函数。 
+  // （3）如果任一值时布尔值，则在比较相等性之前先将其转换为数值，即是调用Number()函数。 数。 
+  // （4）如果一个是对象，另一个是数值或字符串，把对象转换成基础类型的值再比较。对象转换成基础类型，利用它的toString或者valueOf方法。 js核心内置类，会尝试valueOf先于toString；例外的是Date，Date利用的是toString转换。
+
+
+
+  
+    // 锚点
+    // <a >
+    // el.scrollIntoView(boolean)
+    // window.scrollTo(x, y)
+
+    // 单行 多行
+    // overflow: 'hidden',
+    // textOverflow: 'ellipsis',
+    // whiteSpace: "nowrap"
+
+    // WebkitLineClamp: 1,
+    // display: '-webkit-box',
+    // wordBreak: 'break-all',
+    // WebkitBoxOrient: 'vertical',
+
+
+
+  // a b n n
+  // 1 1 2 3 5 8 13 21
+  // function fn(n, a = 1, b = 1) {
+  //   if (n <= 2) return b
+  //   return fn(n - 1, b, a + b)
+  // }
+  // function fn(n) {
+  //   if (n <= 2) return 1 
+  //   let a = 1
+  //   let b = 1
+  //   for(let i = 3; i <= n; i++ ) {
+  //     [a, b] = [b, a + b]
+  //   }
+  //   return b
+  // }
+
+
+
+    // ts
+    // 定义函数类型
+    // interface fc {
+    //   (a: number, b: number): number
+    // }
+    // let f: fc
+    // f = (a, b) => a + b
+
+    // const f: (a: number, b: number) => number | fc = (x, y) => a + b
+
+    // const f = (a: number, b: number): number => a + b
+
+    // 定义泛型
+    // function identity<T>(arg: T): T {
+    //   return arg;
+    // }
+
+    // let myIdentity: <U>(arg: U) => U = identity;
+    // let myIdentity: { <U>(arg: U): U } = identity;
+
+    // interface GenericIdentityFn {
+    //   <T>(arg: T): T;
+    // }
+    // let myIdentity: GenericIdentityFn = identity;
+    
+    // interface GenericIdentityFn<T> {
+    //   (arg: T): T;
+    // }
+    // let myIdentity: GenericIdentityFn<number> = identity;
+
+
+    // JSDoc 也可用于对象： @property
+    /**
+      * Book类，代表一个书本.
+      * @constructor 构造器
+      * @param title {string} - 书本的标题.
+      * @param {string} author - 书本的作者.
+      * @param {callback} cb
+      * @param { String[] | Array<string> } list
+      * @param {string} [somebody=John Doe] - 可选参数和默认值
+      * @returns {string|*}
+      */
+  
+    // 触发事件
+    //   const e = document.createEvent('Event');
+    //   e.initEvent('resize', true, true);
+    //   window.dispatchEvent(e || new Event('resize));
+
+
+    // 节流和防抖：限制函数触发周期
+    // 节流：规定周期内只执行一次(window.onscroll)
+    // 防抖：操作完毕才执行(input onchange)
+
+    // function fn() {log(1)}
+
+    // function throttle(fn, limit, delay) {
+    //   let time = 0
+    //   let timeout
+    //   return function () {
+    //     clearTimeout(timeout)
+    //     const now = new Date().getTime()
+    //     if (now - time >= limit) {
+    //       fn()
+    //       time = now
+    //     } else {
+    //       timeout = setTimeout(fn, delay)
+    //     }
+    //   }
+    // }
+    // function throttle(fn, limit) {
+    //   let b = false
+    //   return function () {
+    //     if (b) return
+    //     b = true
+    //     setTimeout(() => {
+    //       fn()
+    //       b = false
+    //     }, limit)
+    //   }
+    // }
+
+    // window.onscroll = throttle(fn, 1000, 300)
+
+    // function fn() {
+    //   const CSV = 'a,b\na,1\nb,2\n'
+    //   var blob = new Blob(['\uFEFF' + CSV], {type: 'text/txt,charset=UTF-8'});
+    //   url = URL.createObjectURL(blob)
+    //   log(blob)
+    //   const el = document.createElement('a')
+    //   el.download = 'test.csv'
+    //   el.href = url
+    //   el.click()
+    // }
+    // fn()
+    
+    // 前端读取 & 导出excel： js-xlsx
+
+
+    // BFC（Block Formatting Context）: 
+    // 是一个页面上一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然
+    // 它决定了块级元素如何对它的子元素进行布局，以及其他元素与它的关系
+    // 触发条件：
+    // 1.float的值不为none
+    // 2.overflow的值不为visible
+    // 3.position的值不为static、releative
+    // 4.display的值为table-cell、tabble-caption、inline-block
+    // 5.display为 flex 或 inline-flex元素的直接子元素
+    // 6.display为 grid 或 inline-grid 元素的直接子元素
+    // 规则：
+    // 1.浮动的元素会被父级计算高度（父级触发了BFC）
+    // 2.非浮动元素不会覆盖浮动元素位置（非浮动元素触发了BFC）
+    // 3.margin不会传递给父级（父级触发了BFC）
+    // 4.两个相邻元素上下margin不会重叠（给其中一个元素增加一个父级，然后让他的父级触发BFC）
+
+
+    // js清除浏览器缓存的几种方法
+
+    
+    // 线性结构转树型结构
+    // const source = [
+    //   { id: 1, title: 'hello', parent: 0 },
+    //   { id: 2, title: 'hello', parent: 0 },
+    //   { id: 3, title: 'hello', parent: 1 },
+    //   { id: 4, title: 'hello', parent: 3 },
+    //   { id: 5, title: 'hello', parent: 4 },
+    //   { id: 6, title: 'hello', parent: 4 },
+    //   { id: 7, title: 'hello', parent: 3 },
+    //   { id: 8, title: 'hello', parent: 2 }
+    // ]
+
+    // function fn(arr, parent = 0) {
+    //   const out = []
+
+    //   arr.forEach(item => {
+    //     if (item.parent === parent) {
+    //       const children = fn(arr, item.id)
+    //       if (children.length) {
+    //         item.children = children
+    //       }
+    //       out.push(item)
+    //     }
+    //   })
+
+    //   return out
+    // }
+
+    // log(fn(source))
+
+    // function fn(arr, parent = 0) {
+    //   return arr.filter(item => {
+    //     const children = arr.filter(it => item.id == it.parent)
+    //     if (children.length) {
+    //       item.children = children
+    //     }
+    //     return item.parent === parent
+    //   })
+    // }
+
+    // log(fn(source))
+
+    // function fn(arr, parent = 0) {
+    //   const out = []
+    //   arr.forEach(item => {
+    //     if (item.parent == parent) {
+    //       const children = fn(arr, item.id)
+
+    //       if (children.length) {
+    //         item.children = children
+    //       }
+
+    //       out.push(item)
+    //     }
+    //   })
+    //   return out
+    // }
+
+    // log(fn(source))
+
+
+    // const registerCallBackUrl = `${window.location.href}&withCoupon=1${Object.keys(params).reduce((pre, next) => pre + `&${next}=${params[next]}`, '')}`
+
+    // 严格模式 'use strict': 可以在作用域内部进行较为严格的错误条件检测
+    // 1. 不允许意外创建全局变量 必须先声明后使用 不能delete删除var创建的变量
+    // 2. 操作对象：对只读属性的对象赋值；对不可配置的对象delete；对不可拓展的对象添加属性
+    // 3. 函数参数名不能重复；严格模式下arguments与参数完全独立：对参数重新赋值不会影响arguments
+    // 4. this 始终指向指定的值（通过call apply bind），否则指向 undefined 而不指向window
+
+
+    // 前端预览图片
+    // 1. new FildReader().readAsDataURL(file).onload(info => info.result)
+    // 2. window.URL.createObjectURL(blob)
+    // 3. canvas => base64
+
+    // new FormData().append('', file)
+
+    // vue watch
+      // const source = {
+      //   demo: 1,
+      //   demo2: 2
+      // }
+      // const temp = JSON.parse(JSON.stringify(source))
+
+      // function watch(target) {
+      //   const handleTarget = Object.keys(target).reduce((pre, key) => {
+      //     pre[key] = {
+      //       set: (value) => {
+      //         target[key](value)
+      //         temp[key] = value
+      //       },
+      //       get() {
+      //         return temp[key]
+      //       }
+      //     }
+      //     return pre
+      //   }, {})
+      //   Object.defineProperties(source, handleTarget)
+      // }
+
+      // watch({
+      //   demo(value) {
+      //     log('demo set', value)
+      //   },
+      //   demo2(value) {
+      //     log('demo2 set', value)
+      //   }
+      // })
+
+      // source.demo2 = 3
+
+      
+
+    // DOM
+    // 使元素滚动至视口
+    // document.querySelector('input').scrollIntoView(true)
+
+    // 判断节点是不是另一个节点的子节点
+    // document.documentElement.contains(document.body) // true
+    // document.body.parentNode === document.documentElement // true
+
+    // 批量设置css样式
+    // myDiv.style.cssText = "width: 25px; height: 100px; background-color: green";
+    // Object.assign(myDiv.style, {
+    //   color: '#f00'
+    // })
+    // 批量读取行内css样式
+    // myDiv.style.cssText  // 可读写
+    // myDiv.getArrtibute('style')  // 可读写 set
+    // 行内样式 & 内联样式
+    // window.getComputedStyle(mtDiv, null) // {}   // 只读
+
+    // 回流 & 重绘
+    // 页面加载时：浏览器把获取到的HTML代码解析成一个DOM Tree，DOM Tree包含display: none的元素；会把所有样式解析成 样式结构体；将DOM Tree和样式结构体组合后构建 render Tree；
+    // render Tree 和 DOM Tree区别：render Tree能识别样式，其中每个NODE都有自己的style，而且render Tree中不包含隐藏的节点和head节点，因为这些节点不会呈现且不会影响呈现
+    // 回流：当render Tree中一些节点因尺寸，布局，隐藏，内容等改变需要重新构建，这时浏览器会重新构造这部分渲染树
+    // 重绘：回流完成后，浏览器会重新绘制改变的部分和受影响的部分到屏幕中；或者NODE需要更改的属性只会影响外观而不会影响布局(非几何属性)，会触发重绘
+    // 回流一定会引起重绘
+    // 浏览器会优化回流和重绘操作：浏览器会维护一个队列，将回流和重绘操作放入这个队列，等队列中的操作到了一定数量或者到了一定时间就会进行一个批操作
+    // 自己的优化：批操作 直接改变className或cssText累加或setAttribute('style')；DOM元素批添加
+
+    // css三大特性：继承性 层叠性 优先性
+    // 继承：text-，font-，line-，color
+    // 优先性：权重。!important ∞；行内样式 1000；id 100；class 10；元素 1；
+    // 层叠：相同样式后面定义的覆盖前面定义的 不同样式会重叠生效
+
+    // sass:
+    // 声明变量 $w: 5px !global;
+    // @import "rounded-corners", "text-shadow", "url", url(""); @import可以内嵌
+    // .a { @extends .className }
+    // $grid-width: 40px;
+    // $gutter-width: 10px;
+    // @function grid-width($n) {
+    //   @return $n * $grid-width + ($n - 1) * $gutter-width;
+    // }
+    // #sidebar { width: grid-width(5); }
+
+    // DOM事件流
+    // 捕获阶段 - 目标阶段 - 冒泡阶段
+
+    // document.createDocumentFragment() ： 创建一个文档片段占位符 最后只需要一次现场更新 && 渲染DOM
+
+    // ontextInput
+    // onDOMNodeRemoved onDOMNodeInsertedIntoDocument event.relatedNode属性中包含一个对父级节点的引用
+
+    // postMessage(数据, 发送页面源地址); onmessage 接收事件 参数：data，origin，source
+
+
+    // fetch
+    // fetch(url, {
+    //   method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //   mode: "cors", // no-cors, cors, *same-origin
+    //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    //   credentials: "same-origin", // include, *same-origin, omit
+    //   headers: {
+    //       "Content-Type": "application/json",
+    //       // "Content-Type": "application/x-www-form-urlencoded",
+    //   },
+    //   redirect: "follow", // manual, *follow, error
+    //   referrer: "no-referrer", // no-referrer, *client
+    //   body: JSON.stringify(data), // body data type must match "Content-Type" header
+    // })
+    // var anotherRequest = new Request(myRequest, myInit)
+    // // 这非常有用，因为请求和响应主体只是一个用途。制作这样的副本允许您再次使用请求/响应，同时init根据需要改变选项。必须在阅读正文之前制作副本，并且阅读副本中的正文也会在原始请求中将其标记为已读。
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "text/plain");
+
+    // web 离线检测 navigator.onLine // boole
+    // web 在线离线 事件 online offline
+
+    // 表单 submit reset
+    // <input type="reset" />
+    // <button type="reset">Reset Form</button>
+
+    // form.submit() // reset()
+
+    // 表单中第一个控件元素
+    // field1 = form.elements[0]
+    // 表单中名为textbox1的控件元素s
+    // field2 = form.elements["textbox1"]
+
+    // pattern input约束字段
+    // checkValidity 表单或表单元素检测有效性：可以自己写一个
+
+    // contenteditable: 给任意元素设置该属性 可变为可编辑元素 
+
+
+
+    // 树型结构最大深度
+    // let max = 0
+    // const fn = (data, i = 0) => {
+    //   i ++
+    //   data.forEach(item => {
+    //     const { children } = item
+    //     if (children && children.length > 0) {
+    //       if (i > max) {
+    //         max = i
+    //       }
+    //       fn(children, i)
+    //     }
+    //   })
+    // }
+    // fn(o)
+    // log(max)
+    // 树型结构数据总数item
+    // const fn = (data) => {
+    //   let max = 0
+    //   data.forEach(item => {
+    //     max ++
+    //     const { children } = item
+    //     if (children && children.length > 0) {
+    //       max += fn(children)
+    //     }
+    //   })
+    //   return max
+    // }
+    // log(fn(o))
+
+
+    // defer与async的区别是：defer要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；async一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。一句话，defer是“渲染完再执行”，async是“下载完就执行”。另外，如果有多个defer脚本，会按照它们在页面出现的顺序加载，而多个async脚本是不能保证加载顺序的
+    // import()类似于 Node 的require方法，区别主要是前者是异步加载，后者是同步加载
+    // CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+    // CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+
+
+    // tree selected
+    // function fn(data) {
+    //   data.forEach(item => {
+    //     const { children } = item
+    //     if (children && children.length > 0) {
+    //       fn(children)
+    //       item.selected = children.every(({ selected }) => selected === true)
+    //     }
+    //   })
+    // }
+    // fn(arr)
+
+
+    // 数组扁平化
+
+    // const flatten = arr => {
+    //   arr.reduce((prev, item) => (
+    //     prev.concat(Array.isArray(item) ? flatten(item) : item)
+    //   ), [])
+    // }
+
+    // Array.protype.flat()用于将数组“拉平”，变成一维数组，返回一个新数组。
+    // flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次
+    // flat()会跳过空格
+
+    // 创建指定长度的数组
+    // [...new Array(5).keys()]
+    // Array.from({ length: 5 })
+
+
+    // this传递
+    // function fn(f) {
+    //   f()
+    // }
+    // function Fn() {
+    //   this.f = function() {
+    //     log(this)
+    //   }
+    //   this.f2 = () => {
+    //     log(this)
+    //   }
+    // }
+
+    // fn(new Fn().f)  // window
+    // fn(new Fn().f2) // Fn{}
+
+    // createVNode
+    // const o = [
+    //   {
+    //     value: 1,
+    //     children: [
+    //       {
+    //         value: 11,
+    //         children: [
+    //           {value: 111}
+    //         ]
+    //       },
+    //       {
+    //         value: 12,
+    //         children: [
+    //           {
+    //             value: 121,
+    //             children: [
+    //               {
+    //                 value: 1211,
+    //               },
+    //               {
+    //                 value: 1212,
+    //               }
+    //             ]
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     value: 2,
+    //     children: [
+    //       {
+    //         value: 21,
+    //         children: [
+    //           {value: 211}
+    //         ]
+    //       },
+    //       {
+    //         value: 22,
+    //         children: [
+    //           {value: 221}
+    //         ]
+    //       }
+    //     ]
+    //   },
+    // ]
+
+    // function createVNode(data) {
+    //   return data.map(({ value, children }) => (
+    //     <div key={value}>
+    //       {value}
+    //       {children && (
+    //         createVNode(children)
+    //       )}
+    //     </div>
+    //   ))
+    // }
+
+
+
+
+    // ReactDOM.render 实现
+    // function render(vNode, container) {
+    //   if (typeof vNode === 'string') return container.appendChild(document.createTextNode(vNode))
+    //   const { type, props } = vNode
+    //   const el = document.createElement(type)
+    //   for (let key in props) {
+    //     if (key === 'children') {
+    //       if (props[key] instanceof Array) {
+    //         props[key].forEach(item => {
+    //           render(item, el)
+    //         })
+    //       } else {
+    //         render(props[key], el)
+    //       }
+    //     } else {
+    //       el.setAttribute(key, props[key])
+    //     }
+    //   }
+    //   container.appendChild(el)
+    // }
+
+
+    // 自定义事件
+    // const box = document.getElementById('box')
+    // box.addEventListener('testEvent', (e) => {
+    //   console.log(e)
+    // }, false)
+
+    // const event = document.createEvent('HTMLEvents')
+    // event.initEvent('testEvent', false, false)// 事件是否冒泡; 是否可以用 preventDefault() 方法取消事件
+
+    // box.dispatchEvent(event)
+
+
+    // [1, 4, -5, 10].find((n) => n < 0, obj) // -5 findIndex 这两个方法都可以接受第二个参数，用来绑定回调函数的this对象
+    // function f(v){
+    //   return v > this.age;
+    // }
+    // let person = {name: 'John', age: 20};
+    // [10, 12, 26, 15].find(f, person); 
+
+    // Array.of(1, 2) // [1, 2]
+
+    // 截数组
+    // const arr = [1,2,3,4,5,6,7]
+    // 1. const [first, ...rest] = arr
+    // 2. arr.slice(1, arr.length)
+
+    // 父窗口通过window.open获取子窗口；子窗口通过window.opener window.parent获取父窗口
+
+    // 嵌套解构赋值
+    // const { a: { b: { c: x = 'default' }, a, b } } = {a: {b: {c: 1}}}  // 解构赋值别名使用默认值
+    // log(a, b)  // error ,a ,b
+    // log(x)  // 1
+    // function move({x = 0, y = 0} = {}) {  // 函数解构赋值也使用默认值
+    //   return [x, y]
+    // }
+    // log(move())  // 不会报错
+
+    // 交换变量的值
+    // let x = 1;
+    // let y = 2;
+    // [x, y] = [y, x];
+
+    // 递归几种情况 || 递归尾调用
+    // const o = [
+    //   {
+    //     value: 1,
+    //     children: [
+    //       {
+    //         value: 11
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     value: 2,
+    //     children: [
+    //       {
+    //         value: 21,
+    //         children: [
+    //           {
+    //             value: 211
+    //           },
+    //           {
+    //             value: 212
+    //           },
+    //         ]
+    //       },
+    //       {
+    //         value: 22,
+    //         children: [
+    //           {
+    //             value: 221,
+    //             children: [
+    //               {
+    //                 value: 2211
+    //               }
+    //             ]
+    //           },
+    //         ]
+    //       },
+    //     ]
+    //   },
+    //   {
+    //     value: 3
+    //   }
+    // ]
+    // function fn(data) {
+    //   let arr = []
+    //   for(let i = 0, item; item = data[i ++];) {
+    //     const { value, children } = item
+    //     arr.push(value)
+    //     if (children && children.length > 0) {
+    //       arr = arr.concat(fn(children))
+    //     }
+    //   }
+    //   return arr
+    // }
+    // let arr = []
+    // function fn(data) {
+    //   for(let i = 0, item; item = data[i ++];) {
+    //     const { value, children } = item
+    //     arr.push(value)
+    //     if (children && children.length > 0) {
+    //       fn(children)
+    //     }
+    //   }
+    // }
+    // function fn(i, data, arr) {
+    //   const node = data[i]
+    //   if (node) {
+    //     for (let j = 0, item; item = node[j ++];) {
+    //       const { value, children } = item
+    //       arr.push(value)
+    //       if (children && children.length > 0) {
+    //         data.push(children)
+    //       }
+    //     }
+    //     i ++
+    //     return fn(i, data, arr)
+    //   } else {
+    //     return { i, data, arr }
+    //   }
+    // }
+    // console.log(fn(0, [o], []).arr)
+
+    // const arr = [
+    //   'http://img5.imgtn.bdimg.com/it/u=2807537560,355918843&fm=26&gp=0.jpg',
+    //   'http://img0.imgtn.bdimg.com/it/u=2324424292,2939395458&fm=26&gp=0.jpg',
+    //   'http://img5.imgtn.bdimg.com/it/u=118995679,1126901632&fm=26&gp=0.jpg'
+    // ]
+    // const box = document.getElementById('box')
+    // !function fn(i) {
+    //   if (i >= arr.length) return
+    //   const img = document.createElement('img')  // new Image()
+    //   img.src = arr[i]
+    //   img.style.width = '100px'
+    //   img.style.height = '100px'
+    //   img.onload = function() {
+    //     console.log(i)
+    //     box.appendChild(img)
+    //     fn(i + 1)
+    //   }
+    //   console.log('sc')
+    // }(0)
+
+    // function Func() {
+    //   this.name = 'name'
+    //   this.sayName = function() {
+    //     console.log(this.name)
+    //   }
+    // }
+
+    // Func.prototype = {
+    //   // constructor: Func,
+    //   b: 'b',
+    //   sayThis: function() {
+    //     console.log(this)
+    //   }
+    // }
+
+    // Object.defineProperties(Func.prototype, {
+    //   constructor: {
+    //     constructor: false,
+    //     value: Func
+    //   }
+    // })
+
+    // const o = New(Func)
+
+    // // o.sayThis()
+
+    // for (let key in o) {
+    //   log(key)
+    // }
+
+    // log(o)
+
+
+    // function New(fn) {
+    //   const obj = {}
+    //   fn.call(obj)
+    //   obj.__proto__ = fn.prototype
+    //   return obj
+    // }
+
+
+
+    // const arr = [2,2,2,2,1,1,1,2,2,4,4]
+    // const newArr = []
+    // const obj = {}
+    // for (let i of arr) {
+    //   obj[i] = true
+    // }
+    // console.log(Object.keys(obj))
+
+    // for (let i of arr) {
+    //   if (newArr.indexOf(i) == -1) {
+    //     newArr.push(i)
+    //   }
+    // }
+    // console.log(newArr)
+
+
+    // splice: 删除 插入 替换 截取
+
+    // const arr = [{a: 1,b: {b2: 2}},[2,3,[4,5]],'c']
+    // function deepCopy(obj) {
+    //   let newObj = obj.constructor === Object ? {} : []
+    //   for (var key in obj) {
+    //     if (typeof obj[key] === 'object') {
+    //       newObj[key] = arguments.callee(obj[key])
+    //     } else {
+    //       newObj[key] = obj[key]
+    //     }
+    //   }
+    //   return newObj
+    // }
+
+    // const newArr = deepCopy(arr)
+
+    // arr[0].a = 2
+    // arr[0].b.b2 = 1
+
+    // console.log(arr)
+    // console.log(newArr)
+
+    // const obj = new Object(function(){})  // 传什么类型的值就生成什么类型的对象实例
+    // console.log(obj instanceof Function)
+
+    // 基本包装类型
+    // 为了便于操作基本类型值，ECMAScript 还提供了 3 个特殊的引用类型:Boolean、Number 和 String。这些类型与本章介绍的其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。 实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们 能够调用一些方法来操作这些数据。来看下面的例子。
+    //     var s1 = "some text";
+    //     var s2 = s1.substring(2);
+    // 这个例子中的变量 s1 包含一个字符串，字符串当然是基本类型值。而下一行调用了 s1 的 substring()方法，并将返回的结果保存在了 s2 中。我们知道，基本类型值不是对象，因而从逻辑上 讲它们不应该有方法(尽管如我们所愿，它们确实有方法)。其实，为了让我们实现这种直观的操作， 后台已经自动完成了一系列的处理。当第二行代码访问 s1 时，访问过程处于一种读取模式，也就是要 从内存中读取这个字符串的值。而在读取模式中访问字符串时，后台都会自动完成下列处理。
+    // (1) 创建 String 类型的一个实例;
+    // (2) 在实例上调用指定的方法;
+    // (3) 销毁这个实例。
+
+    // localeCompare()  
+    // var stringValue = "yellow";
+    // alert(stringValue.localeCompare("brick")); //1
+    // alert(stringValue.localeCompare("yellow")); //0
+    // alert(stringValue.localeCompare("zoo")); //-1
+
+    // alert(String.fromCharCode(104, 101, 108, 108, 111)); //"hello"
+
+    // var uri = "http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start";
+    // decodeURI() decodeURIComponent()
+    // //http%3A%2F%2Fwww.wrox.com%2Fillegal value.htm%23start
+    // alert(decodeURI(uri));
+    // //http://www.wrox.com/illegal value.htm#starttabulator
+    // alert(decodeURIComponent(uri))
+
+    // Math.max() min() 技巧  values.constuctor === Array.prototype
+    // var max = Math.max.apply(Math, values);
+
+    // input 只允许输入？？？
+    // <input onkeyup="value=value.replace(/[^0-9]/g,'')" onpaste="value=value.replace(/[^0-9]/g,'')" oncontextmenu = "value=value.replace(/[^0-9]/g,'')">
+
+
+    // let totalS = 62 
+
+    // function countDown() {
+    //   if (totalS >= 0) {
+    //     m = transition(Math.floor(totalS / 60))
+    //     s = transition(totalS % 60)
+    //     timeStr = '' + m[0] + m[1] + '分' + s[0] + s[1] + '秒'
+    //     document.body.innerHTML = timeStr
+    //     --totalS
+    //   } else {
+    //     clearInterval(timer)
+    //   }
+    // }
+
+    // timer = setInterval('countDown()', 1000)
+
+    // function transition(str) {
+    //   return str < 10 ? '0' + str : str + ''
+    // }
+
+    // callee
+    // function fn() {
+    //   log(arguments.callee)
+    // }
+
+    // Object.create()  //用对象去（带原型带属性）创建新对象
+    //使用指定的原型对象及其属性去新建一个新的对象
+
+    // Object.keys && Object.values
+    // Object.entries方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（ enumerable ）属性的键值对数组
+
+    // 􏲒􏱁 resizeTo()􏱰 resizeBy()􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚 调整浏览器窗口大小
+
+    // 作用域：限制代码范围内变量的可用性
+    // 作用域链作用：保证变量的合法、有序访问;作用域的前端，始终都是当前执行的代码所在环境的变量对象
+    // 函数的对象上下文 => this
+    // 执行环境：每次进入函数都会创建一个完全不同的执行环境; 运行完毕即销毁
+    //    执行环境组成: 变量对象; 作用域属性[[Scopes]]; this,arguments;
+    //      变量对象：函数内所定义和用到的变量都保存在这个对象当中 arguments
+
+
+  </script>
+</body>
+
+</html>
