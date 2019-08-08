@@ -19,7 +19,11 @@
   
 
   <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box')
-
+    
+    
+    // 滑动
+    // father: white-space: nowrap; overflow: hidden;
+    // chidren: display: inline-block;
 
     // Promise: then catch 方法会默认返回一个最终 promiseStatus 为 resolved 的 new Promise resolve(returnValue)
 
@@ -59,6 +63,7 @@
 
     // Generator: 状态机, 还是一个遍历器对象生成函数
     // 调用它：返回一个指向内部状态的指针对象, 还是一个遍历器对象
+    // 调用next 移动内部指针 返回当前阶段的信息
 
     // function* fn() {
     //   yield 1
@@ -72,12 +77,41 @@
     //   log(value)
     // }
 
-    function* fn() {
-    	const y = yield fetch('https://api.github.com/users/github')
-    	return y
-    }
+    // yield*命令可以很方便地取出嵌套数组的所有成员。
+    // function* iterTree(tree) {
+    //   if (Array.isArray(tree)) {
+    //     for(let i=0; i < tree.length; i++) {
+    //       yield* iterTree(tree[i]);
+    //     }
+    //   } else {
+    //     yield tree;
+    //   }
+    // }
 
-	  const f = fn()
+    // const tree = [ 'a', ['b', 'c'], ['d', 'e'] ];
+
+    // for(let x of iterTree(tree)) {
+    //   console.log(x);
+    // }
+
+    // [...iterTree(tree)]
+
+    // Generator 异步应用（async函数实现原理）
+    // function run(gen){
+    //   var g = gen();
+
+    //   function next(data){
+    //     var result = g.next(data);
+    //     if (result.done) return result.value;
+    //     result.value.then(function(data){
+    //       next(data);
+    //     });
+    //   }
+
+    //   next();
+    // }
+
+    // run(gen);
   
 
 
@@ -95,7 +129,7 @@
     // 函数的 arguments 对象
     // NodeList 对象
 
-    // 会默认调用iterator的方法：for of;  解构赋值; 扩展运算符; yield* []; Array.from(); Promise.all()
+    // 会默认调用iterator的方法：for of;  解构赋值; 扩展运算符; yield* [] || foo(); Array.from(); Promise.all()
 
     // const o = {
     //   a: 1,
@@ -757,35 +791,36 @@
     // 节流：规定周期内只执行一次(window.onscroll)
     // 防抖：操作完毕才执行(input onchange)
 
-    // function fn() {log(1)}
+    // const f = () => log(1)
 
-    // function throttle(fn, limit, delay) {
+    // 节流
+    // const throttle = (fn, interval) => {
     //   let time = 0
-    //   let timeout
-    //   return function () {
-    //     clearTimeout(timeout)
-    //     const now = new Date().getTime()
-    //     if (now - time >= limit) {
-    //       fn()
+    //   return (...rest) => {
+    //     const now = Date.now()
+    //     if (now - time > interval) {
     //       time = now
-    //     } else {
-    //       timeout = setTimeout(fn, delay)
+    //       fn(...rest)
     //     }
     //   }
     // }
-    // function throttle(fn, limit) {
-    //   let b = false
-    //   return function () {
-    //     if (b) return
-    //     b = true
-    //     setTimeout(() => {
-    //       fn()
-    //       b = false
-    //     }, limit)
+
+    // document.onmousemove = throttle(f, 1000)
+    
+    // 防抖
+    // function fn(f, time) {
+    //   let timeout
+    //   return (...arg) => {
+    //     clearTimeout(timeout)
+    //     timeout = setTimeout(f, time, ...arg)
     //   }
     // }
 
-    // window.onscroll = throttle(fn, 1000, 300)
+    // document.onclick = fn(f, 1000)
+
+    
+
+
 
     // function fn() {
     //   const CSV = 'a,b\na,1\nb,2\n'
