@@ -19,8 +19,131 @@
   
 
   <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box')
+
+
+    // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级的 是完全共享的
+
+    // 代码复用：1. 函数封装 2. 继承 3. 改变函数指向  react：1. HOC 2. render Prop 2. 自定义hooks
+
+    // JSON.stringify()  会忽略undefined Symbol 函数
+
+
+    // 一次完整的HTTP请求过程
+    // 1. 对URL进行DNS域名解析，得到对应的IP地址
+    // 2. 根据IP找到对应服务器，发起TCP的三次握手
+    // 3. 建立TCP连接后发起HTTP请求
+    // 4. 服务器响应HTTP请求，浏览器得到HTML代码
+    // 5. 浏览器渲染
+
+    // 浏览器渲染过程
+    // 1. 构建 DOM Tree & CSSOM Tree（样式表对象模型）；CSSOM 和 DOM 二者无关联，是各自独立的树 
+    //   DOM：描述了文档节点之间的结构和属性
+    //   CSSOM：描述了标签样式
+    //     每一个浏览器都会有一个 “浏览器自定义样式（user agent styles）”，也就是说如果我们不提供自定义样式的话，我们的页面将会按照浏览器提供的样式来渲染
+    // 2. 将两棵树组合成 Render Tree
+    //   render Tree 和 DOM Tree区别：
+    //     render Tree中包含节点对应的样式；
+    //     render Tree中不包含display: none的节点和head节点
+    //   (display：none会触发reflow visibility：hidden只会触发重绘因为位置没有发生变化)
+    // 3. layout（计算布局过程） 
+    //   有了Render Tree 浏览器已经能知道文档结构的从属关系和它们所对应的样式了 从而计算出每个节点在屏幕中的位置
+    // 4. painting按照计算出来的规则 画到屏幕上
+    // 3.4两步也可以叫做回流
+
+    // CSSOM 会阻塞渲染，只有当 CSSOM 构建完毕后才会进入下一个阶段构建渲染树。
+    // 通常情况下 DOM 和 CSSOM 是并行构建的，
+    //   但是当浏览器遇到一个不带 defer 或 async 属性的 script 标签时， DOM 构建将暂停，
+    //   如果此时又恰巧浏览器尚未完成 CSSOM 的下载和构建，由于 JavaScript 可以修改 CSSOM，
+    //   所以需要等 CSSOM 构建完毕后再执行 JS，最后才重新 DOM 构建。
+
+    // 回流(reflow) & 重绘(repaint)
+    // 回流：当render Tree中一些节点因尺寸，布局，隐藏，内容等改变需要重新构建，这时浏览器会重新构造这部分渲染树
+    // 重绘：回流完成后，浏览器会重新绘制改变的部分和受影响的部分到屏幕中；或者NODE需要更改的属性只会影响外观而不会影响布局(非几何属性)，会触发重绘 重新绘制受改变的部分元素
+    // 回流一定会发生重绘 重绘不一定会引发回流
+
+    // 浏览器会优化回流和重绘操作：浏览器会维护一个队列，将回流和重绘操作放入这个队列，等队列中的操作到了一定数量或者到了一定时间就会进行一个批操作
+    // 自己的优化：批操作 直接改变className或cssText累加或setAttribute('style')；DOM元素批添加
     
-    
+
+    // HTTP请求方式
+    // 1、OPTIONS 返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向web服务器发送‘*’的请求来测试服务器的功能性
+    // 2、HEAD 向服务器索与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以再不必传输整个响应内容的情况下，就可以获取包含在响应小消息头中的元信息。
+    // 3、GET 向特定的资源发出请求。注意：GET方法不应当被用于产生“副作用”的操作中，例如在Web Application中，其中一个原因是GET可能会被网络蜘蛛等随意访问。Loadrunner中对应get请求函数：web_link和web_url
+    // 4、POST 向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。 Loadrunner中对应POST请求函数：web_submit_data,web_submit_form
+    // 5、PUT 向指定资源位置上传其最新内容
+    // 6、DELETE 请求服务器删除Request-URL所标识的资源
+    // 7、TRACE 回显服务器收到的请求，主要用于测试或诊断
+    // 8、CONNECT HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。
+    // 注意：
+    // 1）方法名称是区分大小写的，当某个请求所针对的资源不支持对应的请求方法的时候，服务器应当返回状态码405（Mothod Not Allowed）；当服务器不认识或者不支持对应的请求方法时，应返回状态码501（Not Implemented）。
+    // 2）HTTP服务器至少应该实现GET和HEAD/POST方法，其他方法都是可选的，此外除上述方法，特定的HTTP服务器支持扩展自定义的方法。
+
+    // 请求头
+
+    // response 状态码
+    // 1XX－信息类(Information),表示收到Web浏览器请求，正在进一步的处理中
+    // 2XX－成功类（Successful）,表示用户请求被正确接收，理解和处理例如：200 OK
+    // 3XX-重定向类(Redirection),表示请求没有成功，客户必须采取进一步的动作。
+    // 4XX-客户端错误(Client Error)，表示客户端提交的请求有错误 例如：404 NOT Found，意味着请求中所引用的文档不存在。
+    // 5XX-服务器错误(Server Error)表示服务器不能完成对请求的处理：如 500
+
+
+
+    // 抽象语法树AST：它表示了源代码所对应的数据结构。
+    // 编译型语言 & 解释型语言：计算机并不能直接识别高级语言 只能理解机器语言，执行前必须把高级语言翻译成机器语言。
+    //  翻译的方式有两种：两种方式只是翻译的时间不同
+    //    编译型语言写的程序在执行前 需要有一个专门的编译过程 把程序编译成计算机语言文件 以后运行的话就不需要重新翻译了 直接使用编译结果
+    //    解释型语言在程序执行的时候才翻译(边执行边编译)
+    // 传统的编译语言在执行前会经历三个步骤：统称为“编译”
+    //  1. 分词/词法分析：将字符串分解成有意义的代码块（词法单元）
+    //  2. 解析/语法分析：语言引擎配合编译器将词法单元转换成抽象语法树
+    //  3. 代码生成：基于AST生成可执行代码的过程
+
+
+        // DOM
+    // 使元素滚动至视口
+    // document.querySelector('input').scrollIntoView(true)
+
+    // 判断节点是不是另一个节点的子节点
+    // document.documentElement.contains(document.body) // true
+    // document.body.parentNode === document.documentElement // true
+
+    // 批量读写css样式
+    // Object.assign(myDiv.style, { // 假批量
+    //   color: '#f00'
+    // })
+    // myDiv.style.cssText  // 可读写
+    // myDiv.getArrtibute('style')  // 可读写 set
+    // 行内样式 & 内联样式
+    // window.getComputedStyle(mtDiv, null) // {}   // 只读
+
+    // css三大特性：继承性 层叠性 优先性
+    // 继承：text-，font-，line-，color
+    // 优先性：权重。!important ∞；行内样式 1000；id 100；class 10；元素 1；
+    // 层叠：相同样式后面定义的覆盖前面定义的 不同样式会重叠生效
+
+    // sass:
+    // 声明变量 $w: 5px !global;
+    // @import "rounded-corners", "text-shadow", "url", url(""); @import可以内嵌
+    // .a { @extends .className }
+    // $grid-width: 40px;
+    // $gutter-width: 10px;
+    // @function grid-width($n) {
+    //   @return $n * $grid-width + ($n - 1) * $gutter-width;
+    // }
+    // #sidebar { width: grid-width(5); }
+
+    // DOM事件流
+    // 捕获阶段 - 目标阶段 - 冒泡阶段
+
+    // document.createDocumentFragment() ： 创建一个文档片段占位符 最后只需要一次现场更新 && 渲染DOM
+
+    // ontextInput
+    // onDOMNodeRemoved onDOMNodeInsertedIntoDocument event.relatedNode属性中包含一个对父级节点的引用
+
+    // postMessage(数据, 发送页面源地址); onmessage 接收事件 参数：data，origin，source
+
+
     // 滑动
     // father: white-space: nowrap; overflow: hidden;
     // chidren: display: inline-block;
@@ -968,61 +1091,7 @@
 
       // source.demo2 = 3
 
-      
-
-    // DOM
-    // 使元素滚动至视口
-    // document.querySelector('input').scrollIntoView(true)
-
-    // 判断节点是不是另一个节点的子节点
-    // document.documentElement.contains(document.body) // true
-    // document.body.parentNode === document.documentElement // true
-
-    // 批量设置css样式
-    // myDiv.style.cssText = "width: 25px; height: 100px; background-color: green";
-    // Object.assign(myDiv.style, {
-    //   color: '#f00'
-    // })
-    // 批量读取行内css样式
-    // myDiv.style.cssText  // 可读写
-    // myDiv.getArrtibute('style')  // 可读写 set
-    // 行内样式 & 内联样式
-    // window.getComputedStyle(mtDiv, null) // {}   // 只读
-
-    // 回流 & 重绘
-    // 页面加载时：浏览器把获取到的HTML代码解析成一个DOM Tree，DOM Tree包含display: none的元素；会把所有样式解析成 样式结构体；将DOM Tree和样式结构体组合后构建 render Tree；
-    // render Tree 和 DOM Tree区别：render Tree能识别样式，其中每个NODE都有自己的style，而且render Tree中不包含隐藏的节点和head节点，因为这些节点不会呈现且不会影响呈现
-    // 回流：当render Tree中一些节点因尺寸，布局，隐藏，内容等改变需要重新构建，这时浏览器会重新构造这部分渲染树
-    // 重绘：回流完成后，浏览器会重新绘制改变的部分和受影响的部分到屏幕中；或者NODE需要更改的属性只会影响外观而不会影响布局(非几何属性)，会触发重绘
-    // 回流一定会引起重绘
-    // 浏览器会优化回流和重绘操作：浏览器会维护一个队列，将回流和重绘操作放入这个队列，等队列中的操作到了一定数量或者到了一定时间就会进行一个批操作
-    // 自己的优化：批操作 直接改变className或cssText累加或setAttribute('style')；DOM元素批添加
-
-    // css三大特性：继承性 层叠性 优先性
-    // 继承：text-，font-，line-，color
-    // 优先性：权重。!important ∞；行内样式 1000；id 100；class 10；元素 1；
-    // 层叠：相同样式后面定义的覆盖前面定义的 不同样式会重叠生效
-
-    // sass:
-    // 声明变量 $w: 5px !global;
-    // @import "rounded-corners", "text-shadow", "url", url(""); @import可以内嵌
-    // .a { @extends .className }
-    // $grid-width: 40px;
-    // $gutter-width: 10px;
-    // @function grid-width($n) {
-    //   @return $n * $grid-width + ($n - 1) * $gutter-width;
-    // }
-    // #sidebar { width: grid-width(5); }
-
-    // DOM事件流
-    // 捕获阶段 - 目标阶段 - 冒泡阶段
-
-    // document.createDocumentFragment() ： 创建一个文档片段占位符 最后只需要一次现场更新 && 渲染DOM
-
-    // ontextInput
-    // onDOMNodeRemoved onDOMNodeInsertedIntoDocument event.relatedNode属性中包含一个对父级节点的引用
-
-    // postMessage(数据, 发送页面源地址); onmessage 接收事件 参数：data，origin，source
+    
 
 
     // fetch
@@ -1524,12 +1593,20 @@
 
     // 􏲒􏱁 resizeTo()􏱰 resizeBy()􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚 调整浏览器窗口大小
 
+    
+
+    // js运行时进入全局环境，生成全局执行上下文
+    // 进入函数，生成函数执行上下文(调用帧)
+    // 通过栈的存取方式来管理执行上下文（执行栈 | 调用栈）
+    // 栈遵循"后进先出(Last in First Out)"的规则
+
     // 作用域：限制代码范围内变量的可用性
     // 作用域链作用：保证变量的合法、有序访问;作用域的前端，始终都是当前执行的代码所在环境的变量对象
     // 函数的对象上下文 => this
     // 执行环境：每次进入函数都会创建一个完全不同的执行环境; 运行完毕即销毁
-    //    执行环境组成: 变量对象; 作用域属性[[Scopes]]; this,arguments;
+    //    执行环境组成: 变量对象（形参 变量 函数声明）; 作用域链(ActivationObject [[Scopes]]); this;
     //      变量对象：函数内所定义和用到的变量都保存在这个对象当中 arguments
+
 
 
   </script>
