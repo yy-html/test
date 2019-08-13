@@ -16,14 +16,23 @@
 </head>
 
 <body>
-  <div class="box a b c">
-    box
+  <div class="box">
     <div class="box1"></div>
     <div class="box2"></div>
   </div>
   
 
-  <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box')
+  <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box');
+
+
+    
+    
+
+
+
+
+
+    
 
 
 
@@ -63,7 +72,6 @@
 
 
 
-    // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级的 是完全共享的
 
     // 代码复用：1. 函数封装 2. 继承 3. 改变函数指向  react：1. HOC 2. render Prop 2. 自定义hooks
 
@@ -1641,20 +1649,20 @@
     // 􏲒􏱁 resizeTo()􏱰 resizeBy()􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚 调整浏览器窗口大小
 
     
-
+    // 当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。 而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境
     // js运行时进入全局环境，生成全局执行上下文
     // 进入函数，生成函数执行上下文(调用帧)
-    // 通过栈的存取方式来管理执行上下文（执行栈 | 调用栈）
+    // 通过栈的存取方式来管理执行上下文（执行栈 | 调用栈 | call stack）
     // 栈遵循"后进先出(Last in First Out)"的规则
 
     // 作用域：限制代码范围内变量的可用性
-    // 作用域链作用：保证变量的合法、有序访问;作用域的前端，始终都是当前执行的代码所在环境的变量对象
+    // 作用域链作用：本质上是一个指向变量对象的指针列表 只引用但不实际包含变量对象(保证执行环境内变量的合法、有序访问;作用域的前端，始终都是当前执行环境的变量对象(如果是函数执行环境 AO则充当其变量对象))
     // 函数的对象上下文 => this
     // 执行环境：每次进入函数都会创建一个完全不同的执行环境; 运行完毕即销毁
-    //    执行环境组成: 变量对象（形参 变量 函数声明）; 作用域链(ActivationObject [[Scopes]]); this;
-    //      变量对象：函数内所定义和用到的变量都保存在这个对象当中 arguments
+    //    执行环境组成: 变量对象VariableObject（形参 变量 函数声明）; 作用域链(ActivationObject: 会由arguments和命名参数初始化 [[Scopes]]); this;
 
-
+    // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级作用域链的 是完全共享的
+    // ：内部函数的作用域链仍然保持着对父函数活动对象的引用
 
   </script>
 </body>
