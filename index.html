@@ -7,12 +7,17 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    
+    .box {
+      color: #f00;
+      pointer-events: none;
+    }
+
   </style>
 </head>
 
 <body>
-  <div class="box">
+  <div class="box a b c">
+    box
     <div class="box1"></div>
     <div class="box2"></div>
   </div>
@@ -20,13 +25,28 @@
 
   <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box')
 
+
+    log(box.classList.add('add'))
+    log(box.classList)
+
+
+
+    //
+    // 1. 传参方式不通 URL RequestBody
+    // 2. GET有参数长度限制 POST没有
+    // 3. GET请求会被浏览器主动缓存 POST需手动设置
+    // 4. GET请求参数会被保存在历史记录 POST不会
+
+
     // 跨域
-    1. JSONP
-    2. CORS (Access-Control-Allow-Origin)
-    3. doucment.domain = 'taobao.com' (二级域名相同)
-    4. 反向代理
-    5. 搭建服务器代理做中间层 绕过浏览器
-    6. 
+    // 1. JSONP
+    // 2. CORS (Access-Control-Allow-Origin)
+    // 3. doucment.domain = 'taobao.com' (二级域名相同)
+    // 4. window.name + iframe跨域
+    // 5. 反向代理(框架+webpack)
+    // 6. 搭建服务器代理做中间层(node中间件) 绕过浏览器
+    // 7. postMessage跨域
+    // 8. WebSocket协议跨域
 
     // css3
     // 选择器
@@ -41,6 +61,9 @@
     // 多列
     // 弹性盒 flexbox
     // box-sizing
+
+
+    // pointer-events: none; 阻止元素任何JS事件
 
 
 
@@ -122,49 +145,6 @@
     //  2. 解析/语法分析：语言引擎配合编译器将词法单元转换成抽象语法树
     //  3. 代码生成：基于AST生成可执行代码的过程
 
-
-        // DOM
-    // 使元素滚动至视口
-    // document.querySelector('input').scrollIntoView(true)
-
-    // 判断节点是不是另一个节点的子节点
-    // document.documentElement.contains(document.body) // true
-    // document.body.parentNode === document.documentElement // true
-
-    // 批量读写css样式
-    // Object.assign(myDiv.style, { // 假批量
-    //   color: '#f00'
-    // })
-    // myDiv.style.cssText  // 可读写
-    // myDiv.getArrtibute('style')  // 可读写 set
-    // 行内样式 & 内联样式
-    // window.getComputedStyle(mtDiv, null) // {}   // 只读
-
-    // css三大特性：继承性 层叠性 优先性
-    // 继承：text-，font-，line-，color
-    // 优先性：权重。!important ∞；行内样式 1000；id 100；class 10；元素 1；
-    // 层叠：相同样式后面定义的覆盖前面定义的 不同样式会重叠生效
-
-    // sass:
-    // 声明变量 $w: 5px !global;
-    // @import "rounded-corners", "text-shadow", "url", url(""); @import可以内嵌
-    // .a { @extends .className }
-    // $grid-width: 40px;
-    // $gutter-width: 10px;
-    // @function grid-width($n) {
-    //   @return $n * $grid-width + ($n - 1) * $gutter-width;
-    // }
-    // #sidebar { width: grid-width(5); }
-
-    // DOM事件流
-    // 捕获阶段 - 目标阶段 - 冒泡阶段
-
-    // document.createDocumentFragment() ： 创建一个文档片段占位符 最后只需要一次现场更新 && 渲染DOM
-
-    // ontextInput
-    // onDOMNodeRemoved onDOMNodeInsertedIntoDocument event.relatedNode属性中包含一个对父级节点的引用
-
-    // postMessage(数据, 发送页面源地址); onmessage 接收事件 参数：data，origin，source
 
 
     // 滑动
@@ -429,16 +409,64 @@
 		// normalize() // 这个方法唯一的作用就是处理文档树中的文本节点。 由于解析器的实现或 DOM 操作等原因，可能会出现文本节点不包含文本，或者接连出现两个文本节点 的情况。当在某个节点上调用这个方法时，就会在该节点的后代节点中查找上述两种情况。如果找到了 空文本节点，则删除它;如果找到相邻的文本节点，则将它们合并为一个文本节点
 
 		// log(document.referrer) // 取得来源页面的URL
+    
 
-		// 修改 className 时，如果新类关联了与此前不同的 CSS 样式，那么就会立即应用新的样式。
+    // 使元素滚动至视口
+    // document.querySelector('input').scrollIntoView(true)
+
+    // 判断节点是不是另一个节点的子节点
+    // document.documentElement.contains(document.body) // true
+    // document.body.parentNode === document.documentElement // true
+
+
+    // 修改 className 时，如果新类关联了与此前不同的 CSS 样式，那么就会立即应用新的样式。
 
 		// 动态添加样式：1. 动态创建style标签, createTextNode到标签内, 添加到head中；2. 动态创建link标签引入(createElement('link'))；
-		// script同理。
+    // script同理。
+    
+    // 批量读写css样式
+    // Object.assign(myDiv.style, { // 假批量
+    //   color: '#f00'
+    // })
 
-		// classList 属性是新集合类型 DOMTokenList 的实例
+    // myDiv.style.cssText  // 可读写
+
+    // myDiv.getArrtibute('style')  // 可读写 set
+
+    // 行内样式 & 内联样式
+    // window.getComputedStyle(mtDiv, null) // {}   // 只读
+
+    // classList 属性是新集合类型 DOMTokenList 的实例
 		// add(value):将给定的字符串值添加到列表中。如果值已经存在，就不添加了
 		// remove(value):从列表中删除给定的字符串
-		// toggle(value):如果列表中已经存在给定的值，删除它;如果列表中没有给定的值，添加它
+    // toggle(value):如果列表中已经存在给定的值，删除它;如果列表中没有给定的值，添加它
+
+
+    // css三大特性：继承性 层叠性 优先性
+    // 继承：text-，font-，line-，color
+    // 优先性：权重。!important ∞；行内样式 1000；id 100；class 10；元素 1；
+    // 层叠：相同样式后面定义的覆盖前面定义的 不同样式会重叠生效
+
+    // sass:
+    // 声明变量 $w: 5px !global;
+    // @import "rounded-corners", "text-shadow", "url", url(""); @import可以内嵌
+    // .a { @extends .className }
+    // $grid-width: 40px;
+    // $gutter-width: 10px;
+    // @function grid-width($n) {
+    //   @return $n * $grid-width + ($n - 1) * $gutter-width;
+    // }
+    // #sidebar { width: grid-width(5); }
+
+    // DOM事件流
+    // 捕获阶段 - 目标阶段 - 冒泡阶段
+
+    // document.createDocumentFragment() ： 创建一个文档片段占位符 最后只需要一次现场更新 && 渲染DOM
+
+    // ontextInput
+    // onDOMNodeRemoved onDOMNodeInsertedIntoDocument event.relatedNode属性中包含一个对父级节点的引用
+
+    // postMessage(数据, 发送页面源地址); onmessage 接收事件 参数：data，origin，source
 
 		// DOM焦点
 		// document.activeElement 属性，这个 属性始终会引用 DOM 中当前获得了焦点的元素
