@@ -11,7 +11,6 @@
       color: #f00;
       pointer-events: none;
     }
-
   </style>
 </head>
 
@@ -23,18 +22,8 @@
   
 
   <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box');
-
-
     
     
-
-
-
-
-
-    
-
-
 
     //
     // 1. 传参方式不通 URL RequestBody
@@ -72,10 +61,13 @@
 
 
 
+    // JSON.stringify()  
+    // 作为对象属性 会改变 function undefined Symbol (NaN 正负无穷Inifinty 会转为null)
+    // 在数组内 以上项都会转为null
+    // 存在循环引用会抛出错误
+
 
     // 代码复用：1. 函数封装 2. 继承 3. 改变函数指向  react：1. HOC 2. render Prop 2. 自定义hooks
-
-    // JSON.stringify()  会忽略undefined Symbol 函数
 
 
     // 一次完整的HTTP请求过程
@@ -160,6 +152,7 @@
     // const promise = new Promise((resolve, r) => {
     //     // setTimeout(resolve, 1000, 'succ')
     //     setTimeout(r, 1000, 'err')
+    //      throw 也相当于reject
     //   })
     //     // .catch(err => {
     //     //   // throw new Error('catch')
@@ -168,8 +161,8 @@
     
     // async function fn() {
     //   // async会返回一个promise 它的最终状态是根据内部await拿到的状态决定的
-    //   //    如果有一个await接收到了reject状态 那么此函数的promise直接返回reject并return
-    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolve(returnValue)
+    //   //    如果有一个await接收到了reject状态 那么此函数的promise直接返回reject并return(除非捕获异常到了try catch)
+    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolved(returnValue)
     //   const res = await promise
     //   log('resolving') // await如果不返回resolve状态（返回reject或者不返回这两个状态也就是pending状态） 会直接return此promise 所以这行代码及以后的不执行
     //   return res // resolve(res)
@@ -188,6 +181,21 @@
     //     log('catch')
     //     log(err)
     //   })
+
+
+    // 让await接收到rejected状态也继续往下执行
+    // async function asyncWrapper(promise) {
+    //   try {
+    //     const res = await promise
+    //     return [null, res]
+    //   } catch (e) {
+    //     return [e, null]  // 捕获await接收到的rejected 让它不返回此状态给yield函数的next().value.catch(给.then)
+    //   }
+    // }
+    
+    // const f = asyncWrapper()
+
+    // f.then(res => log(1, res)).catch(err => log(2, err))
 
     
 
@@ -960,9 +968,21 @@
       */
   
     // 触发事件
-    //   const e = document.createEvent('Event');
-    //   e.initEvent('resize', true, true);
-    //   window.dispatchEvent(e || new Event('resize));
+    // window.addEventListener('yy', (e) => log(e), true)
+
+    // // 1.
+    // const e = document.createEvent('Event')
+    // e.initEvent('yy', true, true)
+    // e.data = 'data'
+
+    // // 2.
+    // const e = new CustomEvent('yy', {
+    //   detail: {
+    //     data: 'data'
+    //   }
+    // })
+
+    // window.dispatchEvent(e)
 
 
     // 节流和防抖：限制函数触发周期
