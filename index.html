@@ -17,12 +17,13 @@
 <body>
   <div class="box">
     <div class="box1"></div>
-    <div class="box2"></div>
+    <!-- <div class="box2"></div> -->
+    <img src="" />
   </div>
   
 
   <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box');
-    
+
     
 
     //
@@ -42,6 +43,7 @@
     // 7. postMessage跨域
     // 8. WebSocket协议跨域
 
+
     // css3
     // 选择器
     // border-radius border-image box-shadow
@@ -59,10 +61,20 @@
 
     // pointer-events: none; 阻止元素任何JS事件
 
+    // // 水平居中
+    // 1. text-align：center（子元素：字符串 行内元素 行内快元素）
+    // 2. margin：auto(块元素 有宽度)
+    // 3. flex + 主侧轴 | 子元素margin：auto
+    // 4. position + thransform: thranslate()
+    // // 垂直居中
+    // 1. line-height：（单行 行内元素 行内块元素）
+    // 2. flex
+    // 3. position + thransform
+    // 4. 父元素（diaplay：table） 子元素（display：table-cell vertical-middle）
 
 
-    // JSON.stringify()  
-    // 作为对象属性 会改变 function undefined Symbol (NaN 正负无穷Inifinty 会转为null)
+    // JSON.stringify()
+    // 作为对象属性 会忽略 function undefined Symbol (NaN 正负无穷Inifinty 会转为null)
     // 在数组内 以上项都会转为null
     // 存在循环引用会抛出错误
 
@@ -1170,23 +1182,34 @@
 
 
     // fetch
-    // fetch(url, {
-    //   method: "POST", // *GET, POST, PUT, DELETE, etc.
-    //   mode: "cors", // no-cors, cors, *same-origin
-    //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //   credentials: "same-origin", // include, *same-origin, omit
-    //   headers: {
-    //       "Content-Type": "application/json",
-    //       // "Content-Type": "application/x-www-form-urlencoded",
-    //   },
-    //   redirect: "follow", // manual, *follow, error
-    //   referrer: "no-referrer", // no-referrer, *client
-    //   body: JSON.stringify(data), // body data type must match "Content-Type" header
+    // fetch('https://img.alicdn.com/tfs/TB1U1V4XeH2gK0jSZFEXXcqMpXa-1200-1200.png', {
+    //   // method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //   // mode: "cors", // no-cors, cors, *same-origin
+    //   // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    //   // credentials: "same-origin", // include, *same-origin, omit
+    //   // redirect: "follow", // manual, *follow, error
+    //   // referrer: "no-referrer", // no-referrer, *client
+    //   // body: JSON.stringify(data), // body data type must match "Content-Type" header
+    //   // headers: {
+    //   //     // "Content-Type": "application/json",
+    //   //     // "Content-Type": "application/x-www-form-urlencoded",
+    //   //     // 'Cache-Control': 'no-cache'
+    //   // },
     // })
+    //   .then(res => res.blob())
+    //   .then(res => {
+    //     log(res)
+    //     const url = URL.createObjectURL(res)
+    //     log(url)
+    //     document.querySelector('img').src = url
+    //   })
+
     // var anotherRequest = new Request(myRequest, myInit)
     // // 这非常有用，因为请求和响应主体只是一个用途。制作这样的副本允许您再次使用请求/响应，同时init根据需要改变选项。必须在阅读正文之前制作副本，并且阅读副本中的正文也会在原始请求中将其标记为已读。
     // var myHeaders = new Headers();
     // myHeaders.append("Content-Type", "text/plain");
+
+    // 当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 即使该 HTTP 响应的状态码是 404 或 500。相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），仅当网络故障时或请求被阻止时，才会标记为 reject。
 
     // web 离线检测 navigator.onLine // boole
     // web 在线离线 事件 online offline
@@ -1271,9 +1294,18 @@
     // flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次
     // flat()会跳过空格
 
+    // function flatten(arr){
+    //   while(arr.some(item=>Array.isArray(item))) {
+    //       arr = [].concat(...arr);
+    //   }
+    //   return arr;
+    // }
+
     // 创建指定长度的数组
     // [...new Array(5).keys()]
     // Array.from({ length: 5 })
+    //  伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）
+    //  可迭代对象（可以获取对象中的元素,如 Map和 Set 等）
 
 
     // this传递
