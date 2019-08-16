@@ -24,7 +24,70 @@
 
   <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box');
 
+// https://github.com/mqyqingfeng/Blog/issues/16
+// https://www.jianshu.com/p/5e9ea25a1aae
+// https://www.cnblogs.com/humin/p/4556820.html
+
     
+
+
+    // new实现
+    // function customNew(constructor, ...rest) {
+    //   // 1.
+    //   const instance = Object.create(constructor.prototype)
+    //   // 2.
+    //   // const instance = {}
+    //   // Object.setPrototypeOf(instance, constructor.prototype)
+
+    //   const ret = constructor.apply(instance, rest)
+    //   return ret || instance
+    // }
+
+
+    // function S() {
+    //   // 实例继承1.
+    //   F.call(this)
+    // }
+    // function F() {}
+
+    // // 原型继承1.  // 会丢失S的原型属性
+    // S.prototype = Object.create(
+    //   F.prototype, 
+    //   {
+    //     // 设置prototype.constructor 1.
+    //     constructor: {
+    //       value: S,
+    //       enumerable: false,  // 是否可枚举，默认为true
+    //       configurable: true, // 是否可配置（delete 更改描述属性）
+    //       writable: true,     // 是否可写，默认为true
+    //     },
+    //     // 设置prototype.constructor 2.
+    //     // constructor: Object.getOwnPropertyDescriptor(S.prototype, 'constructor')
+    //   }
+    // )
+
+    // // 原型继承2.  // 不会丢失S原型属性
+    // // Object.setPrototypeOf(S.prototype, F.prototype)
+    // // S.prototype.__proto__ = F.prototype
+
+    // // 静态继承
+    // Object.setPrototypeOf(S, F)
+
+    // const s = new S()
+
+    // // 实例继承2.
+    // F.call(s)
+
+    // log(s)
+
+
+    // 原型链继承：S.prototype = new F() 将构造函数的原型设置为另一个构造函数的实例对象
+    // 构造继承：F.call(s = new S()) 绑定子类实例调用父类构造器，继承父类实例属性
+    // 寄生式继承：创建一个空Constructor 让其prototype = F.prototype | {}(主要用于继承字面量对象); 返回 new Constructor() | Object.create(F.prototype)
+    // 组合式继承：原型链继承 + 构造继承 
+    // 寄生组合式继承：寄生式继承 + 组合式继承 将S.prototype = 寄生式继承的返回  解决1.父类构造器被调用两次 2.父类实例被继承两次
+
+
 
     //
     // 1. 传参方式不通 URL RequestBody
@@ -57,6 +120,7 @@
     // 多列
     // 弹性盒 flexbox
     // box-sizing
+    // vh vw
 
 
     // pointer-events: none; 阻止元素任何JS事件
