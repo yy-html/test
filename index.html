@@ -24,24 +24,7 @@
 
   <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box');
 
-    setTimeout(log, 0, 0)
-
-    new Promise((rs, rj) => {
-      // setTimeout(rs, 0, 1)
-      rs()
-    })
-      .then(res => {log(res)})
-
-    log(2)
-
-    // node
-
-    // supervisor nodemon cheerio
-
-    // process.nextTick // 调用栈结束后执行（事件循环前）
-    // setTimeout // timer 事件轮询后执行
-    // setImmediate // check 事件轮询后执行（在主环境里 或先于timer或晚于timer）（在I/O循环中 总是先于timer执行 晚于next tick队列）
-
+    
 
     // new实现
     // function customNew(constructor, ...rest) {
@@ -54,7 +37,6 @@
     //   const ret = constructor.apply(instance, rest)
     //   return ret || instance
     // }
-
 
     // function S() {
     //   // 实例继承1.
