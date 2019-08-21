@@ -1,6 +1,9 @@
 const process = require('process')
 const fs = require('fs')
 
+console.log(process.env.npm_package_config_aaa)
+
+
 
 // process.nextTick(() => log(1))
 // setTimeout(() => log(2))
@@ -18,7 +21,6 @@ const fs = require('fs')
 //   prestart: 'echo pre start',
 //   poststart: 'echo post start'
 // }
-// process.env.npm_lifecycle_event = 当前脚本执行的名称（包含钩子脚本）
 // npm start stop test restart(npm run stop && npm run restart && npm run start) 简写
 // prerestart
 // prestop
@@ -35,9 +37,9 @@ const fs = require('fs')
 // 默认值
 // "start": "node server.js"
 // "install": "node-gyp rebuild"
-// 变量
+// 变量 必须通过script脚本执行的js文件才能拿到npm环境变量
 // process.env.npm_package_version // Bash: $npm_package_version
-
+// process.env.npm_lifecycle_event = 当前脚本执行的名称（包含钩子脚本）
 
 // process.nextTick // 调用栈结束后执行（事件循环前）
 // setTimeout // timer 事件轮询poll后执行
