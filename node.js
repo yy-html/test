@@ -1,12 +1,43 @@
 const process = require('process')
 const fs = require('fs')
 
+
 // process.nextTick(() => log(1))
 // setTimeout(() => log(2))
 // setImmediate(() => log(3))
 
 // node
 // supervisor nodemon cheerio
+
+// npm script
+// 传参
+// node *.js --parameters 123 // process.avgr = [, , 'parameters', 123]
+// 钩子
+// script: {
+//   start: 'echo start',
+//   prestart: 'echo pre start',
+//   poststart: 'echo post start'
+// }
+// process.env.npm_lifecycle_event = 当前脚本执行的名称（包含钩子脚本）
+// npm start stop test restart(npm run stop && npm run restart && npm run start) 简写
+// prerestart
+// prestop
+// stop
+// poststop
+// restart
+// prestart
+// start
+// poststart
+// postrestart
+// 批量执行
+// & : 并行执行
+// && : 串行执行 继发执行
+// 默认值
+// "start": "node server.js"
+// "install": "node-gyp rebuild"
+// 变量
+// process.env.npm_package_version // Bash: $npm_package_version
+
 
 // process.nextTick // 调用栈结束后执行（事件循环前）
 // setTimeout // timer 事件轮询poll后执行
