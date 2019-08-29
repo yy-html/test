@@ -7,22 +7,37 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    .box {
-      color: #f00;
-      pointer-events: none;
-    }
   </style>
 </head>
 
 <body>
   <div class="box">
-    <div class="box1">box1</div>
-    <div class="box2">box2</div>
+    <div class="box1"></div>
+    <div class="box2"></div>
     <img src="" />
   </div>
-  
 
-  <script>const log = consolg
+  <script>const log = console.log;
+
+    // function promisify(targetFunc) {
+    //   return function (...args) {
+    //     return new Promise((rl, rj) => {
+    //       args.push(function callback(err, ...data) {
+    //         if (err) {
+    //           return rj(err)
+    //         }
+    //         rl(...data)
+    //       })
+    //       targetFunc.apply(this, args)
+    //     })
+    //   }
+    // }
+
+    // const fsp = new Proxy(fs, {
+    //   get(target, key, r) {
+    //     return promisify(target[key])
+    //   }
+    // })
 
 
     // new实现
@@ -81,6 +96,26 @@
     // 寄生组合式继承：寄生式继承 + 组合式继承 将S.prototype = 寄生式继承的返回  解决1.父类构造器被调用两次 2.父类实例被继承两次
 
 
+    // function F() {
+    //   log('F')
+    //   this.a = 1
+    // }
+    // F.prototype.b = 2
+
+    // function S(sup) {
+    //   sup.call(this)
+    // }
+
+    // function EmptyConstructor() {}
+
+    // EmptyConstructor.prototype = F.prototype
+
+    // const o = Object.create(F.prototype)
+
+    // S.prototype = new EmptyConstructor() || o
+
+    // const s = new S(F)
+    // log(s)
 
     //
     // 1. 传参方式不通 URL RequestBody
@@ -975,7 +1010,7 @@
 
 
 
-  // a b n n
+  // 斐波那契数列
   // 1 1 2 3 5 8 13 21
   // function fn(n, a = 1, b = 1) {
   //   if (n <= 2) return b
