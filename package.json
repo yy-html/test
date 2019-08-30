@@ -17,5 +17,6 @@
   "bugs": {
     "url": "https://github.com/yy-html/test/issues"
   },
-  "homepage": "https://github.com/yy-html/test#readme"
+  "homepage": "https://github.com/yy-html/test#readme",
+  "dependencies": {}
 }
