@@ -1,8 +1,38 @@
-const process = require('process')
+const { exec } = require('child_process')
 const fs = require('fs')
+const path = require('path')
+const Koa = require('koa')
+const port = 8080
 
-console.log(process.env.npm_package_config_aaa)
+const app = new Koa()
 
+app.use(async (ctx) => {
+  const data = await new Promise((rl, rj) => {
+    fs.readFile('./index.html', 'utf8', (err, data) => {
+      rl(data)
+      // fs.writeFile('test.js', 'alert(1)', (err) => {
+      //   if (err) throw err;
+      //   rl(data)
+      // });
+    })
+    
+  })
+  
+  ctx.body = data
+})
+
+app.listen(port, () => {
+  console.log(`running at localhost:${port}`)
+})
+
+
+// 路由： 通过不同的访问路径 导向不同的controler
+
+// 返回绝对路径
+// console.log(path.resolve(__dirname, 'a')) // .../a
+// console.log(path.resolve(__dirname, './a')) // .../a
+// console.log(path.resolve(__dirname, '/a')) // /a
+// console.log(__dirname)  // .../
 
 
 // process.nextTick(() => log(1))
@@ -10,7 +40,7 @@ console.log(process.env.npm_package_config_aaa)
 // setImmediate(() => log(3))
 
 // node
-// supervisor nodemon cheerio
+// supervisor nodemon cheerio body-parser(express解析post请求 res.body) art-template
 
 // npm script
 // 传参

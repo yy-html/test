@@ -21,9 +21,10 @@
     <img src="" />
   </div>
   
+  <script>
 
-  <script>const log = consolg
 
+  
 
     // new实现
     // function customNew(constructor, ...rest) {
@@ -342,18 +343,19 @@
     //   a: 1,
     //   b: 2,
     //   c: 3,
-    //   // [Symbol.iterator]() {
-    //   //   const values = Object.values(this)
-    //   //   let i = 0
-    //   //   return {
-    //   //     next: () => (
-    //   //       {
-    //   //         value: values[i ++],
-    //   //         done: i > keys.length
-    //   //       }
-    //   //     )
-    //   //   }
-    //   // }
+      // [Symbol.iterator]() {
+      //   const values = Object.values(this)
+      //   let count = 0
+      //   return {
+      //     next: () => {
+      //       const cur = values[count ++]
+      //       return {
+      //         value: cur,
+      //         done: !cur
+      //       }
+      //     }
+      //   }
+      // }
     //   * [Symbol.iterator]() {
     //     for (let key in this) {
     //       yield this[key]
