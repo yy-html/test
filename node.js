@@ -27,6 +27,13 @@ router.all('/', async (ctx, next) => {
 
 wrapRouter.use('/', router.routes(), router.allowedMethods())
 
+app.use(async (ctx, next) => {
+  const start = Date.now()
+  await next()
+  const end = Date.now()
+  console.log('rendering time:', end - start)
+})
+
 app.use(wrapRouter.routes())
 
 app.use(static('.'))
