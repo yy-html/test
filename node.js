@@ -1,29 +1,63 @@
 const { exec } = require('child_process')
 const fs = require('fs')
 const path = require('path')
+
 const Koa = require('koa')
-const port = 8080
+const static = require('koa-static')
+const Router = require('koa-router')
+const render = require('koa-art-template')
 
 const app = new Koa()
+const router = new Router()
+const wrapRouter = new Router()
+const port = 8080
 
-app.use(async (ctx) => {
-  const data = await new Promise((rl, rj) => {
-    fs.readFile('./index.html', 'utf8', (err, data) => {
-      rl(data)
-      // fs.writeFile('test.js', 'alert(1)', (err) => {
-      //   if (err) throw err;
-      //   rl(data)
-      // });
-    })
-    
-  })
-  
-  ctx.body = data
+render(app, {
+  root: path.join(__dirname),   // 视图的位置
+  extname: '.html',  // 后缀名
+  debug: process.env.NODE_ENV !== 'production'  //是否开启调试模式
 })
+
+router.all('/', async (ctx, next) => {
+  // const page = await fsp.readFile('./index.html', 'utf8')
+  await ctx.render('index', {
+    title: 'Node'
+  })
+})
+
+wrapRouter.use('/', router.routes(), router.allowedMethods())
+
+app.use(wrapRouter.routes())
+
+app.use(static('.'))
 
 app.listen(port, () => {
   console.log(`running at localhost:${port}`)
 })
+
+
+
+
+const fsp = new Proxy(fs, {
+  get(target, key) {
+    return promisify(target[key])
+  }
+})
+
+function promisify(targetFunc) {
+  return function wrap(...args) {
+    return new Promise((rs, rj) => {
+      const callback = (err, data) => {
+        if (err) {
+          return rj(err)
+        }
+        rs(data)
+      }
+      args.push(callback)
+      targetFunc.apply(this, args)
+    })
+  }
+}
 
 
 // 路由： 通过不同的访问路径 导向不同的controler
