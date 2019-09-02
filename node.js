@@ -1,8 +1,79 @@
-const process = require('process')
+const { exec } = require('child_process')
 const fs = require('fs')
+const path = require('path')
 
-console.log(process.env.npm_package_config_aaa)
+const Koa = require('koa')
+const static = require('koa-static')
+const Router = require('koa-router')
+const render = require('koa-art-template')
 
+const app = new Koa()
+const router = new Router()
+const wrapRouter = new Router()
+const port = 8080
+
+render(app, {
+  root: path.join(__dirname),   // 视图的位置
+  extname: '.html',  // 后缀名
+  debug: process.env.NODE_ENV !== 'production'  //是否开启调试模式
+})
+
+router.all('/', async (ctx, next) => {
+  // const page = await fsp.readFile('./index.html', 'utf8')
+  await ctx.render('index', {
+    title: 'Node'
+  })
+})
+
+wrapRouter.use('/', router.routes(), router.allowedMethods())
+
+app.use(async (ctx, next) => {
+  const start = Date.now()
+  await next()
+  const end = Date.now()
+  console.log('rendering time:', end - start)
+})
+
+app.use(wrapRouter.routes())
+
+app.use(static('.'))
+
+app.listen(port, () => {
+  console.log(`running at localhost:${port}`)
+})
+
+
+
+
+const fsp = new Proxy(fs, {
+  get(target, key) {
+    return promisify(target[key])
+  }
+})
+
+function promisify(targetFunc) {
+  return function wrap(...args) {
+    return new Promise((rs, rj) => {
+      const callback = (err, data) => {
+        if (err) {
+          return rj(err)
+        }
+        rs(data)
+      }
+      args.push(callback)
+      targetFunc.apply(this, args)
+    })
+  }
+}
+
+
+// 路由： 通过不同的访问路径 导向不同的controler
+
+// 返回绝对路径
+// console.log(path.resolve(__dirname, 'a')) // .../a
+// console.log(path.resolve(__dirname, './a')) // .../a
+// console.log(path.resolve(__dirname, '/a')) // /a
+// console.log(__dirname)  // .../
 
 
 // process.nextTick(() => log(1))
@@ -10,7 +81,7 @@ console.log(process.env.npm_package_config_aaa)
 // setImmediate(() => log(3))
 
 // node
-// supervisor nodemon cheerio
+// supervisor nodemon cheerio body-parser(express解析post请求 res.body) art-template
 
 // npm script
 // 传参

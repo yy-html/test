@@ -5,7 +5,8 @@
   "main": "node.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node.js"
+    "start": "node node.js",
+    "open:browser": "open http://www.baidu.com"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,11 @@
     "url": "https://github.com/yy-html/test/issues"
   },
   "homepage": "https://github.com/yy-html/test#readme",
-  "dependencies": {}
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "koa": "^2.8.1",
+    "koa-art-template": "^1.1.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0"
+  }
 }
