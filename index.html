@@ -19,8 +19,15 @@
 
   <script>const log = console.log;const dir = console.dir
 
+    // hooks 设计动机：
+    // 1. class类难以理解（牵强）
+    // 2. 组件逻辑复用困难 class组件复用方式会形成嵌套地狱 hooks提供自定义hook
+    // 3. 逻辑复杂：同一个生命周期可能会包含很多互不相关的逻辑 而且相当一部分逻辑会被生命周期拆分开 hooks将相互关联的逻辑组合到一起
+    // hooks 设计理念：
+    1.
 
-    // ES7
+
+    // ES7  
     // Array.prototype.includes
     // 3 ** 2 // 9
     // ES8
@@ -216,7 +223,7 @@
     // 存在循环引用会抛出错误
 
 
-    // 代码复用：1. 函数封装 2. 继承 3. 改变函数指向  react：1. HOC 2. render Prop 2. 自定义hooks
+    // 代码复用：1. 函数封装 2. 继承  react：1. HOC 2. render Prop 3. 自定义hooks 4. providers consumers
 
 
     // 一次完整的HTTP请求过程
