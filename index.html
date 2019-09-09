@@ -6,18 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{title}}</title>
+  <link rel="stylesheet" href="./node_modules/xterm/dist/xterm.css" />
   <style>
+    #terminal {
+      height: 200px;
+      border: 1px #000 solid;
+      width: 200px; 
+    }
+    .box {
+      height: 200px;
+      border: 1px #f00 solid;
+      width: 200px;
+    }
   </style>
 </head>
 
 <body>
-  <div class="box">
+  <div class="box" id="box">
     <div class="box1"></div>
     <div class="box2"></div>
     <img src="" />
   </div>
 
+  <div id="terminal" draggable="true"></div>
+
   <script>const log = console.log;const dir = console.dir
+
+
+
 
     // hooks 设计动机：
     // 1. class类难以理解（牵强）
