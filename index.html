@@ -3,21 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
   <title>{{title}}</title>
-  <link rel="stylesheet" href="./node_modules/xterm/dist/xterm.css" />
+  <!-- <link rel="stylesheet" href="./node_modules/xterm/dist/xterm.css" /> -->
   <style>
-    #terminal {
-      height: 200px;
-      border: 1px #000 solid;
-      width: 200px; 
-    }
-    .box {
-      height: 200px;
-      border: 1px #f00 solid;
-      width: 200px;
-    }
+    
+    
   </style>
 </head>
 
@@ -28,19 +20,15 @@
     <img src="" />
   </div>
 
-  <div id="terminal" draggable="true"></div>
-
   <script>const log = console.log;const dir = console.dir
 
 
-
+    
 
     // hooks 设计动机：
     // 1. class类难以理解（牵强）
     // 2. 组件逻辑复用困难 class组件复用方式会形成嵌套地狱 hooks提供自定义hook
     // 3. 逻辑复杂：同一个生命周期可能会包含很多互不相关的逻辑 而且相当一部分逻辑会被生命周期拆分开 hooks将相互关联的逻辑组合到一起
-    // hooks 设计理念：
-    1.
 
 
     // ES7  
@@ -514,7 +502,8 @@
     //   arr.splice(t, 0, ...arr.splice(i, 1))
     // }
 
-    // fn(2, 3)
+    // fn(2, 4)
+
 
     
     // Object.is()，其行为与===基本一致，不过有两处不同：

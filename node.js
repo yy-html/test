@@ -20,6 +20,7 @@ render(app, {
 
 router.all('/', async (ctx, next) => {
   // const page = await fsp.readFile('./index.html', 'utf8')
+  // ctx.body = page
   await ctx.render('index', {
     title: 'Node'
   })
