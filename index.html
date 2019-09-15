@@ -8,14 +8,25 @@
   <title>{{title}}</title>
   <!-- <link rel="stylesheet" href="./node_modules/xterm/dist/xterm.css" /> -->
   <style>
-    
+    .box {
+      user-select: none;
+      border-color: #000;
+      border-width: 1px;
+      border-style: solid;
+      width: 100px;
+    }
+    body {
+      font-size: 16px;
+    }
     
   </style>
 </head>
 
 <body>
-  <div class="box" id="box">
-    <div class="box1"></div>
+  <div class="box" id="box" title="box">
+
+    fdfsdfdsfs
+    <div class="box1">box1</div>
     <div class="box2"></div>
     <img src="" />
   </div>
@@ -23,7 +34,11 @@
   <script>const log = console.log;const dir = console.dir
 
 
-    
+    // 移动端 1rem === 100px 解决方案
+    // document.documentElement.style.fontSize = screen.width / 3.75 + 'px'
+    // document.documentElement.style.fontSize = 100 / 375 * 100 + 'vw' // 26.6667
+    // document.documentElement.style.fontSize = screen.width * (100 / 375) + 'px'
+
 
     // hooks 设计动机：
     // 1. class类难以理解（牵强）
@@ -191,6 +206,29 @@
     // 8. WebSocket协议跨域
 
 
+    // html5
+    // 1. 本地存储 webStorage local/sesision
+    // 2. 地理定位 navigator.geolocation.getCurrentPosition()
+    // 3. 新增语义化标签header footer nav article section / 新增canvas video audio标签 / 新增表单控件类型 url number time search date email
+    // 4. webSocket / webWork
+    // 5. 拖拽 drag / drop
+    // 6. FileReader
+    // 7. navigator.onLine   online   offline
+    // 8. requestFullScreen() 开启全屏显示 / cancelFullScreen() 关闭全屏显示
+    // 9. 离线缓存 Service workers
+      // 拖拽元素
+      // 1.drag 应用于拖拽元素，整个拖拽过程都会调用
+      // 2.dragstart应用于拖拽元素，当拖拽开始时调用
+      // 3.dragleave应用于拖拽元素，当鼠标离开拖拽元素时调用
+      // 4.dragend应用于拖拽元素，当拖拽结束时调用
+      // 目标元素
+      // 1.dragenter应用于目标元素，当拖拽元素进入时调用
+      // 2.dragover应用于目标元素，当停留在目标元素上时调用 阻止浏览器的默认禁止行为（event.preventDefault）
+      // 3.drop应用于目标元素，当在目标元素上松开鼠标时调用
+      // 4.dragleave应用于目标元素，当鼠标离开目标元素时调用
+    
+    
+
     // css3
     // 选择器
     // border-radius border-image box-shadow
@@ -283,11 +321,17 @@
     // 请求头
 
     // response 状态码
-    // 1XX－信息类(Information),表示收到Web浏览器请求，正在进一步的处理中
+    // 1XX－信息类(Information),表示收到Web浏览器请求，正在进一步的处理中，例如post请求
     // 2XX－成功类（Successful）,表示用户请求被正确接收，理解和处理例如：200 OK
     // 3XX-重定向类(Redirection),表示请求没有成功，客户必须采取进一步的动作。
-    // 4XX-客户端错误(Client Error)，表示客户端提交的请求有错误 例如：404 NOT Found，意味着请求中所引用的文档不存在。
+    // 4XX-客户端错误(Client Error)，表示客户端提交的请求有错误 例如：404 NOT Found，请求资源不存在。
     // 5XX-服务器错误(Server Error)表示服务器不能完成对请求的处理：如 500
+
+    // 100: post请求 发送header确认是否可以访问
+    // 200: OK
+    // 304: 自上次请求资源没有发生变化 可以使用缓存
+    // 404: 请求资源不存在
+    // 500: 服务端错误
 
 
 
@@ -1899,6 +1943,31 @@
     // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级作用域链的 是完全共享的
     // ：内部函数的作用域链仍然保持着对父函数活动对象的引用
 
+    // 前端资源优化
+    // 1. 文件压缩
+    // 2. 文件合并 减少http 请求
+    // 3. cdn静态资源托管
+    // 4. 懒加载（路由 图片）
+    // 5. 节流 防抖
+
+    // 伪数组：
+    // 1. 按索引的方式存储数据
+    // 2. 具有length属性
+    // 3. 原生部署iterator遍历器接口
+    // 4. 不继承Array.prototype 也就不具有Array的方法
+    // => Array
+    // 1. Array.prototype.slice.call(a)
+    // 2. [...a]
+    // 3. Array.from(a)
+    
+    
+    // 1. cookie会在http请求中携带 cookie还有path概念 仅存储在某路径下 / webStorage不会
+    // 2. 存储空间：cookie存储大小为4k / webStorage为5M
+    // 3. 有效期：cookie手动设置有效期 / localStorage永久存储 sessionStorage会话关闭
+    // 4. 作用域不同
+
+
+    
   </script>
 </body>
 
