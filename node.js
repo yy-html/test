@@ -18,11 +18,11 @@ render(app, {
   debug: process.env.NODE_ENV !== 'production'  //是否开启调试模式
 })
 
-router.all('/', async (ctx, next) => {
+router.all('*', async (ctx, next) => {
   // const page = await fsp.readFile('./index.html', 'utf8')
   // ctx.body = page
   await ctx.render('index', {
-    title: 'Node'
+    title: 'run by nodeJS'
   })
 })
 

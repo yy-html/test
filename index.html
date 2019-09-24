@@ -10,13 +10,6 @@
   <style>
     .box {
       user-select: none;
-      border-color: #000;
-      border-width: 1px;
-      border-style: solid;
-      width: 100px;
-    }
-    body {
-      font-size: 16px;
     }
     
   </style>
@@ -24,14 +17,51 @@
 
 <body>
   <div class="box" id="box" title="box">
-
-    fdfsdfdsfs
-    <div class="box1">box1</div>
+    <div class="box1"></div>
     <div class="box2"></div>
-    <img src="" />
   </div>
 
   <script>const log = console.log;const dir = console.dir
+
+
+
+
+
+
+
+    // 热加载：监听本地文件修改，服务器推送到客户端，将更新补丁通过前端API调用实现重新加载
+
+    
+    // const createPromise = (time, id) => () =>
+    //   new Promise(solve =>
+    //     setTimeout(() => {
+    //       console.log("promise", id);
+    //       solve();
+    //     }, time)
+    //   );
+    // function runPromiseByQueue(myPromises) {
+    //   myPromises.reduce(
+    //     (prev, next) => prev.then(() => next()),
+    //     Promise.resolve()
+    //   );
+    // }
+    // async function runPromiseByQueue(promises) {
+    //   for(let promise of promises) {
+    //     await promise()
+    //   }
+    // }
+    // runPromiseByQueue([
+    //   createPromise(3000, 1),
+    //   createPromise(2000, 2),
+    //   createPromise(1000, 3)
+    // ])
+    // createPromise(3000, 1)()
+    //   .then(() => 
+    //     createPromise(2000, 2)()
+    //   )
+    //   .then(() => 
+    //     createPromise(1000, 3)()
+    //   )
 
 
     // 移动端 1rem === 100px 解决方案
@@ -39,6 +69,7 @@
     // document.documentElement.style.fontSize = 100 / 375 * 100 + 'vw' // 26.6667
     // document.documentElement.style.fontSize = screen.width * (100 / 375) + 'px'
 
+    
 
     // hooks 设计动机：
     // 1. class类难以理解（牵强）
