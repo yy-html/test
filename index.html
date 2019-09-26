@@ -8,7 +8,7 @@
   <title>{{title}}</title>
   <!-- <link rel="stylesheet" href="./node_modules/xterm/dist/xterm.css" /> -->
   <style>
-    .box {
+    body * {
       outline: 1px #000 solid;
     }
     
@@ -17,21 +17,26 @@
 
 <body>
   <div class="box" id="box" title="box">
-    <div class="box1"></div>
-    <div class="box2"></div>
+    <div class="box1" id="box1">
+
+    </div>
   </div>
 
   <script>const log = console.log;const dir = console.dir
 
-
-
-
-
-
+    
+    // 禁用鼠标事件属性：pointer-events: none;
+    // UI开发调试：outline: 1px #000 solid;
+    // 禁止用户选择：
+      // -webkit-touch-callout: none;
+      // -webkit-user-select: none;
+      // -khtml-user-select: none;
+      // -moz-user-select: none;
+      // -ms-user-select: none;
+      // user-select: none;
 
     // 热加载：监听本地文件修改，服务器推送到客户端，将更新补丁通过前端API调用实现重新加载
 
-    
     // const createPromise = (time, id) => () =>
     //   new Promise(solve =>
     //     setTimeout(() => {
@@ -669,6 +674,7 @@
 
 
     // 修改 className 时，如果新类关联了与此前不同的 CSS 样式，那么就会立即应用新的样式。
+    // div#box | p.box | [title] | [title][name] | div [title] | div td > p | div td + p | a.red :visited
 
 		// 动态添加样式：1. 动态创建style标签, createTextNode到标签内, 添加到head中；2. 动态创建link标签引入(createElement('link'))；
     // script同理。
