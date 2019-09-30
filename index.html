@@ -11,31 +11,45 @@
     body * {
       outline: 1px #000 solid;
     }
-
-    
   </style>
 </head>
 
 <body>
   <div class="box" id="box" title="box">
-    box
     <div class="box1" id="box1">
-      box1
     </div>
   </div>
 
   <script>const log = console.log;const dir = console.dir
+
+
+    const o = {
+      a: {}
+    }
+
+    Object.setPrototypeOf(o, {instance: 1})
+
+    log(Object.create(
+      Object.getPrototypeOf(o),
+      Object.getOwnPropertyDescriptors(o)
+    ).a === o.a)
+    
+    
+
+
+
+  
 
     // 实际上，无论在刚才的demo和 老版Context Legacy Context都无法实现这个功能，这也是老版的context为人诟病的其中一点，那新版Context有什么黑魔法可以实现这个呢？
     // 答案是context变化会引发又一次check
     // 下面稍有些晦涩，涉及到一些Fiber的运作机制：
     // 得益于Fiber的链表机制，一个Provider的所有的consumer里面的children都会注册到事件池里面，并提供一个propagateContextChange方法。
     // Provider变化触发updateContextProvider函数，从而每个consumer的child的Fiber节点会执行propagateContextChange方法（如果位运算通过的话，可以看第二个问题），
-    // 在 propagateContextChange 中，以当前 fiber 节点为根的子树中寻找相匹配 Consumer 节点，给与更新标记。
+    // 在 propagateContextChange 中，以当前 fiber 节点为根的子树中寻找相匹配 Consumer 节点，给与更新标记，当render过程执行到此节点会执行更新。
     // 因此，虽然 shouldComponentUpdate 造成了 Consumer的父组件无法被标记更新，但 Provider 的 propagateContextChange 能使 Consumer 组件重新被标记，从而能够被 render。
 
-    // 同一个createContext生成的Provider对应的Consumer会将 本Consumer组件（或者组件children）注册到事件池里进行监听
-    // 当Proiver组件发生更新并对比（Object.is）value变更 会触发执行事件池的事件 实现更新
+    // 同一个createContext生成的Provider对应的Consumer会将 本Consumer组件（或者组件children）给予更新标记，注册到事件池里进行监听
+    // 当Proiver组件发生更新并对比（Object.is）value有变更 会在render过程进行标记节点的更新
 
     
     // <EmailInput
@@ -53,10 +67,6 @@
     // 禁止用户选择：
       // -webkit-touch-callout: none;
       // -webkit-user-select: none;
-      // -khtml-user-select: none;
-      // -moz-user-select: none;
-      // -ms-user-select: none;
-      // user-select: none;
 
     // 热加载：监听本地文件修改，服务器推送到客户端，将更新补丁通过前端API调用实现重新加载
 
