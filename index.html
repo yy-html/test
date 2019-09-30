@@ -21,19 +21,6 @@
   </div>
 
   <script>const log = console.log;const dir = console.dir
-
-
-    const o = {
-      a: {}
-    }
-
-    Object.setPrototypeOf(o, {instance: 1})
-
-    log(Object.create(
-      Object.getPrototypeOf(o),
-      Object.getOwnPropertyDescriptors(o)
-    ).a === o.a)
-    
     
 
 
