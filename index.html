@@ -20,8 +20,144 @@
     </div>
   </div>
 
-  <script>const log = console.log;const dir = console.dir
-    
+  <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
+
+      const arr = [5, 3, 6, 4, 1, 2]
+
+      // 冒泡排序：比较相邻两位，满足条件则将其向右移动一位（每一轮排序一位元素）；先写内循环
+      // function fn(arr) {
+      //   for (let j = 1, length = arr.length; j < length; j ++) {  // 共比较length - 1轮，排到最后一位不用比较
+      //     for (let i = 0; i < length - j; i ++) {  // 每一轮排序一位元素，将其放在最右侧
+      //       if (arr[i] > arr[i + 1]) {
+      //         let temp
+      //         temp = arr[i]
+      //         arr[i] = arr[i + 1]
+      //         arr[i + 1] = temp
+      //       }
+      //     }
+      //   }
+      // }
+
+      // 选择排序：依次拿每一位和后边所有元素进行比较，将最小的放在最左边
+      // function fn(arr) {
+      //   for (let i = 0, length = arr.length; i < length - 1; i ++) {  // 共比较length - 1轮，排到最后一位不用比较
+      //     for (let j = i + 1; j < length; j ++) { // 每一轮排序一位元素，将其放在最右侧
+      //       if (arr[i] > arr[j]) {
+      //         let temp
+      //         temp = arr[i]
+      //         arr[i] = arr[j]
+      //         arr[j] = temp
+      //       }
+      //     }
+      //   }
+      // }
+
+      // 快速排序：一个返回一轮排序的递归函数：找到数组中间值 小于放左边 大于放右边，返回这个新数组
+      // function fn(arr){
+      //   if (arr.length <= 1) {
+      //     return arr
+      //   }
+
+      //   const pivotIndex = Math.floor(arr.length / 2)
+      //   const [pivot] = arr.splice(pivotIndex, 1)
+      //   const left = []
+      //   const right = []
+
+      //   for (let i = 0, item; item = arr[i ++];) {
+      //     if (item < pivot) {
+      //       left.push(item)
+      //     } else {
+      //       right.push(item)
+      //     }
+      //   }
+
+      //   // return fn(left).concat([pivot], fn(right))
+      //   return [...fn(left), pivot, ...fn(right)]
+      // }
+
+      // 插入排序 将每个元素跟已排序队列（i之前的也就是便利过的 就是已排序队列）进行比较、插入
+      function fn(arr) {
+        for (let i = 1, { length } = arr; i < length; i ++) {
+          for (let j = 0; j < i; j ++) {
+            if (arr[i] < arr[j]) {
+              arr.splice(j, 0, arr.splice(i, 1)[0])
+            }
+          }
+        }
+      }
+
+      // 归并排序：
+      function Merger(a, b){
+        var n = a && a.length;
+        var m = b && b.length;
+        var c = [];
+        var i = 0, j = 0;
+
+        while (i < n && j < m) {
+          if (a[i] < b[j])
+            c.push(a[i++]);
+          else
+            c.push(b[j++]); 
+        }
+        while (i < n) {
+          c.push(a[i++]);
+        }
+        while (j < m) {
+          c.push(b[j++]); 
+        }
+        console.log("将数组",a,'和',b,'合并为',c)
+        return c;
+      }
+
+      function merge_sort(arr){
+        if(arr.length == 1) {
+          return arr
+        }
+
+        var mid = Math.floor(arr.length/2)
+        var left = arr.slice(0,mid)
+        var right = arr.slice(mid)
+
+        return Merger(merge_sort(left), merge_sort(right)) //合并左右部分
+      }
+
+      fn(arr)
+      log(arr)
+
+
+      //判断字符串或数组中出现最多的字符并记录其次数
+      // var str = 'hkajfahfauhtasaabua';
+      // let max = 0
+      // let maxItem
+      // console.log([...str].reduce((prev, next) => {
+      //   const item = prev[next]
+      //   if (item === undefined) {
+      //     prev[next] = 0
+      //   } else {
+      //     const value = item + 1
+      //     prev[next] = value
+      //     if (value > max) {
+      //       max = value
+      //       maxItem = next
+      //     }
+      //   }
+      //   return prev
+      // }, {}))
+      // console.log(max)
+      // console.log(maxItem)
+
+
+      // //把a数组逆向排序给b数组
+      // var a = new Array(0,4,2,3,1,);
+      // var b = [];
+      // for(var i = a.length - 1;i >= 0;i --){
+      // 	b[a.length - i - 1] = a[i];	// b.push(a[i]);
+      // }
+		  // alert(b);
+
+      
+
+
 
 
 
@@ -36,7 +172,7 @@
     // 因此，虽然 shouldComponentUpdate 造成了 Consumer的父组件无法被标记更新，但 Provider 的 propagateContextChange 能使 Consumer 组件重新被标记，从而能够被 render。
 
     // 同一个createContext生成的Provider对应的Consumer会将 本Consumer组件（或者组件children）给予更新标记，注册到事件池里进行监听
-    // 当Proiver组件发生更新并对比（Object.is）value有变更 会在render过程进行标记节点的更新
+    // 当Proiver组件发生更新并对比（Object.is）value有变更 会在render过程进行对标记节点的更新
 
     
     // <EmailInput
@@ -422,10 +558,24 @@
     // async function fn() {
     //   // async会返回一个promise 它的最终状态是根据内部await拿到的状态决定的
     //   //    如果有一个await接收到了reject状态 那么此函数的promise直接返回reject并return(除非捕获异常到了try catch)
-    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolved(returnValue)
+    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolved(returnValue); 如果return值为Promise，那么此函数返回值为此promise而不是async的promise
     //   const res = await promise
     //   log('resolving') // await如果不返回resolve状态（返回reject或者不返回这两个状态也就是pending状态） 会直接return此promise 所以这行代码及以后的不执行
     //   return res // resolve(res)
+    // }
+
+    // async function fn() {
+    //   const a = new Promise((rs) => { setTimeout(rs, 2000, 1) })
+    //   const b = new Promise((rs) => { setTimeout(rs, 2000, 2) })
+
+    //   // async函数内promise不依赖执行
+    //   // 方式1
+    //   // const retA = await a
+    //   // const retB = await b
+    //   // 方式2
+    //   // const [retA, retB] = await Promise.all([a, b])
+
+    //   // log(retA, retB)
     // }
 
     // const f = fn()
@@ -449,7 +599,7 @@
     //     const res = await promise
     //     return [null, res]
     //   } catch (e) {
-    //     return [e, null]  // 捕获await接收到的rejected 让它不返回此状态给yield函数的next().value.catch(给.then)
+    //     return [e, null]  // 捕获await接收到的rejected 让它不返回此状态（返回一个成功状态）给yield函数的next().value.catch(让它给.then)
     //   }
     // }
     
@@ -641,6 +791,8 @@
 			// }
 
     // DOM
+
+    // box => HTMLDivElement => HTMLElement => Element => Node => EventTarget => Object
     
     // console.log(ul.getElementsByTagName('*'))   //子孙节点
     // console.log(ul.querySelector('*'))          //子孙节点
