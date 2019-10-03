@@ -22,7 +22,81 @@
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
 
-      const arr = [5, 3, 6, 4, 1, 2]
+    react初始化渲染机制：
+
+    react-redux Provider connect：
+
+    react-router：
+
+    react合成事件系统：
+
+    新版createContext：
+    // 实际上，无论在刚才的demo和 老版Context Legacy Context都无法实现这个功能，这也是老版的context为人诟病的其中一点，那新版Context有什么黑魔法可以实现这个呢？
+    // 答案是context变化会引发又一次check
+    // 下面稍有些晦涩，涉及到一些Fiber的运作机制：
+    // 得益于Fiber的链表机制，一个Provider的所有的consumer里面的children都会注册到事件池里面，并提供一个propagateContextChange方法。
+    // Provider变化触发updateContextProvider函数，从而每个consumer的child的Fiber节点会执行propagateContextChange方法（如果位运算通过的话，可以看第二个问题），
+    // 在 propagateContextChange 中，以当前 fiber 节点为根的子树中寻找相匹配 Consumer 节点，给与更新标记，当render过程执行到此节点会执行更新。
+    // 因此，虽然 shouldComponentUpdate 造成了 Consumer的父组件无法被标记更新，但 Provider 的 propagateContextChange 能使 Consumer 组件重新被标记，从而能够被 render。
+
+    // 同一个createContext生成的Provider对应的Consumer会将 本Consumer组件（或者组件children）给予更新标记，注册到事件池里进行监听
+    // 当Proiver组件发生更新并对比（Object.is）value有变更 会在render过程进行对标记节点的更新
+
+
+
+// 业务组件当中可以内嵌Route标签做tag切换
+// export default class First extends Component{
+//     render(){
+//         console.log(this)
+//         const {match} = this.props
+//         return(
+//             <div>
+//                 <p>First</p>
+//                 <NavLink    style={{color: '#000'}}
+//                             to={`${match.url}/0`}
+//                             activeClassName='active2'
+//                             activeStyle={{color: 'pink'}}>
+//                     <button>First-params：1</button>
+//                 </NavLink>
+//                 <NavLink    style={{color: '#000'}}
+//                             to={`${match.url}/1`}
+//                             activeClassName='active2'
+//                             activeStyle={{color: 'pink'}}>
+//                             {/*isActive={ () => true}
+//                             exact(bool)：为true时，只有当导致和完全匹配class和style才会应用
+//                             strict(bool)：为true时，在确定为位置是否与当前URL匹配时，将考虑位置pathname后的斜线*/}
+//                     <button>First-params：2</button>
+//                 </NavLink>
+                
+//                 {/* children使用方式与render一致，只不过无论路由是否匹配都会被渲染 但是跟render一样 只有path匹配才有回调的 match 对象 不匹配为null */}
+//                 <Route  path={`${match.path}/:id?`}   //设置params非必传：? 枚举params(0|1)
+//                         render={ ({match}) => (
+//                             <Fragment>
+//                                 {match.params.id ? (
+//                                     //<FirstList /> 写成这种形式需要传递{...props} 或 组件内使用withRouter
+//                                     <Route path={`${match.path}`} component={FirstList} />
+//                                 ) : (
+//                                     <div>Select</div>
+//                                 )}
+//                             </Fragment>
+//                         )} />
+//             </div>
+//         )
+//     }
+// }
+
+    // <EmailInput
+    //   defaultEmail={this.props.user.email}
+    //   key={this.props.user.id}
+    // />
+    // 在我们的例子中，我们可以使用用户ID在新用户被选中时重新创建"EmailInput"：
+    // 每当ID改变时，EmailInput将被重新创建，它的状态将被重置为最新的defaultEmail值(示例)。
+    // 使用这种方法，您不需要向每个输入项添加key。
+    // 把key放在整个表单上可能更有意义。每次改变时，表单中的所有组件都将用一个新初始化的状态重新创建。
+
+
+
+      // const arr = [5, 3, 6, 4, 1, 2]
 
       // 冒泡排序：比较相邻两位，满足条件则将其向右移动一位（每一轮排序一位元素）；先写内循环
       // function fn(arr) {
@@ -53,6 +127,7 @@
       // }
 
       // 快速排序：一个返回一轮排序的递归函数：找到数组中间值 小于放左边 大于放右边，返回这个新数组
+      // 思想：将原问题拆分为若干个原理相同的子问题，递归拿到字问题的解，组合为原问题的解
       // function fn(arr){
       //   if (arr.length <= 1) {
       //     return arr
@@ -76,56 +151,57 @@
       // }
 
       // 插入排序 将每个元素跟已排序队列（i之前的也就是便利过的 就是已排序队列）进行比较、插入
-      function fn(arr) {
-        for (let i = 1, { length } = arr; i < length; i ++) {
-          for (let j = 0; j < i; j ++) {
-            if (arr[i] < arr[j]) {
-              arr.splice(j, 0, arr.splice(i, 1)[0])
-            }
-          }
-        }
-      }
+      // function fn(arr) {
+      //   for (let i = 1, { length } = arr; i < length; i ++) {
+      //     for (let j = 0; j < i; j ++) {
+      //       if (arr[i] < arr[j]) {
+      //         arr.splice(j, 0, arr.splice(i, 1)[0])
+      //       }
+      //     }
+      //   }
+      // }
 
-      // 归并排序：
-      function Merger(a, b){
-        var n = a && a.length;
-        var m = b && b.length;
-        var c = [];
-        var i = 0, j = 0;
+      // 归并排序：找一个中间点 将左右两个数组分别递归归并
+      // 思想：将数列递归两两拆分，拆分至每一组数列最小长度为1，分别进行处理为从小到大排列，再进行两两合并（两两拆分 => 两两合并(合并函数功能为将两个数组合并成从小到大排列，每个数组最小粒度为1)）
+      // function fn(arr) {
+      //   if (arr.length <= 1) {
+      //     return arr
+      //   }
+      //   const mid = Math.floor(arr.length / 2)
+      //   const left = arr.slice(0, mid)
+      //   const right = arr.slice(mid)
 
-        while (i < n && j < m) {
-          if (a[i] < b[j])
-            c.push(a[i++]);
-          else
-            c.push(b[j++]); 
-        }
-        while (i < n) {
-          c.push(a[i++]);
-        }
-        while (j < m) {
-          c.push(b[j++]); 
-        }
-        console.log("将数组",a,'和',b,'合并为',c)
-        return c;
-      }
+      //   return merge(fn(left), fn(right))
 
-      function merge_sort(arr){
-        if(arr.length == 1) {
-          return arr
-        }
+      //   function merge(a, b) {
+      //     const { length: aLength } = a
+      //     const { length: bLength } = b
+      //     const c = []
+      //     let i = 0, j = 0
 
-        var mid = Math.floor(arr.length/2)
-        var left = arr.slice(0,mid)
-        var right = arr.slice(mid)
+      //     while (i < aLength && j < bLength) {
+      //       if (a[i] < b[j]) {
+      //         c.push(a[i ++])
+      //       } else {
+      //         c.push(b[j ++])
+      //       }
+      //     }
+      //     while (i < aLength) {
+      //       c.push(a[i ++])
+      //     }
+      //     while (j < bLength) {
+      //       c.push(b[j ++])
+      //     }
+      //     console.log('将', a, '和', b, '合并为', c)
+      //     return c
+      //   }
+      // }
 
-        return Merger(merge_sort(left), merge_sort(right)) //合并左右部分
-      }
-
-      fn(arr)
-      log(arr)
+      // log(fn(arr))
+      // log(arr)
 
 
-      //判断字符串或数组中出现最多的字符并记录其次数
+      // 去重并记录出现最多的元素次数
       // var str = 'hkajfahfauhtasaabua';
       // let max = 0
       // let maxItem
@@ -147,42 +223,9 @@
       // console.log(maxItem)
 
 
-      // //把a数组逆向排序给b数组
-      // var a = new Array(0,4,2,3,1,);
-      // var b = [];
-      // for(var i = a.length - 1;i >= 0;i --){
-      // 	b[a.length - i - 1] = a[i];	// b.push(a[i]);
-      // }
-		  // alert(b);
-
-      
-
-
-
-
-
   
 
-    // 实际上，无论在刚才的demo和 老版Context Legacy Context都无法实现这个功能，这也是老版的context为人诟病的其中一点，那新版Context有什么黑魔法可以实现这个呢？
-    // 答案是context变化会引发又一次check
-    // 下面稍有些晦涩，涉及到一些Fiber的运作机制：
-    // 得益于Fiber的链表机制，一个Provider的所有的consumer里面的children都会注册到事件池里面，并提供一个propagateContextChange方法。
-    // Provider变化触发updateContextProvider函数，从而每个consumer的child的Fiber节点会执行propagateContextChange方法（如果位运算通过的话，可以看第二个问题），
-    // 在 propagateContextChange 中，以当前 fiber 节点为根的子树中寻找相匹配 Consumer 节点，给与更新标记，当render过程执行到此节点会执行更新。
-    // 因此，虽然 shouldComponentUpdate 造成了 Consumer的父组件无法被标记更新，但 Provider 的 propagateContextChange 能使 Consumer 组件重新被标记，从而能够被 render。
-
-    // 同一个createContext生成的Provider对应的Consumer会将 本Consumer组件（或者组件children）给予更新标记，注册到事件池里进行监听
-    // 当Proiver组件发生更新并对比（Object.is）value有变更 会在render过程进行对标记节点的更新
-
     
-    // <EmailInput
-    //   defaultEmail={this.props.user.email}
-    //   key={this.props.user.id}
-    // />
-    // 在我们的例子中，我们可以使用用户ID在新用户被选中时重新创建"EmailInput"：
-    // 每当ID改变时，EmailInput将被重新创建，它的状态将被重置为最新的defaultEmail值(示例)。
-    // 使用这种方法，您不需要向每个输入项添加key。
-    // 把key放在整个表单上可能更有意义。每次改变时，表单中的所有组件都将用一个新初始化的状态重新创建。
 
     
     // 禁用鼠标事件属性：pointer-events: none;
