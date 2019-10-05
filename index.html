@@ -36,14 +36,211 @@
     // window.setInterval(run, 10)
 
 
-    // react初始化渲染机制：
+    // react初始化渲染机制：笔记
 
-    // react-redux Provider connect：
-    
+    // react-redux
+    // Provider：通过props接收store，来getChildContext创建一个context对象，供connect消费
+    // connect：connect(mapStateToProps, mapDispatchToProps, mergeProps, optipons)
+    //   mapStateToProps(store.getState(), this.props)
+    //   mapDispatchToProps(store.dispatch, this.props)
+    //   mergeProps: (stateProps, dispatchProps, ownProps) => { return }
+    //   optipons: { pure: true } 
+    // 1.在didMount订阅store的变化监听本组件setState 
+    // 2.将3个props形成的mergeProps传递给渲染组件，默认Object.assign({}, ownProps, stateProps, dispatchProps)
+    // 3.做优化，默认对比前后store的数据（在changeState里）和ownProps（在willReceiveProps里）
+    //   var selector = {
+    //     run: function runComponentSelector(props) {
+    //       try {
+    //         var nextProps = sourceSelector(store.getState(), props);
+    //         if (nextProps !== selector.props || selector.error) {
+    //           selector.shouldComponentUpdate = true;
+    //           selector.props = nextProps;
+    //           selector.error = null;
+    //         }
+    //       } catch (error) {
+    //         selector.shouldComponentUpdate = true;
+    //         selector.error = error;
+    //       }
+    //     }
+    //   };
+    //   selector.run(this.props || nextProps)
 
     // react-router：
+    // BrowserRouter：
+    // function createBrowserHistory() {
+    //   return {
+    //     listen(listener) {
+    //       transitionManager.appendListener(listener)
+    //       if (first) {
+    //         window.addEventListener('popstate | hashchange', function handleChange() {
+    //           transitionManager.notifyListeners(history.location, history.action)  // 每当浏览器前进返回调用监听函数
+    //         })
+    //       }
+    //     },
+    //     push(path) {
+    //       window.history.pushState()
+    //       transitionManager.notifyListeners(history.location, history.action)
+    //     }
+    //   }
+    // }
+
+    // class Router extends React.Component {  // Router负责提供Provider 调用监听,监听本组件setState来更新location
+    //   constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //       location: props.history.location
+    //     }
+    //     this.unlisten = props.history.listen((location) => {
+	  //       if (this._isMounted) {
+	  //         this.setState({
+	  //           location: location
+	  //         });
+	  //       } else {
+	  //         this._pendingLocation = location;
+	  //       }
+	  //     })
+    //   }
+    //   render() {
+    //     <Context.Provider
+    //       value={{
+    //         location: this.state.location,
+    //         history: this.props.history,
+    //         math: Router.computeRootMatch(this.state.location.pathname),
+    //       }}
+    //     >{this.props.children}</Context.Provider>
+    //   }
+    // }
+
+    // export class BrowserRouter extends React.Component {  // BrowserRouter负责提供history对象给Router
+    //   constructor(props) {
+    //     super(props)
+    //     this.history = createBrowserHistory(this.props)
+    //   }
+    //   render() {
+    //     return (
+    //       <Router history={this.history}>
+    //         {this.props.children}
+    //       </Router>
+    //     )
+    //   }
+    // }
+    // // Route：
+    // class Route extends React.Component {
+    //   render() {
+    //     return (
+    //       <Context.Consumer>
+    //         {(context) => {
+    //           const { children, component: Component, render } = this.props
+    //           const props = Object.assign(  // 做一个merge操作：有自己的属性就用自己的 没有的话就用Router提供的
+    //             {},
+    //             context,
+    //             { location, match: matchPath(location.pathname, this.props) }
+    //           )
+    //           return (
+    //             children ?
+    //               typeof children === 'function' ? children(props) : children :
+    //               Component ?
+    //                 match ? // 判断path是否匹配 不匹配的话match为null
+    //                   Component ?
+    //                   <Component {...props} /> :
+    //                   render ?
+    //                     render(props) :
+    //                     null : null : null
+    //           )
+    //         }}
+    //       </Context.Consumer>
+    //     )
+    //   }
+    // }
+    // // Switch：
+    // class Switch extends React.Component {
+    //   render() {
+    //     return (
+    //       <Context.Consumer> 
+    //         {(context) => {
+    //           const { children } = this.props
+    //           const child = children.find((child) => (
+    //             child.props.path ?
+    //               matchPath(location.pathname, child.props) :
+    //               null
+    //           ))
+    //           return (
+    //             React.cloneElement(child, {
+    //               location: location,
+    //               computedMatch: match
+    //             })
+    //           )
+    //         }}
+    //       </Context.Consumer>
+    //     )
+    //   }
+    // }
+    // // Redirect：
+    // class Redirect extends React.Component {
+    //   render() {
+    //     return (
+    //       <Context.Consumer>
+    //         {({ history }) => {
+    //           history.push(this.props.to)
+    //           return null
+    //         }}
+    //       </Context.Consumer>
+    //     )
+    //   }
+    // }
+    // // Link：
+    // class Link extends React.Component {
+    //   render() {
+    //     return (
+    //       <Context.Consumer>
+    //         {({ location, history }) => {
+    //           return (
+    //             <a 
+    //               onClick={(event) => {
+    //                 event.preventDefault()
+    //                 history.push(this.props.to)
+    //               }}
+    //               href={createHref(location)} // 在新标签页中打开
+    //             />
+    //           )
+    //         }}
+    //       </Context.Consumer>
+    //     )
+    //   }
+    // }
+    // // withRouter：
+    // function withRouter(Component) {
+    //   return (props) => (
+    //     <Context.Consumer>
+    //       {(context) => (
+    //         <Component {...context} {...props} />
+    //       )}
+    //     </Context.Consumer>
+    //   )
+    // }
+    
+
+
  
     // react合成事件系统：
+    // React 合成事件注册 && 分发 过程
+		// mounted && updated
+		// 	=>	_updateDOMProperties(处理props):
+		// 				对DOM元素设置唯一_rootNodeID
+		// 	=>	enqueuePutListener(事件注册;事件存储): 
+		// 				在document上注册事件(litsenTo(事件类型, doc)) 处理事件冒泡 && 捕获 同一类型只注册一次 拥有统一回调dispatchEvent;
+		// 				将事件压入事件队列(EventPluginHub.putListener()) listenerBank中: { 'click': { `${vNode._rootNodeID}`: callback } }
+		// 	=>	ReactEventListener.dispatchEvent(事件执行):
+		// 				根据原生事件对象找到事件触发的DOM元素(event.target._rootNodeID: 也就能拿到对应的事件回调) 及该对象对应的Component对象(handleTopLevelImpl)
+		// 				生成合成事件对象(ReactEventEmitterMixin)并批量执行回调函数(默认冒泡依次执行target到其父元素的同类事件)
+		// 				进行批量更新(runEventQueueInBatch)
+		// event._dispatchListeners: 判断父组件有没有同类型事件 将有eventType属性的ReactElement放入 event._dispatchInstances 将对应的回调依次放入event._dispatchListeners
+
+		// react阻止冒泡: event.nativeEvent 获取原生事件对象
+		// 1. 阻止合成事件间的冒泡：e.stopPropagation()
+		// 2. 阻止合成事件冒泡到原生document事件：e.nativeEvent.stopstopImmediatePropagation()
+    // 3. 组织合成事件冒泡到除document以外的其他原生事件：在该原生事件上通过e.target来排除目标元素return
+    
 
     // 新版createContext：
     // 实际上，无论在刚才的demo和 老版Context Legacy Context都无法实现这个功能，这也是老版的context为人诟病的其中一点，那新版Context有什么黑魔法可以实现这个呢？
@@ -819,24 +1016,6 @@
     // +0不等于-0。
     // NaN等于自身。
 
-  
-// React 合成事件注册 && 分发 过程
-		// mounted && updated
-		// 	=>	_updateDOMProperties(处理props):
-		// 				对DOM元素设置唯一_rootNodeID
-		// 	=>	enqueuePutListener(事件注册;事件存储): 
-		// 				在document上注册事件(litsenTo(事件类型, doc)) 处理事件冒泡 && 捕获 同一类型只注册一次 拥有统一回调dispatchEvent;
-		// 				将事件压入事件队列(EventPluginHub.putListener()) listenerBank中: { 'click': { `${vNode._rootNodeID}`: callback } }
-		// 	=>	ReactEventListener.dispatchEvent(事件执行):
-		// 				根据原生事件对象找到事件触发的DOM元素(event.target._rootNodeID: 也就能拿到对应的事件回调) 及该对象对应的Component对象(handleTopLevelImpl)
-		// 				生成合成事件对象(ReactEventEmitterMixin)并批量执行回调函数(默认冒泡依次执行target到其父元素的同类事件)
-		// 				进行批量更新(runEventQueueInBatch)
-		// event._dispatchListeners: 判断父组件有没有同类型事件 将有eventType属性的ReactElement放入 event._dispatchInstances 将对应的回调依次放入event._dispatchListeners
-
-		// react阻止冒泡: event.nativeEvent 获取原生事件对象
-		// 1. 阻止合成事件间的冒泡：e.stopPropagation()
-		// 2. 阻止合成事件冒泡到原生document事件：e.nativeEvent.stopstopImmediatePropagation()
-		// 3. 组织合成事件冒泡到除document以外的其他原生事件：在该原生事件上通过e.target来排除目标元素return
 		
 
 		// js 文本框监听粘贴事件，获取粘贴板上的图片实现预览:  在事件对象e.clipboardData.items(arr)下
