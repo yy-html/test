@@ -41,185 +41,195 @@
     // react初始化渲染机制：笔记
 
     // react-redux
-    // Provider：通过props接收store，来getChildContext创建一个context对象，供connect消费
-    // connect：connect(mapStateToProps, mapDispatchToProps, mergeProps, optipons)
-    //   mapStateToProps(store.getState(), this.props)
-    //   mapDispatchToProps(store.dispatch, this.props)
-    //   mergeProps: (stateProps, dispatchProps, ownProps) => { return }
-    //   optipons: { pure: true } 
-    // 1.在didMount订阅store的变化监听本组件setState 
-    // 2.将3个props形成的mergeProps传递给渲染组件，默认Object.assign({}, ownProps, stateProps, dispatchProps)
-    // 3.做优化，默认对比前后store的数据（在changeState里）和ownProps（在willReceiveProps里）
-    //   var selector = {
-    //     run: function runComponentSelector(props) {
-    //       try {
-    //         var nextProps = sourceSelector(store.getState(), props);
-    //         if (nextProps !== selector.props || selector.error) {
-    //           selector.shouldComponentUpdate = true;
-    //           selector.props = nextProps;
-    //           selector.error = null;
-    //         }
-    //       } catch (error) {
-    //         selector.shouldComponentUpdate = true;
-    //         selector.error = error;
-    //       }
-    //     }
-    //   };
-    //   selector.run(this.props || nextProps)
+    Provider：通过props接收store，来getChildContext创建一个context对象，供connect消费
+    connect：connect(mapStateToProps, mapDispatchToProps, mergeProps, optipons)
+      mapStateToProps(store.getState(), this.props)
+      mapDispatchToProps(store.dispatch, this.props)
+      mergeProps: (stateProps, dispatchProps, ownProps) => { return }
+      optipons: { pure: true }
+    1.通过上下文拿到store的数据
+    2.在didMount订阅store的变化监听本组件setState 
+    3.将3个props形成的mergeProps传递给渲染组件，默认Object.assign({}, ownProps, stateProps, dispatchProps)
+    4.做优化，默认对比前后store的数据（在changeState里）和ownProps（在willReceiveProps里）
+      var selector = {
+        run: function runComponentSelector(props) {
+          try {
+            var nextProps = sourceSelector(store.getState(), props);
+            if (nextProps !== selector.props || selector.error) {
+              selector.shouldComponentUpdate = true;
+              selector.props = nextProps;
+              selector.error = null;
+            }
+          } catch (error) {
+            selector.shouldComponentUpdate = true;
+            selector.error = error;
+          }
+        }
+      };
+      selector.run(this.props || nextProps)
 
     // react-router：
     // BrowserRouter：
-    // function createBrowserHistory() {
-    //   return {
-    //     listen(listener) {
-    //       transitionManager.appendListener(listener)
-    //       if (first) {
-    //         window.addEventListener('popstate | hashchange', function handleChange() {
-    //           transitionManager.notifyListeners(history.location, history.action)  // 每当浏览器前进返回调用监听函数
-    //         })
-    //       }
-    //     },
-    //     push(path) {
-    //       window.history.pushState()
-    //       transitionManager.notifyListeners(history.location, history.action)
-    //     }
-    //   }
-    // }
+    function createBrowserHistory() {
+      return {
+        listen(listener) {
+          transitionManager.appendListener(listener)
+          if (first) {  // 第一次调用，添加浏览器前进后退事件
+            window.addEventListener('popstate | hashchange', function handleChange() {
+              transitionManager.notifyListeners(history.location, history.action)  // 每当浏览器前进返回调用监听函数
+            })
+          }
+        },
+        push(path) {
+          window.history.pushState()
+          transitionManager.notifyListeners(history.location, history.action)
+        }
+      }
+    }
 
-    // class Router extends React.Component {  // Router负责提供Provider 调用监听,监听本组件setState来更新location
-    //   constructor(props) {
-    //     super(props)
-    //     this.state = {
-    //       location: props.history.location
-    //     }
-    //     this.unlisten = props.history.listen((location) => {
-	  //       if (this._isMounted) {
-	  //         this.setState({
-	  //           location: location
-	  //         });
-	  //       } else {
-	  //         this._pendingLocation = location;
-	  //       }
-	  //     })
-    //   }
-    //   render() {
-    //     <Context.Provider
-    //       value={{
-    //         location: this.state.location,
-    //         history: this.props.history,
-    //         math: Router.computeRootMatch(this.state.location.pathname),
-    //       }}
-    //     >{this.props.children}</Context.Provider>
-    //   }
-    // }
+    class Router extends React.Component {  // Router负责提供Provider 调用监听,监听本组件setState来更新location
+      constructor(props) {
+        super(props)
+        this.state = {
+          location: props.history.location
+        }
+        this.unlisten = props.history.listen((location) => {
+	        if (this._isMounted) {
+	          this.setState({
+	            location: location
+	          });
+	        } else {
+	          this._pendingLocation = location;
+	        }
+	      })
+      }
+      render() {
+        <Context.Provider
+          value={{
+            location: this.state.location,
+            history: this.props.history,
+            math: Router.computeRootMatch(this.state.location.pathname),
+          }}
+        >{this.props.children}</Context.Provider>
+      }
+    }
 
-    // export class BrowserRouter extends React.Component {  // BrowserRouter负责提供history对象给Router
-    //   constructor(props) {
-    //     super(props)
-    //     this.history = createBrowserHistory(this.props)
-    //   }
-    //   render() {
-    //     return (
-    //       <Router history={this.history}>
-    //         {this.props.children}
-    //       </Router>
-    //     )
-    //   }
-    // }
-    // // Route：
-    // class Route extends React.Component {
-    //   render() {
-    //     return (
-    //       <Context.Consumer>
-    //         {(context) => {
-    //           const { children, component: Component, render } = this.props
-    //           const props = Object.assign(  // 做一个merge操作：有自己的属性就用自己的 没有的话就用Router提供的
-    //             {},
-    //             context,
-    //             { location, match: matchPath(location.pathname, this.props) }
-    //           )
-    //           return (
-    //             children ?
-    //               typeof children === 'function' ? children(props) : children :
-    //               Component ?
-    //                 match ? // 判断path是否匹配 不匹配的话match为null
-    //                   Component ?
-    //                   <Component {...props} /> :
-    //                   render ?
-    //                     render(props) :
-    //                     null : null : null
-    //           )
-    //         }}
-    //       </Context.Consumer>
-    //     )
-    //   }
-    // }
-    // // Switch：
-    // class Switch extends React.Component {
-    //   render() {
-    //     return (
-    //       <Context.Consumer> 
-    //         {(context) => {
-    //           const { children } = this.props
-    //           const child = children.find((child) => (
-    //             child.props.path ?
-    //               matchPath(location.pathname, child.props) :
-    //               null
-    //           ))
-    //           return (
-    //             React.cloneElement(child, {
-    //               location: location,
-    //               computedMatch: match
-    //             })
-    //           )
-    //         }}
-    //       </Context.Consumer>
-    //     )
-    //   }
-    // }
-    // // Redirect：
-    // class Redirect extends React.Component {
-    //   render() {
-    //     return (
-    //       <Context.Consumer>
-    //         {({ history }) => {
-    //           history.push(this.props.to)
-    //           return null
-    //         }}
-    //       </Context.Consumer>
-    //     )
-    //   }
-    // }
-    // // Link：
-    // class Link extends React.Component {
-    //   render() {
-    //     return (
-    //       <Context.Consumer>
-    //         {({ location, history }) => {
-    //           return (
-    //             <a 
-    //               onClick={(event) => {
-    //                 event.preventDefault()
-    //                 history.push(this.props.to)
-    //               }}
-    //               href={createHref(location)} // 在新标签页中打开
-    //             />
-    //           )
-    //         }}
-    //       </Context.Consumer>
-    //     )
-    //   }
-    // }
-    // // withRouter：
-    // function withRouter(Component) {
-    //   return (props) => (
-    //     <Context.Consumer>
-    //       {(context) => (
-    //         <Component {...context} {...props} />
-    //       )}
-    //     </Context.Consumer>
-    //   )
-    // }
+    export class BrowserRouter extends React.Component {  // BrowserRouter负责提供history对象给Router
+      constructor(props) {
+        super(props)
+        this.history = createBrowserHistory(this.props)
+      }
+      render() {
+        return (
+          <Router history={this.history}>
+            {this.props.children}
+          </Router>
+        )
+      }
+    }
+    // Route：
+    class Route extends React.Component {
+      render() {
+        return (
+          <Context.Consumer>
+            {(context) => {
+              const { children, component: Component, render } = this.props
+              const props = Object.assign(  // 做一个merge操作：有自己的属性就用自己的 没有的话就用Router提供的
+                {},
+                context,
+                {
+                  location: this.props.location || context.location,
+                  match: 
+                    this.props.computedMatch
+                      ? this.props.computedMatch 
+                      : path 
+                        ? matchPath(location.pathname, this.props) 
+                        : context.math } // 有Switch包裹就用props.
+              )
+              return (
+                children // children > match(path) > component > render
+                  ? typeof children === 'function' 
+                    ? children(props) 
+                    : children 
+                  : match // 判断path是否匹配 不匹配的话match为null
+                    ? Component 
+                      ? <Component {...props} /> 
+                      : render 
+                        ? render(props) 
+                        : null 
+                    : null
+              )
+            }}
+          </Context.Consumer>
+        )
+      }
+    }
+    // Switch：
+    class Switch extends React.Component {
+      render() {
+        return (
+          <Context.Consumer> 
+            {(context) => {
+              const { children } = this.props
+              const child = children.find((child) => (
+                child.props.path ?
+                  matchPath(location.pathname, child.props) :
+                  null
+              ))
+              return (
+                React.cloneElement(child, {
+                  location: location,
+                  computedMatch: match
+                })
+              )
+            }}
+          </Context.Consumer>
+        )
+      }
+    }
+    // Redirect：
+    class Redirect extends React.Component {
+      render() {
+        return (
+          <Context.Consumer>
+            {({ history }) => {
+              history.push(this.props.to)
+              return null
+            }}
+          </Context.Consumer>
+        )
+      }
+    }
+    // Link：
+    class Link extends React.Component {
+      render() {
+        return (
+          <Context.Consumer>
+            {({ location, history }) => {
+              return (
+                <a 
+                  onClick={(event) => {
+                    event.preventDefault()
+                    history.push(this.props.to)
+                  }}
+                  href={history.createHref(location)} // 支持右键 (在新标签页中打开)
+                />
+              )
+            }}
+          </Context.Consumer>
+        )
+      }
+    }
+    // withRouter：
+    function withRouter(Component) {
+      return (props) => (
+        <Context.Consumer>
+          {(context) => (
+            <Component {...context} {...props} />
+          ) || <Component />}
+        </Context.Consumer>
+      )
+    }
     
 
 
