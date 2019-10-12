@@ -7,6 +7,7 @@ const static = require('koa-static')
 const Router = require('koa-router')
 const render = require('koa-art-template')
 
+const log = console.log
 const app = new Koa()
 const router = new Router()
 const wrapRouter = new Router()
@@ -71,15 +72,22 @@ function promisify(targetFunc) {
 // 路由： 通过不同的访问路径 导向不同的controler
 
 // 返回绝对路径
-// console.log(path.resolve(__dirname, 'a')) // .../a
-// console.log(path.resolve(__dirname, './a')) // .../a
+// console.log(path.resolve(__dirname, 'a')) // /Users/yy/Desktop/project/test/a
+// console.log(path.resolve(__dirname, './a')) // /Users/yy/Desktop/project/test/a
 // console.log(path.resolve(__dirname, '/a')) // /a
-// console.log(__dirname)  // .../
+// console.log(__dirname)  // 当前目录绝对路径/Users/yy/Desktop/project/test
+// console.log(__filename)  // 当前文件绝对路径
+// console.log(path.resolve()) // 生成绝对路径 /Users/yy/Desktop/project/test
+// console.log(path.resolve('a')) // 拼接字符串 a\
+
+// node event loop
+// poll => check => close cb => timer => i/o cb <=
 
 
 // process.nextTick(() => log(1))
 // setTimeout(() => log(2))
 // setImmediate(() => log(3))
+
 
 // node
 // supervisor nodemon cheerio body-parser(express解析post请求 res.body) art-template

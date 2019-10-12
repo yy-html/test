@@ -11,6 +11,9 @@
     body * {
       outline: 1px #000 solid;
     }
+    .box {
+      height: 100px;
+    }
   </style>
 </head>
 
@@ -21,11 +24,24 @@
   </div>
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
+  
+    
+    
 
+    // // 交集观察者
+    // const io = new IntersectionObserver((entries) => {}, {})
+    // io.observe(document.getElementById('example'))
+    // io.unobserve(element)
+    // io.disconnect()
+    // // DOM观察者
+    // var config = { attributes: true, childList: true, subtree: true }
+    // const observer = new MutationObserver((mutationsList) => {})
+    // observer.observe(targetNode, config)
+    // observer.disconnect()
 
 
     // const a = o.arr || (o.arr = []) // 技巧
-
+ 
     // var dt=1;  //弧度0.5,大概30°
     // function run(){
     //     var r=100;
@@ -40,7 +56,7 @@
     // React-事务机制
     // DOM操作
     // => react触发diaptchEvent
-    // => 开启事务（事务开启前会讲isBatchingUpdates设置为true）
+    // => 开启事务（事务开启前会将isBatchingUpdates设置为true）
     // => transaction.perform(callback, null, a, b, c, d, e)
     // => 调用两个wrapper对象的initialize初始化方法，
     // => 调用事务回调也就是DOM事件
@@ -519,8 +535,14 @@
 
     // hooks 设计动机：
     // 1. class类难以理解（牵强）
-    // 2. 组件逻辑复用困难 class组件复用方式会形成嵌套地狱 hooks提供自定义hook
-    // 3. 逻辑复杂：同一个生命周期可能会包含很多互不相关的逻辑 而且相当一部分逻辑会被生命周期拆分开 hooks将相互关联的逻辑组合到一起
+    // 2. 组件逻辑复用困难 class组件复用方式会形成嵌套地狱 
+      //  hooks提供自定义hook
+    // 3. 逻辑复杂：同一个生命周期可能会包含很多互不相关的逻辑 而且相当一部分逻辑会被生命周期拆分开 
+      //  hooks将相互关联的逻辑组合到一起
+
+    
+
+
 
 
     // ES7  
@@ -940,6 +962,8 @@
     //       next(data);
     //     });
     //   }
+
+
 
     //   next();
     // }
@@ -1741,6 +1765,32 @@
     //   }
     // }
 
+    // 移动端模拟双击事件
+    // function fn() {
+    //   let time = 0
+    //   return (e) => {
+    //     time ++
+    //     setTimeout(() => {
+    //       time = 0
+    //     }, 400)
+    //     if (time > 1) {
+    //       log(2)
+    //     }
+    //   }
+    // }
+    // function fn() {
+    //   let time = 0
+    //   return (e) => {
+    //     if (Date.now() - time < 400) {
+    //       time = 0
+    //       log(2)
+    //     } else {
+    //       time = Date.now()
+    //     }
+    //   }
+    // }
+    // window.onclick = fn()
+
     // document.onclick = fn(f, 1000)
 
     
@@ -2449,10 +2499,394 @@
     // 3. Array.from(a)
     
     
-    // 1. cookie会在http请求中携带 cookie还有path概念 仅存储在某路径下 / webStorage不会
+    // 1. cookie会在http请求中携带 
     // 2. 存储空间：cookie存储大小为4k / webStorage为5M
     // 3. 有效期：cookie手动设置有效期 / localStorage永久存储 sessionStorage会话关闭
-    // 4. 作用域不同
+    // 4. 作用域不同 cookie有path概念 仅存储在某路径下 / webStorage不会
+
+
+
+    // react知识
+    // 重复代码逻辑：就要考虑复用 1. 高阶函数 2. HOC 3. renderProps 
+
+    // 为什么不在componentWillMount中请求n数据？
+    // 如果使用服务端渲染，componentWillMount会执行多次；
+    // componentDidMount中DOM元素已经初始化完毕，可以对DOM元素进行操作 而且setState会发生重渲染 不会阻碍初始化
+
+    // react 的优点？
+    //   首先 react的声明式(直接声明DOM元素和属性)让代码更直观 写法更灵活
+    //   组件化开发 组件可复用 可维护性高 符合开发人员模块化开发的思想
+    //   用虚拟DOM 和 diff算法来操作DOM 提高了性能
+    //   以facebook为背景 有着很成熟的生态圈和发展潜力
+    //   个人喜欢react的原因：写法灵活 相较于vue也可说复杂 比较能锻炼思维 代码优雅
+    //   使用框架的好处：用框架规则来规范代码 使应用工程化，提高可维护性，组件化，用state来控制交互逻辑 更简单
+    // 虚拟DOM
+    // 虚拟DOM和diff算法？
+    //   虚拟DOM是真实DOM的抽象层 他是一个轻量级的js对象 所拥有的属性极少 而真实DOM中创建一个节点需要继承上百条属性 react在初始化的时候就会建立一个虚拟DOM树 render方法的返回值就是虚拟DOM
+    //   当状态发生改变的时候 react会收集之前所有的操作进行一个合并 然后生成一个新的虚拟DOM树 跟旧树进行对比 通过diff算法找出最小改变 更新到真实DOM当中进行一次统一的重绘 以减少没必要的DOM读写
+    //   而标准DOM每进行一次DOM操作就会重绘一次DOM树
+    //   虚拟DOM的缺点：在应用初始化首次渲染大量DOM时，由于多了一层虚拟DOM的计算，会慢一些
+    // diff算法
+    //   diff算法：是DOM树之间层对层比较 大大减少了需要遍历子节点的复杂度 因为在web应用中很少把一个组件节点移动到这颗树的其他层次(结构稳定) 它们通常只是在孩子节点的同层之间移动
+    //     比如说在对比过程中发现两个节点的类型不一样 那么直接删除这个节点和它的子节点并重新创建添加 即创建以这个节点为根的子树，如果相同 就进行下一步更深的比较虚拟DOM
+    // key
+    //     兄弟组件之间需要标识唯一不同的key来让react记住这些元素 来简化更新的过程：因为在做diff的时候 如果元素有key react会去旧树中的同层中寻找存在该key的元素并进行对比 相同则复用不同则更新，没有的话就跟相同位置的元素进行比较。会大大提高更新过程的效率
+    //     为什么key值最好不要用数组索引下标？如果用数组索引值来定义key的话 当数组新增或删除元素 这个元素之后所有元素的key值就会发生改变但这些元素本身并没有发生改变只是移动了位置 从而导致了没必要的更新
+    // 如果兄弟组件内的元素不会发生改变可以使用数组索引
+    // react优化
+    // react 优化途径？
+    //   尽量将事件函数定义在构造器内声明为实例：少在render内使用bind函数和新建函数 因为每一次render都会生成一个新函数；其他引用数据类型亦是如此 因为react判断是否需要重渲是进行的浅层比较
+    //   使用shouldcomponentupdate或PureComponent或Memo来进行对比阻止无必要渲染
+    //   render函数内尽量不要做副作用或复杂计算
+    //   元素或组件key值尽量使用唯一且不变的
+    //   不要随意更改外层包裹组件的节点类型 因为diff算法 两个节点类型不同将废掉此节点和其子节点重新创建
+    //   如果使用Redux 可以使用Redux中间件reselect来把store的state来进行缓存重用
+    //   懒加载组件 import方法动态 配合React Lazy Suspense
+    //   使用Fragment减少额外标签的创建
+
+    // redux运行流程
+    // redux 运行流程？
+    //   首先view视图层发出action 通过dispatch将动作传递到store
+    //   store调用reducer 通过接受的state和action来重新计算state并返回一个新state给store的state
+    //   state发生改变 执行所有通过subscribe订阅的函数来完成视图的重渲
+    // Js代码优化
+    // js 代码性能优化
+    //   script标签使用defer属性：跟文档同时加载 在文档加载完后执行 anync 跟文档同时加载 加载完立刻执行
+    //   尽量减或批量化DOM操作
+    //   对重复访问的dom对象使用局部变量保存 否则每次访问都要去DOM操作 而且每次使用完毕进行销毁
+    //   元素加事件尽量使用时间委托 因为遍历DOM元素会影响性能
+    //   尽量避免全局变量的搜索 声明局部变量 避免作用域链的查找
+    //   switch比if else要快 for in是最浪费性能的一种循环 每次都要通过原型链搜索属性
+    //   遍历数组，应先缓存数组长度
+    //   处理数据时的尾调用递归优化
+    //   其他的还要落实在具体的代码中
+    // 单向数据流
+    // 单向数据流？
+    //   单向数据流是指只能从一个方向一个源头来修改状态 它限制了修改状态的方式 让状态变的可追踪 易调试 出了问题	可以更快速的找到问题所在 所以比如父给子传值 这个值在子组件内不得修改 修改了就不符合单向数据流会让应用内数据的流向变得繁琐 会导致一系列问题
+    // setState
+    // setState的理解？
+    //   当调用setState，react会收集一批需要更新的组件，每一个组件又对应一批需要更新的状态，然后一次性批量更新来保证渲染的性能，是通过一个队列机制来实现的异步更新
+    //       当执行setState的时候会收集需要更新的state 合并后放入更新队列而不会立即更新 到了一定时间它会批量处理这些更新 执行更新周期重绘页面
+    //       setState在rend函数执行的时候才会被更新或者shoulComponentUpdate返回false之后
+    // setState同步
+    // setState怎么实现同步更新？
+    //   setState也可以同步更新 由react引发的事件处理而调用的setState是异步更新 而绕过react通过addEventListener()添加绑定事件函数和setInterval setTimeout所调用的setState是同步更新 还可以利用函数式setState中的state来获取到正在队列中的最新state 或是通过setState第二个回调函数参数来拿到更新之后的state
+    // setState更新原理
+    // setState更新机制原理？
+    //   setState是通过一个更新机制 batch update 来实现的 在MVC或者是MVVM框架中可以理解为将一段时间内对model的修改批量更新至view的过程
+    //   每次setState会将新state放入队列当中 然后根据一个变量来判断是否直接更新state 这个变量默认为false 也就是直接同步更新state 但是当通过react事件或生命周期调用的setState react会调用一个函数来修改这个变量为ture 从而放入等待队列中一步批量更新
+    //   当react的生命周期被调用或者react合成事件被触发时，会将变量isBatchingUpdates设置为true，表示开启了一个事务；
+    //   当setState时，先将待更新的state放入更新队列([] _pendingStateQueue)；
+    //   然后判断isBatchingUpdates为true：则将调用setState的组件实例也放入一个队列([] dirtyComponents)，等待批量更新；否则为false则直接进入该组件的更新流程
+    //   当组件更新完毕并且调用callback完成后会将isBatchingUpdates重置为false，表示当前事务已完成。
+      
+
+    // react初始化渲染原理
+    // react-babel 会将标签编译成React.createElement(), 返回一个DOM描述对象（虚拟DOM）
+    // {
+    // $$typeof: Symbol(react.element),	key: null,	props: {a: "a", children: "1"},	ref: null,	type: "div",	_owner: null,	_store: {validated: false}, _self: null,	_source: null,	__proto__: Object
+    // }
+
+    // 判断Element类型：1.DOM描述对象或数组 2.基础数据类型
+    // 1. 步骤：首先判断type，1.1 原生DOM字符串 1.2 组件函数：
+    //       1.1 直接调用ReactDOMComponent.mountComponent：生成真实DOM元素，再将children插入为子元素判断类型重复以上
+    //       1.2 调用ReactCompositeComponentWrapper.mountComponent：react会生成组件实例 FuncComponent：Func(props)；ClassComponent：new Func(props).render()，调用生命周期，返回Element判断类型重复以上
+    //   2. 是基础类型再判断是不是空类型 2.1 string | number 2.2. undefined null false true
+    //       2.1 ReactDOMTextComponent
+    //       2.2 ReactDOMEmptyComponent
+    // 调用这些方法生成真实DOM对象并插入到对应container
+    //  
+
+
+
+    // MVC和MVVM
+    // MVC和MVVM？
+    //   都是软件架构方式
+    //   MVC：View传送指令到Controller；Controller完成业务逻辑后更改Medol；Medel将数据发送至View 实现视图的更新 数据流向是单向的  缺点 View和Model紧密联系 耦合度太高
+    //   MVVM：将数据双向绑定做为核心 VM充当视图和数据源的观察者 View和Model之间没有联系 View的改变会传送至VM VM完成业务逻辑更新Model；反之亦然
+    //   View的变化会修改数据源Model；Model的变化也会反映在视图上 优点 低耦合度 View和Model不能直接交互 当View改变Model可以不用发生改变 反之亦然；提高重用性；可测试性高
+
+    // 数据双向绑定原理？
+    //   通过 数据劫持 结合 发布订阅者模式 实现的
+    // CMD和AMD
+    // CMD和AMD？
+    //   都是模块化开发规范
+    //       commonJS:  服务端的模块化规范 nodeJS采用了这个规范
+    //   AMD：推崇依赖前置（依赖提前执行）；需要用到对应的库 RequireJS；它主要解决两个问题：JS文件的依赖关系 JS依赖文件加载时会阻塞页面渲染；而且不会污染全局环境
+    //         requireJS加载的函数是异步加载的 这样浏览器不会失去响应；只有模块加载完毕才会执行回调 解决了文件依赖问题
+    //   主要通过difine方法将代码定义为模块 require方法将模块引入加载
+    //   require方法接受两个参数第一个参数为数组 表示所依赖模块 第二个参数是模块记载完成执行的回调函数
+    //   CMD：推崇依赖就近（用到才加载）；
+    //   最大的区别：对依赖模块的执行时机不同
+    // react router原理
+    // react router 的原理？
+    // 通过H5的history API来实现的无刷新页面修改地址栏
+    // history.pushState(state,’标题’,url)
+    // replaceState 方法 
+    // onpopstate事件
+    // pushState和replaceState方法用来改变history实体 当被改变的时候会触发onpopstate事件
+    // 什么情况redux
+    // 什么情况下使用Redux？
+    //   redux就是一个状态管理器 用来共享状态 免去组件间的传值 所以：
+    //   组件内某些状态需要共享
+    //   页面内交互逻辑复杂 一个状态需要改变全局多个组件逻辑
+    //   与服务器大量交互且多数据源
+    //   如果需求达不到则不需使用redux
+    // redux缺点
+    // Reduxde 缺点？
+    // 需求达不到不需要使用 无疑增加了代码量
+    // 更改一处状态需要调用多个文件来协同处理 actionCreator啦reducer啦connect啦
+    // 需要发送异步action还需要通过中间件来处理 它整体的逻辑是不简单的
+    // reducer纯函数
+    // reducer纯函数？
+    // 1.它的返回结果只依赖于他的参数 不依赖外部
+    // 同样的输入必定的发哦同样的输出
+    // 所以返回值不接受不纯的方法 比如random随机
+    // 2.在执行过程中不对外具有副作用
+    // 容器组件
+    // 容器组件和UI组件？
+    // UI组件只负责展示 不具有业务逻辑
+    // 没有状态 数据只依赖于props
+    // react和vue的区别
+    // react和vue的区别？
+    //     virtual DOM不一样,vue会跟踪每一个组件的依赖关系,不需要重新渲染整颗组件树.而对于React而言,每当应用的状态被改变时,这颗DOM树和它的子树都会重新渲染,需要shouldComponentUpdate这个钩子来控制
+    //     Vue封装了大量的API，react主要构建UI 内置API很少 很多功能需要自己来写逻辑 或者引用第三方
+    //     vue书写html结构更趋向于原生写法 而react是声明式的 将html结构嵌入js代码 写法更自由更灵活
+
+    // redux 三大原则
+    // 单一数据源：只存在一个state 只存在一个store
+    // state：只能通过显示的dispatch一个action来更改state
+    // resucer是一个纯函数：只能通过纯函数来修改state
+
+
+
+
+
+
+    // 其他知识
+    // fetch && xhr && axios
+    // fetch：ES6新规范；免封装 语法简洁语义化；基于promise设计 解决回调地狱问题；可以设置不透传cookie
+    // 缺点：不能中断请求，没有获取当前请求状态的方法
+
+
+    // 像素
+    // 物理像素和逻辑像素？
+    // 物理像素=设备独立像素 逻辑像素=CSS像素
+    // dpr 等于 物理像素比逻辑像素 window.devercePR
+    // iphone6  375*667
+    // Onload 
+    // onload事件？
+    // 对象: window image
+    // 标签: body img script iframe
+    // post  get
+    // ajax post和get的区别？
+    // （1）使用Get请求时,参数在URL中显示,而使用Post请求,则不会显示出来； 
+    // （2）Post传输的数据量大，可以达到2M，而Get方法由于受到URL长度的限制,只能传递大约1024字节. 
+    // （3）Get请求请求需注意缓存问题,Post请求不需担心这个问题； 
+    // （4）Post请求必须设置Content-Type值为application/x-form-www-urlencoded； 
+    // （5）发送请求时,因为Get请求的参数都在url里,所以send函数发送的参数为null,而Post请求在使用send方法时,却需赋予其参数； 
+    // （6）GET方式请求的数据会被浏览器缓存起来，因此其他人就可以从浏览器的历史记录中读取到这些数据，例如账号和密码等。在某种情况下，GET方式会带来严重的安全问题。而POST方式相对来说就可以避免这些问题。
+    // 对象遍历：Object.keys  for in Object.getOwnProperty
+    // Object.keys: 遍历对象的自有的 可枚举属性
+    // For in: 遍历对象的自有和原型的 可枚举属性
+    // Object.getOwnPropertyNames: 遍历对象的自有的 可枚举不可枚举属性
+    // 继承
+    // 继承？
+    // 1.原型继承(拷贝继承,原型链继承)：将父类的实例赋给子类构造器的prototype,将父类的原型通过遍历的方式赋给子类构造器原型
+    // 2.构造继承：将父类构造函数的作用域指向子类F.apply(s,arguments)
+    // 3.实例继承：子类内部返回父类实例
+    // 4.组合继承：结合构造继承与原型继承
+    // 5.寄生组合继承：结合构造继承，通过寄生的方式砍掉父类的实例方法，
+    // 创建一个空类，把父类的原型赋给空类的原型，再把这个实例赋给子类构造器的原型
+    // ES6类继承：
+    // 面向对象
+    // 面向对象式编程：重用性、灵活性和扩展性 把程序模块化 这些模块可以在类的外部被调用，符合编程思维的高内聚低耦合（继承，封装，多态）
+    // Ajsx
+    // ajax步骤？
+    // 创建XHR对象
+    // 调用open方法创建请求
+    // 调用send方法发送请求
+    // onreadystatechange获取请求的状态码
+    // 判断状态码是否成功
+    // 调用ajax的responseText属性返回数据
+    // CSS居中
+    // CSS未知宽高实现水平垂直居中？
+    // 父元素relative 子元素absolute 4个零一个auto
+    // 父元素relative 子元素top: 50%,left: 50%,transform: translate(-50%,-50%)
+    // 父元素Flex: justify-content:center,align-items:center
+    // 父元素text-align:center 
+    // span:inline-block vertical-align:middle width:0 height:100%
+    // 子元素: inline-block vertical-align:middle
+
+    // CSS伪元素清除浮动？
+    // ::after {content: “”, display:block, clear:both, height: 0, visibility: hidden}
+    // ES6
+    // ES6？
+    // 新增了let const声明方式
+    // 新增块级作用域
+    // 箭头函数
+    // class类的支持
+    // ES6模块化方式
+    // Promise对象
+    // 解构赋值
+    // 一些数据类型的拓展
+    // 箭头函数
+    // 箭头函数和普通函数的区别？
+    // 不绑定this(this指向为上下文的作用域)
+    // 不绑定arguments
+    // 没有原型属性
+    // 不能构造实例(不能使用new操作符)
+    // Let和const
+    // let和const？
+    // Var声明的变量会挂载在window上, let const则不会
+    // 有自己独立的块级作用域
+    // 不存在变量提升 必须先声明后使用
+    // 相同作用域内不可以重复声明 不可以同时声明多个变量
+    // 暂时性死区
+    // Const 不允许被重新赋值 声明时必须立刻赋值
+    // H5新特性
+    // H5新特性？
+    // 新增了本地存储localStorage sessionStorage
+    // 新增了一些语义话标签
+    // 新增了一些表单控件date、time、email、url、search
+    // video 和 audio媒体元素
+    // 新增地理定位Geolocation
+    // CSS3新特性
+    // transition
+    // animation
+    // transfrom
+    // 新增选择器
+    // 弹性盒布局
+    // box-shdow
+
+    // window 提供js与浏览器交互的方法与接口
+    // Window(BOM浏览器对象模型)：window.open
+    // Navigator 访问者的浏览器信息 userAgent
+    // History：浏览器历史信息 包括前进forward后退goback一些方法
+    // Location：当前url地址和一些跳转的方法
+    // Screen: 用户显示器的分辨率详细信息
+    // 内存泄漏
+    // 内存泄漏的原因？
+    // 意外的全局变量设置
+    // 定时器没有被清除
+    // 一些循环的回调
+    // 没有清理的DOM元素引用
+    // 闭包生成的变量
+    // 闭包
+    // 闭包的特点？
+    // 函数总能访问其外部函数所声明的变量
+    // 这些变量不会被垃圾回收机制回收
+    // 容易引起内存泄漏
+    // 垃圾回收机制
+    // JS的垃圾回收机制会按固定的时间周期性的执行
+    // 最常见的方式是 1. 标记清除
+
+    // 2. 引用计数
+
+
+    // 浏览器缓存机制
+    // 浏览器缓存机制？
+    // 用户发送请求
+    // 判断缓存是否存在
+    // 1  存在的话
+    // 判断缓存是否过期
+    //   过期的话重新向服务器发送请求
+    //   没过期的话从缓存中读取
+    // 最后呈现数据
+    // 2 不存在的话
+    // 向服务器发送请求
+    // 然后协商是否使用缓存
+    // 最后呈现数据
+    // JS预解析
+    // js预解析？
+    // Js引擎
+    // 单线程和事件循环
+    // 单线程和事件循环？
+    // Js是单线程的脚本：代码按顺序执行 前面任务处理好才会执行后边的 他会阻塞程序的运行
+    // 但是js当中又有很多异步操作 所以它又有一个事件循环的机制：
+    // 程序在执行时 当遇到异步函数 js会将它在浏览器的事件表中进行记录 然后继续向下执行 当这个异步时间结束之后 事件表会将它的回调函数添加至事件队列等待执行 当执行栈的程序执行完毕 js会轮询事件队列 将它发现的函数置入执行栈执行；执行栈为空时 则继续轮训事件列表
+
+    // 事件队列又分为宏任务队列和微任务队列：
+    // 宏任务：定时器
+    // 微任务：new Promise；new MutaionObserver
+    // 轮询事件列表有优先级 首先会查找微任务队列 有任务就将排在第一位的回调执行 没有再查找宏任务队列（每次事件轮训只会拿出一个任务, 因为微任务优先级高, 所以也可以理解为每次循环清空微任务列表, 没有微任务的话就去拿一个宏任务） 如此循环
+
+    // 调用栈：解析器去处理程序的机制，是一种栈数据结构：能够追踪子任务的运行状态
+
+
+    // 二叉树？
+    // 是指数据结构中每个节点最大有两颗子树
+
+    // 复杂度？
+    // 时间复杂度：执行算法所需要的计算工作量(时间)
+    // 空间复杂度：执行算法所需要的内存空间(内存占用)
+    // Ajax axios fetch
+    // ajax axios fetch?
+    // Ajax是原生的XHR对象
+    // Axios本质也是XHR对象的封装 但它属于promise的实现版本 自动转换json数据
+    // Fetch也是基于promise设计不会默认附带cookie至服务端 需配置credentials: 'include'
+    // 脱离了XHR，是ES规范里新的实现方式
+    // 语法简洁 更加语义话
+    // Cookie和WebStorage
+    // WebStorage与cookie？
+    // 1. Cookie会在浏览器端和服务端来回传递 WebStorage则不会自动传递
+    // 2. 存储大小不同 cookie数据不能超过4k WebStorage可以达到5M
+    // 3. 数据有效期不同 cookie需要手动设置
+
+    // CSS选择器？
+    // 通配符选择器
+    // 元素选择器
+    // 类选择器 单类和多类
+    // ID选择器
+    // 属性选择器 具体属性 部分属性
+    // 派生选择器 后代选择器 子选择器 相邻兄弟 关联选择器
+    // 群组选择器
+    // 伪类选择器 hover nth-of-type nth-child
+    // 伪元素选择器
+    // script元素
+    // Async：立即下载脚本 异步下载 不妨碍文档的加载（跟文档同时加载）加载完成后立即执行且不保证执行顺序 只对外部引入代码有效
+    // Defer：立即下载脚本 异步下载 不妨碍文档的加载（跟文档同时加载）等待所有文档加载完毕后执行  只对外部引入代码有效
+    // Script放入</body>前的好处：解析文档按顺序线性加载 放在body末尾说明文档全部加载完毕再加载js代码（不妨碍文档的加载）
+    // 返回为false的值
+    // 0
+    // “”
+    // Null
+    // Undefined
+    // NaN
+    // false
+    // 强制类型转换
+    // Number() Bloean() parseInt() parseFloat() toString() String()
+
+
+    // 工作当中最难解决的问题
+    // 自己的技术栈
+
+    // 平时学习途径？
+    // 前期:
+    // w3schcool  菜鸟教程   各大网站官方API   一些网上教程
+    // 后期:
+    // 慕课网 网易云课堂 腾讯课堂 csdn论坛 阿玛尼 tf
+
+
+    // flex：
+    // // 父元素
+    // flex-direction: row(默认) | row-reverse | column | column-reverse // 主轴排列方式（行 | 列）
+    // flex-wrap: nowrap | wrap | wrap-reverse;  // 主轴放不下 换行 | 不换行
+    // justify-content: flex-start | flex-end | center | space-between | space-around // 主轴方向对齐方式
+    // align-items: flex-start | flex-end | center | baseline | stretch // 侧轴方向对齐方式
+    // align-content
+    // flex-flow: flex-direction || flex-wrap
+    // // 子元素
+    // order: number // 项目的排列顺序。数值越小，排列越靠前，默认为0
+    // flex-grow: number // 项目所占剩余空间比例 默认为0，即如果存在剩余空间，也不放大
+    // flex-shrink // 项目缩小比例，默认为1，即如果空间不足，该项目将缩小
+    // flex-basis
+    // align-self: // 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch
+    // flex: flex-grow || flex-shrink || flex-basis
+
+
+    
+
 
 
     
