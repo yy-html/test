@@ -12,7 +12,10 @@
       outline: 1px #000 solid;
     }
     .box {
-      height: 100px;
+
+    }
+    .box1 {
+      
     }
   </style>
 </head>
@@ -20,11 +23,12 @@
 <body>
   <div class="box" id="box" title="box">
     <div class="box1" id="box1">
+
     </div>
   </div>
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
-  
+
     
     
 
@@ -747,14 +751,15 @@
     // pointer-events: none; 阻止元素任何JS事件
 
     // // 水平居中
-    // 1. text-align：center（子元素：字符串 行内元素 行内快元素）
+    // 1. text-align：center（子元素：字符串 行内元素 行内块元素）
     // 2. margin：auto(块元素 有宽度)
     // 3. flex + 主侧轴 | 子元素margin：auto
     // 4. position + thransform: thranslate()
     // // 垂直居中
     // 1. line-height：（单行 行内元素 行内块元素）
+    // 2. 父：line-height / font-size : 0 子：vertical-align：middle
     // 2. flex
-    // 3. position + thransform
+    // 3. position + thransform / margin-left + thransform
     // 4. 父元素（diaplay：table） 子元素（display：table-cell vertical-middle）
 
 
