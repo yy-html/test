@@ -8,14 +8,17 @@
   <title>{{title}}</title>
   <!-- <link rel="stylesheet" href="./node_modules/xterm/dist/xterm.css" /> -->
   <style>
+
     body * {
       outline: 1px #000 solid;
     }
     .box {
-
+      border: 1px #000 solid;
+      height: 100px;
+      padding: 2px;
     }
     .box1 {
-      
+
     }
   </style>
 </head>
@@ -29,33 +32,55 @@
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
 
-    
-    
 
-    // // 交集观察者
-    // const io = new IntersectionObserver((entries) => {}, {})
-    // io.observe(document.getElementById('example'))
-    // io.unobserve(element)
-    // io.disconnect()
-    // // DOM观察者
-    // var config = { attributes: true, childList: true, subtree: true }
-    // const observer = new MutationObserver((mutationsList) => {})
-    // observer.observe(targetNode, config)
-    // observer.disconnect()
+  
+  </script>
 
+  <script>throw void 0
 
-    // const a = o.arr || (o.arr = []) // 技巧
+    // 交集观察者
+    const io = new IntersectionObserver((entries) => {}, {})
+    io.observe(document.getElementById('example'))
+    io.unobserve(element)
+    io.disconnect()
+    // DOM观察者
+    const config = { attributes: true, childList: true, subtree: true }
+    const observer = new MutationObserver((mutationsList) => {})
+    observer.observe(targetNode, config)
+    observer.disconnect()
+
+     
+    // 技巧
+    const a = o.arr || (o.arr = [])
  
-    // var dt=1;  //弧度0.5,大概30°
-    // function run(){
-    //     var r=100;
-    //     var Py=Math.sin(dt)*r;
-    //     var Px=Math.cos(dt)*r;
-    //     box.style.left = Px + 'px'
-    //     box.style.top = Py + 'px'
-    //     dt+=0.03
-    // }
-    // window.setInterval(run, 10)
+    // 圆
+    var dt=1;  //弧度0.5,大概30°
+    function run(){
+        var r=100;
+        var Py=Math.sin(dt)*r;
+        var Px=Math.cos(dt)*r;
+        box.style.left = Px + 'px'
+        box.style.top = Py + 'px'
+        dt+=0.03
+    }
+    window.setInterval(run, 10)
+
+    // 浏览器缓存：
+    // http缓存：
+    // 对于http缓存可以分为3个步骤：
+    // 1. 发起请求 2. 后端处理 3. 浏览器响应
+    // 当第一次对起源发起请求，服务端会将资源和响应头缓存字段一块返回给客户端，浏览器将资源和响应头缓存在本地；
+    // 再次发起请求时，浏览器会判断强缓存字段（Expires：过期时间 / Cache-Control：max-age 过期间隔/秒）是否过期，没有过期的话直接读取本地缓存；
+    // 如果强缓存过期，会将协商缓存字段请求头发送给服务器，协商缓存有两个规则：
+    // 1. Last-Modified/If-Modifiled-Since：资源最后修改时间
+    // 2. ETag/If-None-Match：资源改动唯一标示
+    // 服务端在接收到请求后，会判断客户端缓存资源与服务器资源是否一致，如果一致，只返回Header，并返回状态码304，浏览器接收响应后读取本地缓存
+    // 如果不一致，返回最新资源和状态码200
+    // 缓存位置：
+    // 1. Service Worker：运行在浏览器背后的独立线程
+    // 2. Memory Cache 内存缓存：（主要包括样式/脚本/图片；会话级 随进程的释放而释放）需要注意的事情是，内存缓存在缓存资源时并不关心返回资源的HTTP缓存头Cache-Control是什么值，同时资源的匹配也并非仅仅是对URL做匹配，还可能会对Content-Type，CORS等其他特征做校验。
+    // 3. Disk Cache 硬盘缓存：强缓存（需要根据响应头强缓存字段判断）
+    // 4. Push Cache：是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使用。它只在会话（Session）中存在，一旦会话结束就被释放，并且缓存时间也很短暂，在Chrome浏览器中只有5分钟左右，同时它也并非严格执行HTTP头中的缓存指令。
 
     // React-事务机制
     // DOM操作
@@ -758,9 +783,9 @@
     // // 垂直居中
     // 1. line-height：（单行 行内元素 行内块元素）
     // 2. 父：line-height / font-size : 0 子：vertical-align：middle
-    // 2. flex
-    // 3. position + thransform / margin-left + thransform
-    // 4. 父元素（diaplay：table） 子元素（display：table-cell vertical-middle）
+    // 3. flex
+    // 4. position + thransform / margin-left + thransform
+    // 5. 父元素（diaplay：table） 子元素（display：table-cell vertical-middle）
 
 
     // JSON.stringify()
@@ -1089,10 +1114,34 @@
     // DOM
 
     // box => HTMLDivElement => HTMLElement => Element => Node => EventTarget => Object
+
+    // clientLeft/Top：padding到border的距离
+    // clientWidth/Height：元素宽度（不包含border）
+
+    // offsetLeft/Top：和最近父元素的距离
+    // offsetWidth/Height：元素宽度（包含border）
+
+    // scrollWidth/Height：同client
+    // scrollLeft/Top：元素内滚动距离
+
+    // window.innerHegiht/Width：视口大小
+    // window.screen.height/width：客户端分辨率
+
+    // event:
+    // offsetX/Y：相对于事件源的鼠标距离
+    // clientX/Y：相对于浏览器视口的鼠标距离
+    // screenX/Y：相对于屏幕的鼠标距离
+
+    // dom.getBoundingClientRect()：返回4个属性 距离浏览器视口的距离
+    
+
+
+
+
     
     // console.log(ul.getElementsByTagName('*'))   //子孙节点
     // console.log(ul.querySelector('*'))          //子孙节点
-    // console.log(ul.children)                    //子节点
+    // console.log(ul.children | childNodes)                    //子节点
 
 		// const box = document.getElementById('box')
 		// const element = document.createElement('div')
@@ -2480,8 +2529,16 @@
     // 作用域：限制代码范围内变量的可用性
     // 作用域链作用：本质上是一个指向变量对象的指针列表 只引用但不实际包含变量对象(保证执行环境内变量的合法、有序访问;作用域的前端，始终都是当前执行环境的变量对象(如果是函数执行环境 AO则充当其变量对象))
     // 函数的对象上下文 => this
+
+    // 当调用一个函数：将该函数压入执行栈并创建执行环境(变量初始化及提升)
+
     // 执行环境：每次进入函数都会创建一个完全不同的执行环境; 运行完毕即销毁
-    //    执行环境组成: 变量对象VariableObject（形参 变量 函数声明）; 作用域链(ActivationObject: 会由arguments和命名参数初始化 [[Scopes]]); this;
+    // 执行环境组成: 变量对象VariableObject（形参 变量 函数声明）/ ActivationObject: （arguments 形参 变量 函数声明）; 
+    //             作用域链([[Scopes]]：由当前和父级变量对象生成);
+    //             this;设置 this 值
+
+    // 然后执行代码
+    
 
     // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级作用域链的 是完全共享的
     // ：内部函数的作用域链仍然保持着对父函数活动对象的引用
@@ -2691,7 +2748,7 @@
     // （4）Post请求必须设置Content-Type值为application/x-form-www-urlencoded； 
     // （5）发送请求时,因为Get请求的参数都在url里,所以send函数发送的参数为null,而Post请求在使用send方法时,却需赋予其参数； 
     // （6）GET方式请求的数据会被浏览器缓存起来，因此其他人就可以从浏览器的历史记录中读取到这些数据，例如账号和密码等。在某种情况下，GET方式会带来严重的安全问题。而POST方式相对来说就可以避免这些问题。
-    // 对象遍历：Object.keys  for in Object.getOwnProperty
+    // 对象遍历：Object.keys for in Object.getOwnPropertyNames
     // Object.keys: 遍历对象的自有的 可枚举属性
     // For in: 遍历对象的自有和原型的 可枚举属性
     // Object.getOwnPropertyNames: 遍历对象的自有的 可枚举不可枚举属性
@@ -2714,33 +2771,17 @@
     // onreadystatechange获取请求的状态码
     // 判断状态码是否成功
     // 调用ajax的responseText属性返回数据
-    // CSS居中
-    // CSS未知宽高实现水平垂直居中？
-    // 父元素relative 子元素absolute 4个零一个auto
-    // 父元素relative 子元素top: 50%,left: 50%,transform: translate(-50%,-50%)
-    // 父元素Flex: justify-content:center,align-items:center
-    // 父元素text-align:center 
-    // span:inline-block vertical-align:middle width:0 height:100%
-    // 子元素: inline-block vertical-align:middle
+    
 
     // CSS伪元素清除浮动？
     // ::after {content: “”, display:block, clear:both, height: 0, visibility: hidden}
-    // ES6
-    // ES6？
-    // 新增了let const声明方式
-    // 新增块级作用域
-    // 箭头函数
-    // class类的支持
-    // ES6模块化方式
-    // Promise对象
-    // 解构赋值
-    // 一些数据类型的拓展
-    // 箭头函数
+    
     // 箭头函数和普通函数的区别？
     // 不绑定this(this指向为上下文的作用域)
     // 不绑定arguments
     // 没有原型属性
     // 不能构造实例(不能使用new操作符)
+
     // Let和const
     // let和const？
     // Var声明的变量会挂载在window上, let const则不会
@@ -2749,20 +2790,7 @@
     // 相同作用域内不可以重复声明 不可以同时声明多个变量
     // 暂时性死区
     // Const 不允许被重新赋值 声明时必须立刻赋值
-    // H5新特性
-    // H5新特性？
-    // 新增了本地存储localStorage sessionStorage
-    // 新增了一些语义话标签
-    // 新增了一些表单控件date、time、email、url、search
-    // video 和 audio媒体元素
-    // 新增地理定位Geolocation
-    // CSS3新特性
-    // transition
-    // animation
-    // transfrom
-    // 新增选择器
-    // 弹性盒布局
-    // box-shdow
+    
 
     // window 提供js与浏览器交互的方法与接口
     // Window(BOM浏览器对象模型)：window.open
@@ -2770,13 +2798,14 @@
     // History：浏览器历史信息 包括前进forward后退goback一些方法
     // Location：当前url地址和一些跳转的方法
     // Screen: 用户显示器的分辨率详细信息
+
     // 内存泄漏
     // 内存泄漏的原因？
     // 意外的全局变量设置
     // 定时器没有被清除
     // 一些循环的回调
-    // 没有清理的DOM元素引用
     // 闭包生成的变量
+
     // 闭包
     // 闭包的特点？
     // 函数总能访问其外部函数所声明的变量
@@ -2789,19 +2818,7 @@
     // 2. 引用计数
 
 
-    // 浏览器缓存机制
-    // 浏览器缓存机制？
-    // 用户发送请求
-    // 判断缓存是否存在
-    // 1  存在的话
-    // 判断缓存是否过期
-    //   过期的话重新向服务器发送请求
-    //   没过期的话从缓存中读取
-    // 最后呈现数据
-    // 2 不存在的话
-    // 向服务器发送请求
-    // 然后协商是否使用缓存
-    // 最后呈现数据
+
     // JS预解析
     // js预解析？
     // Js引擎
@@ -2825,18 +2842,6 @@
     // 复杂度？
     // 时间复杂度：执行算法所需要的计算工作量(时间)
     // 空间复杂度：执行算法所需要的内存空间(内存占用)
-    // Ajax axios fetch
-    // ajax axios fetch?
-    // Ajax是原生的XHR对象
-    // Axios本质也是XHR对象的封装 但它属于promise的实现版本 自动转换json数据
-    // Fetch也是基于promise设计不会默认附带cookie至服务端 需配置credentials: 'include'
-    // 脱离了XHR，是ES规范里新的实现方式
-    // 语法简洁 更加语义话
-    // Cookie和WebStorage
-    // WebStorage与cookie？
-    // 1. Cookie会在浏览器端和服务端来回传递 WebStorage则不会自动传递
-    // 2. 存储大小不同 cookie数据不能超过4k WebStorage可以达到5M
-    // 3. 数据有效期不同 cookie需要手动设置
 
     // CSS选择器？
     // 通配符选择器
@@ -2848,6 +2853,7 @@
     // 群组选择器
     // 伪类选择器 hover nth-of-type nth-child
     // 伪元素选择器
+
     // script元素
     // Async：立即下载脚本 异步下载 不妨碍文档的加载（跟文档同时加载）加载完成后立即执行且不保证执行顺序 只对外部引入代码有效
     // Defer：立即下载脚本 异步下载 不妨碍文档的加载（跟文档同时加载）等待所有文档加载完毕后执行  只对外部引入代码有效
@@ -2867,10 +2873,9 @@
     // 自己的技术栈
 
     // 平时学习途径？
-    // 前期:
-    // w3schcool  菜鸟教程   各大网站官方API   一些网上教程
     // 后期:
-    // 慕课网 网易云课堂 腾讯课堂 csdn论坛 阿玛尼 tf
+    // 慕课网 网易云课堂 腾讯课堂 
+    // github 知乎 csdn 掘金 简书
 
 
     // flex：
