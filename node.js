@@ -80,13 +80,23 @@ function promisify(targetFunc) {
 // console.log(path.resolve()) // 生成绝对路径 /Users/yy/Desktop/project/test
 // console.log(path.resolve('a')) // 拼接字符串 a\
 
-// node event loop
-// poll => check => close cb => timer => i/o cb <=
 
-
-// process.nextTick(() => log(1))
-// setTimeout(() => log(2))
-// setImmediate(() => log(3))
+// process.nextTick(() => {
+//   setTimeout(() => {
+//     log(4)
+//   })
+//   log(1)
+//   for (let i = 0; i < 900000; i ++) {}
+// })
+// setTimeout(() => {
+//   log(2)
+//   setTimeout(() => {
+//     log(6)
+//   })
+//   setImmediate(() => log(3))
+// })
+// // setImmediate(() => log(3))
+// setImmediate(() => log(7))
 
 
 // node
@@ -120,7 +130,3 @@ function promisify(targetFunc) {
 // 变量 必须通过script脚本执行的js文件才能拿到npm环境变量
 // process.env.npm_package_version // Bash: $npm_package_version
 // process.env.npm_lifecycle_event = 当前脚本执行的名称（包含钩子脚本）
-
-// process.nextTick // 调用栈结束后执行（事件循环前）
-// setTimeout // timer 事件轮询poll后执行
-// setImmediate // check 事件轮询后执行（在主环境里 或先于timer或晚于timer 不确定）（在I/O操作的回调中 总是先于timer执行 晚于next tick队列）

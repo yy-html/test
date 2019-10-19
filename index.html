@@ -33,37 +33,40 @@
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
 
 
+
   
   </script>
 
   <script>throw void 0
 
+
+
     // 交集观察者
-    const io = new IntersectionObserver((entries) => {}, {})
-    io.observe(document.getElementById('example'))
-    io.unobserve(element)
-    io.disconnect()
+    // const io = new IntersectionObserver((entries) => {}, {})
+    // io.observe(document.getElementById('example'))
+    // io.unobserve(element)
+    // io.disconnect()
     // DOM观察者
-    const config = { attributes: true, childList: true, subtree: true }
-    const observer = new MutationObserver((mutationsList) => {})
-    observer.observe(targetNode, config)
-    observer.disconnect()
+    // const config = { attributes: true, childList: true, subtree: true }
+    // const observer = new MutationObserver((mutationsList) => {})
+    // observer.observe(targetNode, config)
+    // observer.disconnect()
 
      
     // 技巧
-    const a = o.arr || (o.arr = [])
+    // const a = o.arr || (o.arr = [])
  
     // 圆
-    var dt=1;  //弧度0.5,大概30°
-    function run(){
-        var r=100;
-        var Py=Math.sin(dt)*r;
-        var Px=Math.cos(dt)*r;
-        box.style.left = Px + 'px'
-        box.style.top = Py + 'px'
-        dt+=0.03
-    }
-    window.setInterval(run, 10)
+    // var dt=1;  //弧度0.5,大概30°
+    // function run(){
+    //     var r=100;
+    //     var Py=Math.sin(dt)*r;
+    //     var Px=Math.cos(dt)*r;
+    //     box.style.left = Px + 'px'
+    //     box.style.top = Py + 'px'
+    //     dt+=0.03
+    // }
+    // window.setInterval(run, 10)
 
     // 浏览器缓存：
     // http缓存：
@@ -333,6 +336,7 @@
 
 
 // 业务组件当中可以内嵌Route标签做tag切换
+
 // export default class First extends Component{
 //     render(){
 //         console.log(this)
@@ -794,7 +798,7 @@
     // 存在循环引用会抛出错误
 
 
-    // 代码复用：1. 函数封装 2. 继承  react：1. HOC 2. render Prop 3. 自定义hooks 4. providers consumers
+    // 代码复用：1. 封装:面向对象封装 函数封装 2. 继承  react：1. HOC 2. render Prop 3. 自定义hooks 4. providers consumers
 
 
     // 一次完整的HTTP请求过程
@@ -1618,22 +1622,6 @@
 		// }
 		// fn([1,2,3,4])
 
-		// document.onclick = (function() {
-		// 	// 事件自调用，函数内代码只会运行一次
-		// 	log(1)
-		// 	var div = null	// 闭包变量
-		// 	return function() {
-		// 		// 每点击一次都会运行的部分
-		// 		if (!div) {
-		// 			// 只第一次点击会运行的部分，因为闭包变量
-		// 			log(3)
-		// 			div = 1
-		// 		}
-		// 		log(2)
-		// 		return div
-		// 	}
-		// })()
-
 		// // 遍历数组
 		// const arr = [1,2,3,4,5]
 		// for (let i = 0, item; item = arr[i ++]; ) {
@@ -1872,7 +1860,7 @@
     // 触发条件：
     // 1.float的值不为none
     // 2.overflow的值不为visible
-    // 3.position的值不为static、releative
+    // 3.position的值不为static、relative
     // 4.display的值为table-cell、tabble-caption、inline-block
     // 5.display为 flex 或 inline-flex元素的直接子元素
     // 6.display为 grid 或 inline-grid 元素的直接子元素
@@ -2511,9 +2499,6 @@
     //   log(arguments.callee)
     // }
 
-    // Object.create()  //用对象去（带原型带属性）创建新对象
-    //使用指定的原型对象及其属性去新建一个新的对象
-
     // Object.keys && Object.values
     // Object.entries方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（ enumerable ）属性的键值对数组
 
@@ -2541,13 +2526,13 @@
     
 
     // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级作用域链的 是完全共享的
-    // ：内部函数的作用域链仍然保持着对父函数活动对象的引用
+    // ：内部函数的作用域链仍然保持着对父执行环境活动对象的引用
 
     // 前端资源优化
     // 1. 文件压缩
     // 2. 文件合并 减少http 请求
     // 3. cdn静态资源托管
-    // 4. 懒加载（路由 图片）
+    // 4. 懒加载（路由 图片）动态加载
     // 5. 节流 防抖
 
     // 伪数组：
@@ -2573,11 +2558,11 @@
 
     // 为什么不在componentWillMount中请求n数据？
     // 如果使用服务端渲染，componentWillMount会执行多次；
-    // componentDidMount中DOM元素已经初始化完毕，可以对DOM元素进行操作 而且setState会发生重渲染 不会阻碍初始化
+    // componentDidMount中DOM元素已经初始化完毕，可以对DOM元素进行操作 不会阻碍更新
 
     // react 的优点？
     //   首先 react的声明式(直接声明DOM元素和属性)让代码更直观 写法更灵活
-    //   组件化开发 组件可复用 可维护性高 符合开发人员模块化开发的思想
+    //   组件化开发 组件可复用 可维护性高 符合模块化开发的思想
     //   用虚拟DOM 和 diff算法来操作DOM 提高了性能
     //   以facebook为背景 有着很成熟的生态圈和发展潜力
     //   个人喜欢react的原因：写法灵活 相较于vue也可说复杂 比较能锻炼思维 代码优雅
@@ -2592,16 +2577,15 @@
     //   diff算法：是DOM树之间层对层比较 大大减少了需要遍历子节点的复杂度 因为在web应用中很少把一个组件节点移动到这颗树的其他层次(结构稳定) 它们通常只是在孩子节点的同层之间移动
     //     比如说在对比过程中发现两个节点的类型不一样 那么直接删除这个节点和它的子节点并重新创建添加 即创建以这个节点为根的子树，如果相同 就进行下一步更深的比较虚拟DOM
     // key
-    //     兄弟组件之间需要标识唯一不同的key来让react记住这些元素 来简化更新的过程：因为在做diff的时候 如果元素有key react会去旧树中的同层中寻找存在该key的元素并进行对比 相同则复用不同则更新，没有的话就跟相同位置的元素进行比较。会大大提高更新过程的效率
+    //     兄弟组件之间需要标识唯一不同的key来让react记住这些元素 来简化更新的过程：因为在做diff的时候 如果元素有key react会去旧树中的同层中寻找存在该key的元素并进行对比 相同则复用不同则重建，没有的话就跟相同位置的元素进行比较。会大大提高更新过程的效率
     //     为什么key值最好不要用数组索引下标？如果用数组索引值来定义key的话 当数组新增或删除元素 这个元素之后所有元素的key值就会发生改变但这些元素本身并没有发生改变只是移动了位置 从而导致了没必要的更新
     // 如果兄弟组件内的元素不会发生改变可以使用数组索引
     // react优化
     // react 优化途径？
-    //   尽量将事件函数定义在构造器内声明为实例：少在render内使用bind函数和新建函数 因为每一次render都会生成一个新函数；其他引用数据类型亦是如此 因为react判断是否需要重渲是进行的浅层比较
+    //   reactElement属性尽量使用缓存变量 以减少更新代价
     //   使用shouldcomponentupdate或PureComponent或Memo来进行对比阻止无必要渲染
     //   render函数内尽量不要做副作用或复杂计算
-    //   元素或组件key值尽量使用唯一且不变的
-    //   不要随意更改外层包裹组件的节点类型 因为diff算法 两个节点类型不同将废掉此节点和其子节点重新创建
+    //   元素结构会改变的层次使用key
     //   如果使用Redux 可以使用Redux中间件reselect来把store的state来进行缓存重用
     //   懒加载组件 import方法动态 配合React Lazy Suspense
     //   使用Fragment减少额外标签的创建
@@ -2680,13 +2664,7 @@
     //   require方法接受两个参数第一个参数为数组 表示所依赖模块 第二个参数是模块记载完成执行的回调函数
     //   CMD：推崇依赖就近（用到才加载）；
     //   最大的区别：对依赖模块的执行时机不同
-    // react router原理
-    // react router 的原理？
-    // 通过H5的history API来实现的无刷新页面修改地址栏
-    // history.pushState(state,’标题’,url)
-    // replaceState 方法 
-    // onpopstate事件
-    // pushState和replaceState方法用来改变history实体 当被改变的时候会触发onpopstate事件
+    
     // 什么情况redux
     // 什么情况下使用Redux？
     //   redux就是一个状态管理器 用来共享状态 免去组件间的传值 所以：
@@ -2695,7 +2673,7 @@
     //   与服务器大量交互且多数据源
     //   如果需求达不到则不需使用redux
     // redux缺点
-    // Reduxde 缺点？
+    // Redux 缺点？
     // 需求达不到不需要使用 无疑增加了代码量
     // 更改一处状态需要调用多个文件来协同处理 actionCreator啦reducer啦connect啦
     // 需要发送异步action还需要通过中间件来处理 它整体的逻辑是不简单的
@@ -2718,7 +2696,7 @@
     // redux 三大原则
     // 单一数据源：只存在一个state 只存在一个store
     // state：只能通过显示的dispatch一个action来更改state
-    // resucer是一个纯函数：只能通过纯函数来修改state
+    // reducer是一个纯函数：只能通过纯函数来修改state
 
 
 
@@ -2727,7 +2705,7 @@
 
     // 其他知识
     // fetch && xhr && axios
-    // fetch：ES6新规范；免封装 语法简洁语义化；基于promise设计 解决回调地狱问题；可以设置不透传cookie
+    // fetch：ES新规范；免封装 语法简洁语义化；基于promise设计 解决回调地狱问题；可以设置不透传cookie
     // 缺点：不能中断请求，没有获取当前请求状态的方法
 
 
@@ -2777,10 +2755,8 @@
     // ::after {content: “”, display:block, clear:both, height: 0, visibility: hidden}
     
     // 箭头函数和普通函数的区别？
-    // 不绑定this(this指向为上下文的作用域)
-    // 不绑定arguments
-    // 没有原型属性
-    // 不能构造实例(不能使用new操作符)
+    // 不绑定this(this指向为上下文的作用域) 不绑定arguments
+    // 没有原型属性 不能构造实例(不能使用new操作符)
 
     // Let和const
     // let和const？
@@ -2831,9 +2807,26 @@
     // 事件队列又分为宏任务队列和微任务队列：
     // 宏任务：定时器
     // 微任务：new Promise；new MutaionObserver
-    // 轮询事件列表有优先级 首先会查找微任务队列 有任务就将排在第一位的回调执行 没有再查找宏任务队列（每次事件轮训只会拿出一个任务, 因为微任务优先级高, 所以也可以理解为每次循环清空微任务列表, 没有微任务的话就去拿一个宏任务） 如此循环
+    // 轮询事件列表有优先级 首先会查找微任务队列并执行清空队列 没有再查找宏任务队列（每次事件循环只会拿出一个宏任务） 如此循环
 
     // 调用栈：解析器去处理程序的机制，是一种栈数据结构：能够追踪子任务的运行状态
+
+    // node event loop
+    // timer => i/o cb => poll => check => close cb
+
+    // 计时器（timers）：本阶段执行setTimeout() 和 setInterval() 计划的回调；
+    // I/O 回调： 执行几乎全部发生异常的 close 回调， 由定时器和setImmediate()计划的回调；
+    // 轮询（poll）： 
+      // 如果timer队列不为空：回到timer阶段执行回调
+      // 如果timer队列为空且轮询队列不为空：清空轮询队列
+        // 如果Immediate队列为空：继续等待
+        // 如果Immediate队列不为空：进入下一阶段 check 执行Immediate回调
+    // 检查（check）： 调用 setImmediate() 的回调；
+    // close callbacks： 例如 socket.on('close', ... );
+
+    // process.nextTick // 事件循环每个阶段前执行
+    // setTimeout // timer和事件轮询poll阶段执行
+    // setImmediate // check 事件轮询后timer列表为空而setImmediate队列有任务 就会进入到这个阶段（在主环境里 或先于timer或晚于timer 不确定）（在队列回调中 总是先于timer执行：因为回调执行时会将Immediate任务第一时间添加进Immediate队列，回调执行完会进入轮询阶段，轮询阶段完成后会马上进入check阶段）
 
 
     // 二叉树？
