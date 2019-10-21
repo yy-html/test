@@ -32,12 +32,13 @@
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
 
+ 
 
 
   
   </script>
 
-  <script>throw void 0
+  <script>
 
 
 
@@ -72,8 +73,8 @@
     // http缓存：
     // 对于http缓存可以分为3个步骤：
     // 1. 发起请求 2. 后端处理 3. 浏览器响应
-    // 当第一次对起源发起请求，服务端会将资源和响应头缓存字段一块返回给客户端，浏览器将资源和响应头缓存在本地；
-    // 再次发起请求时，浏览器会判断强缓存字段（Expires：过期时间 / Cache-Control：max-age 过期间隔/秒）是否过期，没有过期的话直接读取本地缓存；
+    // 当第一次发起请求，服务端会将资源和响应头缓存字段一块返回给客户端，浏览器将资源和响应头缓存在本地；
+    // 再次发起请求，浏览器会判断强缓存字段（Expires：过期时间 / Cache-Control：max-age 过期间隔/秒）是否过期，没有过期的话直接读取本地缓存；
     // 如果强缓存过期，会将协商缓存字段请求头发送给服务器，协商缓存有两个规则：
     // 1. Last-Modified/If-Modifiled-Since：资源最后修改时间
     // 2. ETag/If-None-Match：资源改动唯一标示
@@ -87,11 +88,11 @@
 
     // React-事务机制
     // DOM操作
-    // => react触发diaptchEvent
+    // => react触发事件
     // => 开启事务（事务开启前会将isBatchingUpdates设置为true）
     // => transaction.perform(callback, null, a, b, c, d, e)
     // => 调用两个wrapper对象的initialize初始化方法，
-    // => 调用事务回调也就是DOM事件
+    // => 调用事务回调也就是DOM事件diaptchEvent
     // => 回调里调用setState（判断isBatchingUpdates为true 将state放入更新队列，callback放入队列，组件实例放入dityComponents）
     // => 调用两个wrapper对象的close方法（1.更新state 调用生命周期 调用callback 2.reset isBatchingUpdates为false）
     // => 完成本次事务的更新
@@ -115,7 +116,7 @@
     //   mergeProps: (stateProps, dispatchProps, ownProps) => { return }
     //   optipons: { pure: true }
     // 1.通过上下文拿到store的数据
-    // 2.在didMount订阅store的变化监听本组件setState 
+    // 2.在didMount订阅store的变化监听本组件setState
     // 3.将3个props形成的mergeProps传递给渲染组件，默认Object.assign({}, ownProps, stateProps, dispatchProps)
     // 4.做优化，默认对比前后store的数据（在changeState里）和ownProps（在willReceiveProps里）
     //   var selector = {
@@ -322,9 +323,7 @@
     
 
     // 新版createContext：
-    // 实际上，无论在刚才的demo和 老版Context Legacy Context都无法实现这个功能，这也是老版的context为人诟病的其中一点，那新版Context有什么黑魔法可以实现这个呢？
-    // 答案是context变化会引发又一次check
-    // 下面稍有些晦涩，涉及到一些Fiber的运作机制：
+    // 涉及到一些Fiber的运作机制：
     // 得益于Fiber的链表机制，一个Provider的所有的consumer里面的children都会注册到事件池里面，并提供一个propagateContextChange方法。
     // Provider变化触发updateContextProvider函数，从而每个consumer的child的Fiber节点会执行propagateContextChange方法（如果位运算通过的话，可以看第二个问题），
     // 在 propagateContextChange 中，以当前 fiber 节点为根的子树中寻找相匹配 Consumer 节点，给与更新标记，当render过程执行到此节点会执行更新。
@@ -385,133 +384,6 @@
     // 每当ID改变时，EmailInput将被重新创建，它的状态将被重置为最新的defaultEmail值(示例)。
     // 使用这种方法，您不需要向每个输入项添加key。
     // 把key放在整个表单上可能更有意义。每次改变时，表单中的所有组件都将用一个新初始化的状态重新创建。
-
-
-      // const arr = [7, 5, 3, 6, 4, 8, 1, 2]
-
-      // 冒泡排序：比较相邻两位，满足条件则将其向右移动一位（每一轮排序一位元素）；先写内循环
-      // function fn(arr) {
-      //   for (let j = 0, length = arr.length; j < length - 1; j ++) {  // 共比较length - 1轮，排到最后一位不用比较
-      //     for (let i = 0; i < length - j - 1; i ++) {  // 每一轮排序一位元素，将其放在最右侧
-      //       if (arr[i] > arr[i + 1]) {
-      //         let temp
-      //         temp = arr[i]
-      //         arr[i] = arr[i + 1]
-      //         arr[i + 1] = temp
-      //       }
-      //     }
-      //   }
-      // }
-
-      // 选择排序：依次拿每一位和后边所有元素进行比较，将最小的放在最左边
-      // function fn(arr) {
-      //   for (let i = 0, length = arr.length; i < length - 1; i ++) {  // 共比较length - 1轮，排到最后一位不用比较
-      //     for (let j = i + 1; j < length; j ++) { // 每一轮排序一位元素，将其放在最右侧
-      //       if (arr[i] > arr[j]) {
-      //         let temp
-      //         temp = arr[i]
-      //         arr[i] = arr[j]
-      //         arr[j] = temp
-      //       }
-      //     }
-      //   }
-      // }
-
-      // 快速排序：一个返回一轮排序的递归函数：找到数组中间值 小于放左边 大于放右边，返回这个新数组
-      // 思想：将原问题拆分为若干个原理相同的子问题，递归拿到字问题的解，组合为原问题的解
-      // function fn(arr){
-      //   if (arr.length <= 1) {
-      //     return arr
-      //   }
-
-      //   const pivotIndex = Math.floor(arr.length / 2)
-      //   const [pivot] = arr.splice(pivotIndex, 1)
-      //   const left = []
-      //   const right = []
-
-      //   for (let i = 0, item; item = arr[i ++];) {
-      //     if (item < pivot) {
-      //       left.push(item)
-      //     } else {
-      //       right.push(item)
-      //     }
-      //   }
-
-      //   // return fn(left).concat([pivot], fn(right))
-      //   return [...fn(left), pivot, ...fn(right)]
-      // }
-
-      // 插入排序 将每个元素跟已排序队列（i之前的也就是便利过的 就是已排序队列）进行比较、插入
-      // function fn(arr) {
-      //   for (let i = 1, { length } = arr; i < length; i ++) {
-      //     for (let j = 0; j < i; j ++) {
-      //       if (arr[i] < arr[j]) {
-      //         arr.splice(j, 0, arr.splice(i, 1)[0])
-      //       }
-      //     }
-      //   }
-      // }
-
-      // 归并排序：找一个中间点 将左右两个数组分别递归归并
-      // 思想：将数列递归两两拆分，拆分至每一组数列最小长度为1，分别进行处理为从小到大排列，再进行两两合并（两两拆分 => 两两合并(合并函数功能为将两个数组合并成从小到大排列，每个数组最小粒度为1)）
-      // function fn(arr) {
-      //   if (arr.length <= 1) {
-      //     return arr
-      //   }
-      //   const mid = Math.floor(arr.length / 2)
-      //   const left = arr.slice(0, mid)
-      //   const right = arr.slice(mid)
-
-      //   return merge(fn(left), fn(right))  // 写一个类似原生的简单方法当作原生用
-
-      //   function merge(a, b) {
-      //     const { length: aLength } = a
-      //     const { length: bLength } = b
-      //     const c = []
-      //     let i = 0, j = 0
-
-      //     while (i < aLength && j < bLength) {
-      //       if (a[i] < b[j]) {
-      //         c.push(a[i ++])
-      //       } else {
-      //         c.push(b[j ++])
-      //       }
-      //     }
-      //     while (i < aLength) {
-      //       c.push(a[i ++])
-      //     }
-      //     while (j < bLength) {
-      //       c.push(b[j ++])
-      //     }
-      //     console.log('将', a, '和', b, '合并为', c)
-      //     return c
-      //   }
-      // }
-
-      // log(fn(arr))
-      // log(arr)
-
-
-      // 去重并记录出现最多的元素次数
-      // var str = 'hkajfahfauhtasaabua';
-      // let max = 0
-      // let maxItem
-      // console.log([...str].reduce((prev, next) => {
-      //   const item = prev[next]
-      //   if (item === undefined) {
-      //     prev[next] = 0
-      //   } else {
-      //     const value = item + 1
-      //     prev[next] = value
-      //     if (value > max) {
-      //       max = value
-      //       maxItem = next
-      //     }
-      //   }
-      //   return prev
-      // }, {}))
-      // console.log(max)
-      // console.log(maxItem)
 
 
   
@@ -578,147 +450,7 @@
 
 
 
-    // ES7  
-    // Array.prototype.includes
-    // 3 ** 2 // 9
-    // ES8
-    // async await 
-    // Object.values entries getOwnPropertyDescriptors
-    // 共享内存和原子
-
-
-    // 真正意义的浅拷贝
-    // Object.create(
-    //   Object.getPrototypeOf(o),
-    //   Object.getOwnPropertyDescriptors(o)
-    // )
-
-    // const Singleton = (function Wrap() {
-    //   let instance
-    //   function Singleton() {
-    //     if (!instance) {
-    //       return instance = this
-    //     }
-    //     return instance
-    //   }
     
-    //   return Singleton
-    // })()
-
-    // const Singleton =  function () {
-    //   if (!Singleton.instance) {
-    //     return Singleton.instance = this
-    //   }
-    //   return Singleton.instance
-    // }
-
-    // const a = new Singleton()
-    // const b = new Singleton()
-
-    // log(a === b)
-
-
-
-
-
-    // function promisify(targetFunc) {
-    //   return function (...args) {
-    //     return new Promise((rl, rj) => {
-    //       args.push(function callback(err, ...data) {
-    //         if (err) {
-    //           return rj(err)
-    //         }
-    //         rl(...data)
-    //       })
-    //       targetFunc.apply(this, args)
-    //     })
-    //   }
-    // }
-
-    // const fsp = new Proxy(fs, {
-    //   get(target, key, r) {
-    //     return promisify(target[key])
-    //   }
-    // })
-
-  
-
-    // new实现
-    // function customNew(constructor, ...rest) {
-    //   // 1.
-    //   const instance = Object.create(constructor.prototype)
-    //   // 2.
-    //   // const instance = {}
-    //   // Object.setPrototypeOf(instance, constructor.prototype)
-
-    //   const ret = constructor.apply(instance, rest)
-    //   return ret || instance
-    // }
-
-    // function S() {
-    //   // 实例继承1.
-    //   F.call(this)
-    // }
-    // function F() {}
-
-    // // 原型继承1.  // 会丢失S的原型属性
-    // S.prototype = Object.create(
-    //   F.prototype, 
-    //   {
-    //     // 设置prototype.constructor 1.
-    //     constructor: {
-    //       value: S,
-    //       enumerable: false,  // 是否可枚举，默认为true
-    //       configurable: true, // 是否可配置（delete 更改描述属性）
-    //       writable: true,     // 是否可写，默认为true
-    //     },
-    //     // 设置prototype.constructor 2.
-    //     // constructor: Object.getOwnPropertyDescriptor(S.prototype, 'constructor')
-    //   }
-    // )
-
-    // // 原型继承2.  // 不会丢失S原型属性
-    // // Object.setPrototypeOf(S.prototype, F.prototype)
-    // // S.prototype.__proto__ = F.prototype
-
-    // // 静态继承
-    // Object.setPrototypeOf(S, F)
-
-    // const s = new S()
-
-    // // 实例继承2.
-    // F.call(s)
-
-    // log(s)
-
-
-    // 原型链继承：S.prototype = new F() 将构造函数的原型设置为另一个构造函数的实例对象
-    // 构造继承：F.call(s = new S()) 绑定子类实例调用父类构造器，继承父类实例属性
-    // 寄生式继承：创建一个空Constructor 让其prototype = F.prototype | {}(主要用于继承字面量对象); 返回 new Constructor() | Object.create(F.prototype)
-    // 组合式继承：原型链继承 + 构造继承 
-    // 寄生组合式继承：寄生式继承 + 组合式继承 将S.prototype = 寄生式继承的返回  解决1.父类构造器被调用两次 2.父类实例被继承两次
-
-
-    // function F() {
-    //   log('F')
-    //   this.a = 1
-    // }
-    // F.prototype.b = 2
-
-    // function S(sup) {
-    //   sup.call(this)
-    // }
-
-    // function EmptyConstructor() {}
-
-    // EmptyConstructor.prototype = F.prototype
-
-    // const o = Object.create(F.prototype)
-
-    // S.prototype = new EmptyConstructor() || o
-
-    // const s = new S(F)
-    // log(s)
 
     //
     // 1. 传参方式不通 URL RequestBody
@@ -884,194 +616,11 @@
     // father: white-space: nowrap; overflow: hidden;
     // chidren: display: inline-block;
 
-    // Promise: then catch 方法会默认返回一个最终 promiseStatus 为 resolved 的 new Promise resolve(returnValue)
-
-    // const promise = new Promise((resolve, r) => {
-    //     // setTimeout(resolve, 1000, 'succ')
-    //     setTimeout(r, 1000, 'err')
-    //      throw 也相当于reject
-    //   })
-    //     // .catch(err => {
-    //     //   // throw new Error('catch')
-    //     //   return 2222
-    //     // })
-    
-    // async function fn() {
-    //   // async会返回一个promise 它的最终状态是根据内部await拿到的状态决定的
-    //   //    如果有一个await接收到了reject状态 那么此函数的promise直接返回reject并return(除非捕获异常到了try catch)
-    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolved(returnValue); 如果return值为Promise，那么此函数返回值为此promise而不是async的promise
-    //   const res = await promise
-    //   log('resolving') // await如果不返回resolve状态（返回reject或者不返回这两个状态也就是pending状态） 会直接return此promise 所以这行代码及以后的不执行
-    //   return res // resolve(res)
-    // }
-
-    // async function fn() {
-    //   const a = new Promise((rs) => { setTimeout(rs, 2000, 1) })
-    //   const b = new Promise((rs) => { setTimeout(rs, 2000, 2) })
-
-    //   // async函数内promise不依赖执行
-    //   // 方式1
-    //   // const retA = await a
-    //   // const retB = await b
-    //   // 方式2
-    //   // const [retA, retB] = await Promise.all([a, b])
-
-    //   // log(retA, retB)
-    // }
-
-    // const f = fn()
-
-    // log(f)
-
-    // f
-    //   .then(res => {
-    //     log('then')
-    //     log(res)
-    //   })
-    //   .catch(err => {
-    //     log('catch')
-    //     log(err)
-    //   })
-
-
-    // 让await接收到rejected状态也继续往下执行
-    // async function asyncWrapper(promise) {
-    //   try {
-    //     const res = await promise
-    //     return [null, res]
-    //   } catch (e) {
-    //     return [e, null]  // 捕获await接收到的rejected 让它不返回此状态（返回一个成功状态）给yield函数的next().value.catch(让它给.then)
-    //   }
-    // }
-    
-    // const f = asyncWrapper()
-
-    // f.then(res => log(1, res)).catch(err => log(2, err))
-
-    
-
-    // Generator: 状态机, 还是一个遍历器对象生成函数
-    // 调用它：返回一个指向内部状态的指针对象, 还是一个遍历器对象
-    // 调用next 移动内部指针 返回当前阶段的信息
-
-    // function* fn() {
-    //   yield 1
-    //   yield 2
-    //   return 3 // {value: 3, done: true}: for of 不会遍历3（遍历到true就不返回了）
-    // }
-
-    // const f = fn()
-
-    // for(let value of f) {
-    //   log(value)
-    // }
-
-    // yield*命令可以很方便地取出嵌套数组的所有成员。
-    // function* iterTree(tree) {
-    //   if (Array.isArray(tree)) {
-    //     for(let i=0; i < tree.length; i++) {
-    //       yield* iterTree(tree[i]);
-    //     }
-    //   } else {
-    //     yield tree;
-    //   }
-    // }
-
-    // const tree = [ 'a', ['b', 'c'], ['d', 'e'] ];
-
-    // for(let x of iterTree(tree)) {
-    //   console.log(x);
-    // }
-
-    // [...iterTree(tree)]
-
-    // Generator 异步应用（async函数实现原理）
-    // function run(gen){
-    //   var g = gen();
-
-    //   function next(data){
-    //     var result = g.next(data);
-    //     if (result.done) return result.value;
-    //     result.value.then(function(data){
-    //       next(data);
-    //     });
-    //   }
 
 
 
-    //   next();
-    // }
-
-    // run(gen);
-  
 
 
-    // Iterator遍历器：是一种接口，为各种不同的数据结构提供统一的访问机制
-      // 使得数据结构的成员能够按某种次序排列
-      // 供for...of消费
-
-    // 一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）
-
-    // Array
-    // Map
-    // Set
-    // String
-    // TypedArray
-    // 函数的 arguments 对象
-    // NodeList 对象
-
-    // 会默认调用iterator的方法：for of;  解构赋值; 扩展运算符; yield* [] || foo(); Array.from(); Promise.all()
-
-    // const o = {
-    //   a: 1,
-    //   b: 2,
-    //   c: 3,
-      // [Symbol.iterator]() {
-      //   const values = Object.values(this)
-      //   let count = 0
-      //   return {
-      //     next: () => {
-      //       const cur = values[count ++]
-      //       return {
-      //         value: cur,
-      //         done: !cur
-      //       }
-      //     }
-      //   }
-      // }
-    //   * [Symbol.iterator]() {
-    //     for (let key in this) {
-    //       yield this[key]
-    //     }
-        // const values = Object.values(this)
-        // yield * values
-    //   }
-    
-    // }
-
-    // const iterator = o[Symbol.iterator]()
-
-    // log(iterator.next())
-    // log(iterator.next())
-    // log(iterator.next())
-    // log(iterator.next())
-
-    // log([ ...o ])
-
-    // for (let key of o) {
-    //   log(key)
-    // }
-
-
-    // function* entries(obj) {
-    //   for (let key of Object.keys(obj)) {
-    //     yield [key, obj[key]];
-    //   }
-    // }
-
-    // for (let [key, value] of entries(obj)) {
-    //   console.log(key, '->', value);
-    // }
   
     // 链表 VS 数组
     // 链表： 1. 内存上存储：不需要连续空间
@@ -1100,7 +649,6 @@
 
     
     // Object.is()，其行为与===基本一致，不过有两处不同：
-
     // +0不等于-0。
     // NaN等于自身。
 
@@ -1114,6 +662,10 @@
 				
 			// 	return true
 			// }
+
+
+
+
 
     // DOM
 
@@ -1258,7 +810,7 @@
 
 		// DOM焦点
 		// document.activeElement 属性，这个 属性始终会引用 DOM 中当前获得了焦点的元素
-		// document.hasFocus()
+		// document.hasFocus() focus()
 
 		// 当前选择的内容
 		// window.getSelection().toString()
@@ -1347,255 +899,23 @@
 
 		// factorial(5) // 120
 
-	// // rest: 剩余参数
-	// function fn({ a, ...rest }) {
-	// 	log(rest)	// { b: 2, c: 3 }
-	// }
-	// fn({ a: 1, b: 2, c: 3 })
-
-	// 设置函数参数必传小技巧
-	// function err(params) {throw new Error(params + 'is required')}
-	// function fn(params = err('params')) {}
-	// fn()
-
-// 子代 不同于 后代
-// document.querySelector('input[type=file]').files[0];
-// document.querySelectorAll("div.note, div.alert")
-// document.querySelector("#my-id").querySelectorAll("img")
-
-// React 标准化了事件对象，因此在不同的浏览器中都会有相同的属性
-
-// 二叉查找树，也称二叉搜索树，或二叉排序树。其定义也比较简单，要么是一颗空树，要么就是具有如下性质的二叉树：
-// （1）若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；
-// （2） 若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
-// （3） 任意节点的左、右子树也分别为二叉查找树；
-// （4） 没有键值相等的节点。
-
-// 红黑树是每个节点都带有颜色属性的二叉查找树，颜色或红色或黑色。在二叉查找树强制一般要求以外，对于任何有效的红黑树我们增加了如下的额外要求:
-// 性质1. 节点是红色或黑色。
-// 性质2. 根节点是黑色。
-// 性质3 每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)
-// 性质4. 从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。
-
-	// // 二叉树遍历
-	// const tree = {
-	// 	value: "tree",
-	// 	left: {
-	// 		value: '1',
-	// 		left: {
-  //       value: '2',
-	// 		},
-	// 		right: {
-	// 			value: '3',
-	// 			left: {
-	// 				value: '4',
-	// 			},
-	// 			right: {
-	// 				value: '5',
-	// 			}
-	// 		}
-	// 	},
-	// 	right: {
-	// 		value: 'a',
-	// 		left: {
-	// 			value: 'b',
-	// 		},
-	// 		right: {
-	// 			value: 'c',
-	// 			left: {
-  //         value: 'd',
-	// 			},
-	// 			right: {
-  //         value: 'e',
-	// 			}
-	// 		}
-	// 	}
-	// }
-  // let result = []
-  // let dp = 0
-
-  // 结构深度
-  // function dfs(tree, d = 0) {
-  //   if (tree) {
-  //     const { left, right } = tree
-  //     if (!left && !right) {
-  //       dp = d
-  //     }
-  //     dfs(left, d + 1)
-  //     dfs(right, d + 1)
-  //   }
-  // }
-  // dfs(tree)
-  // log(dp)
-
-  // 中序：21435 tree badce
-  // 先序：tree 12345 abcde
-  // 后序：24531 bdeca tree
-
-
-
-	// // myBfs
-	// function fn(data) {
-	// 	if (typeof data !== 'object') return
-	// 	for	(let key in data) {
-	// 		if (key === 'value') {
-	// 			result.push(data.value)
-	// 		} else {
-	// 			fn(data[key])
-	// 		}
-	// 	}
-	// }
-	// fn(tree)
-	// log(result)
-
-	// // 深度遍历
-	// function dfs(item) {
-	// 	if (item) {
-	// 		dfs(item.left)
-	// 		result.push(item.value)
-	// 		dfs(item.right)
-	// 	}
-	// }
-	// dfs(tree)
-	// log(result)
-	// // 广度遍历
-	// let result = []
-	// let stack = [tree] // 先将要遍历的树压入栈
-	// let count = 0 // 用来记录执行到第一层
-	// let bfs = function () {
-	// 	let node = stack[count]
-	// 	if (node) {
-	// 		result.push(node.value)
-	// 		if (node.left) stack.push(node.left)
-	// 		if (node.right) stack.push(node.right)
-	// 		count ++
-	// 		bfs()
-	// 	}
-	// }
-	// bfs();
-	// log(stack)
-	// log(count)
-	// console.log(result)
-		
-
-		// let o = {
-    //   a: {
-    //     b: {}
-    //   },
-    //   c: {
-    //     d: {
-    //       e: {},
-    //       f: {
-    //         g: {
-    //           x: 'x'
-    //         }
-    //       },
-    //       h: {
-    //         i: 'i'
-    //       }
-    //     }
-    //   },
-    //   j: {
-    //     k: 'j'
-    //   }
+    // // rest: 剩余参数
+    // function fn({ a, ...rest }) {
+    // 	log(rest)	// { b: 2, c: 3 }
     // }
+    // fn({ a: 1, b: 2, c: 3 })
 
-    // o = {
-    //   a: {
-    //     b: {
-    //       c: 'c'
-		// 		},
-		// 		x: {}
-    //   },
-    //   d: {
-    //     e: 'e'
-    //   },
-    //   f: {
-    //     g: {
-		// 			h: {
-		// 				k: 'k'
-		// 			}
-		// 		}
-    //   }
-		// }
+    // 设置函数参数必传小技巧
+    // function err(params) {throw new Error(params + 'is required')}
+    // function fn(params = err('params')) {}
+    // fn()
 
-		// // 深度遍历
-		// let a
-		// function fn(obj) {
-		// 	if (typeof obj == 'object') {
-		// 		for (let key in obj) {
-		// 			log(key)
-		// 			if (fn(obj[key]) == 'e') {
-		// 				a = obj[key]
-		// 				return 'e'
-		// 			}
-		// 		}
-		// 	}
-		// 	return obj
-		// }
-		// 广度遍历
-		// let data = [o]
-		// let count = 0
-		// function fn() {
-		// 	const node = data[count]
-		// 	if (node && typeof node === 'object') {
-		// 		for (let key in node) {
-		// 			log(key)
-		// 			const item = node[key]
-		// 			if (typeof item === 'object') {
-		// 				data.push(item)
-		// 			}
-		// 			if (item == 'e') {
-		// 				return node
-		// 			}
-		// 		}
-		// 	}
-		// 	count ++
-		// 	return fn()
-		// }
-		// log(fn(data))
-		// log(count)
-		// log(data)
+    // 子代 不同于 后代
+    // document.querySelector('input[type=file]').files[0];
+    // document.querySelectorAll("div.note, div.alert")
+    // document.querySelector("#my-id").querySelectorAll("img")
 
-		// // 实例原型优先级 && 覆盖
-		// class Ft {
-		// 	constructor() {
-		// 		// this.a = () => {log('ft-实例')}
-		// 		this.ft = 'ft'
-		// 	}
-
-		// 	static st1 = 'st'
-		// 	static st2() {log('st')}
-
-		// 	a() {log('ft-原型')}
-		// }
-
-		// class Fn extends Ft {
-		// 	constructor(props) {
-		// 		super(props)
-		// 		// this.a = () => {log('实例')}
-		// 	}
-
-		// 	a() {log('原型')}
-		// }
-
-
-		// const f = new Fn()
-
-		// log(f)
-		// f.a()
-
-		// log(Object.getPrototypeOf(f) === Fn.prototype)
-		// log(Object.getPrototypeOf(Fn.prototype) === Ft.prototype)
-		// log(Object.getPrototypeOf(Ft.prototype) === Object.prototype)
-
-		// log(Ft.st1)
-		// Ft.st2()
-
-		// log(Fn.st1)
-		// Fn.st2()
-
-		// log(Object.getPrototypeOf(Fn) === Ft.prototype)
+    // React 标准化了事件对象，因此在不同的浏览器中都会有相同的属性
 
 
 
@@ -1699,24 +1019,6 @@
 
 
 
-  // 斐波那契数列
-  // 1 1 2 3 5 8 13 21
-  // function fn(n, a = 1, b = 1) {
-  //   if (n <= 2) return b
-  //   return fn(n - 1, b, a + b)
-  // }
-  // function fn(n) {
-  //   if (n <= 2) return 1 
-  //   let a = 1
-  //   let b = 1
-  //   for(let i = 3; i <= n; i++ ) {
-  //     [a, b] = [b, a + b]
-  //   }
-  //   return b
-  // }
-
-
-
     // ts
     // 定义函数类型
     // interface fc {
@@ -1778,6 +1080,950 @@
     // window.dispatchEvent(e)
 
 
+    
+
+    
+
+
+
+    // function fn() {
+    //   const CSV = 'a,b\na,1\nb,2\n'
+    //   var blob = new Blob(['\uFEFF' + CSV], {type: 'text/txt,charset=UTF-8'});
+    //   url = URL.createObjectURL(blob)
+    //   log(blob)
+    //   const el = document.createElement('a')
+    //   el.download = 'test.csv'
+    //   el.href = url
+    //   el.click()
+    // }
+    // fn()
+    
+    // 前端读取 & 导出excel： js-xlsx
+
+
+    // BFC（Block Formatting Context）: 
+    // 是一个页面上一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然
+    // 它决定了块级元素如何对它的子元素进行布局，以及其他元素与它的关系
+    // 触发条件：
+    // 1.float的值不为none
+    // 2.overflow的值不为visible
+    // 3.position的值不为static、relative
+    // 4.display的值为table-cell、tabble-caption、inline-block
+    // 5.display为 flex 或 inline-flex元素的直接子元素
+    // 6.display为 grid 或 inline-grid 元素的直接子元素
+    // 规则：
+    // 1.浮动的元素会被父级计算高度（父级触发了BFC）
+    // 2.非浮动元素不会覆盖浮动元素位置（非浮动元素触发了BFC）
+    // 3.margin不会传递给父级（父级触发了BFC）
+    // 4.两个相邻元素上下margin不会重叠（给其中一个元素增加一个父级，然后让他的父级触发BFC）
+
+
+    // js清除浏览器缓存的几种方法
+
+    
+    
+
+
+    // const registerCallBackUrl = `${window.location.href}&withCoupon=1${Object.keys(params).reduce((pre, next) => pre + `&${next}=${params[next]}`, '')}`
+
+    // 严格模式 'use strict': 可以在作用域内部进行较为严格的错误条件检测
+    // 1. 不允许意外创建全局变量 必须先声明后使用 不能delete删除var创建的变量
+    // 2. 操作对象：对只读属性的对象赋值；对不可配置的对象delete；对不可拓展的对象添加属性
+    // 3. 函数参数名不能重复；严格模式下arguments与参数完全独立：对参数重新赋值不会影响arguments
+    // 4. this 始终指向指定的值（通过call apply bind），否则指向 undefined 而不指向window
+
+
+    // 前端预览图片
+    // 1. new FildReader().readAsDataURL(file).onload(info => info.result)
+    // 2. window.URL.createObjectURL(blob)
+    // 3. canvas => base64
+
+    // new FormData().append('', file)
+
+  
+    
+
+
+    // fetch
+    // fetch('https://img.alicdn.com/tfs/TB1U1V4XeH2gK0jSZFEXXcqMpXa-1200-1200.png', {
+    //   // method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //   // mode: "cors", // no-cors, cors, *same-origin
+    //   // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    //   // credentials: "same-origin", // include, *same-origin, omit
+    //   // redirect: "follow", // manual, *follow, error
+    //   // referrer: "no-referrer", // no-referrer, *client
+    //   // body: JSON.stringify(data), // body data type must match "Content-Type" header
+    //   // headers: {
+    //   //     // "Content-Type": "application/json",
+    //   //     // "Content-Type": "application/x-www-form-urlencoded",
+    //   //     // 'Cache-Control': 'no-cache'
+    //   // },
+    // })
+    //   .then(res => res.blob())
+    //   .then(res => {
+    //     log(res)
+    //     const url = URL.createObjectURL(res)
+    //     log(url)
+    //     document.querySelector('img').src = url
+    //   })
+
+    // var anotherRequest = new Request(myRequest, myInit)
+    // // 这非常有用，因为请求和响应主体只是一个用途。制作这样的副本允许您再次使用请求/响应，同时init根据需要改变选项。必须在阅读正文之前制作副本，并且阅读副本中的正文也会在原始请求中将其标记为已读。
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "text/plain");
+
+    // 当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 即使该 HTTP 响应的状态码是 404 或 500。相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），仅当网络故障时或请求被阻止时，才会标记为 reject。
+
+    // web 离线检测 navigator.onLine // boole
+    // web 在线离线 事件 online offline
+
+    // 表单 submit reset
+    // <input type="reset" />
+    // <button type="reset">Reset Form</button>
+
+    // form.submit() // reset()
+
+    // 表单中第一个控件元素
+    // field1 = form.elements[0]
+    // 表单中名为textbox1的控件元素s
+    // field2 = form.elements["textbox1"]
+
+    // pattern input约束字段
+    // checkValidity 表单或表单元素检测有效性：可以自己写一个
+
+    // contenteditable: 给任意元素设置该属性 可变为可编辑元素 
+
+
+
+
+
+    // ES7  
+    // Array.prototype.includes
+    // 3 ** 2 // 9
+    // ES8
+    // async await
+    // Object.values entries getOwnPropertyDescriptors
+    // 共享内存和原子
+
+
+    // 真正意义的浅拷贝
+    // Object.create(
+    //   Object.getPrototypeOf(o),
+    //   Object.getOwnPropertyDescriptors(o)
+    // )
+
+    // 单例
+    // const Singleton = (function () {
+    //   let instance
+    //   return function Singleton() {
+    //     if (!instance) {
+    //       instance = this
+    //     }
+    //     return instance
+    //   }
+    // })()
+
+    // const a = new Singleton()
+    // const b = new Singleton()
+    // dir(Singleton)
+
+
+
+
+
+    // function promisify(targetFunc) {
+    //   return function (...args) {
+    //     return new Promise((rl, rj) => {
+    //       args.push(function callback(err, ...data) {
+    //         if (err) {
+    //           return rj(err)
+    //         }
+    //         rl(...data)
+    //       })
+    //       targetFunc.apply(this, args)
+    //     })
+    //   }
+    // }
+
+    // const fsp = new Proxy(fs, {
+    //   get(target, key, r) {
+    //     return promisify(target[key])
+    //   }
+    // })
+
+  
+
+    // new实现
+    // function customNew(constructor, ...rest) {
+    //   // 1.
+    //   const instance = Object.create(constructor.prototype)
+    //   // 2.
+    //   // const instance = {}
+    //   // Object.setPrototypeOf(instance, constructor.prototype)
+
+    //   const ret = constructor.apply(instance, rest)
+    //   return ret || instance
+    // }
+
+
+    // 原型链继承：S.prototype = new F() 将构造函数的原型设置为另一个构造函数的实例对象
+    // 构造继承：F.call(s = new S()) 绑定子类实例调用父类构造器，继承父类实例属性
+    // 寄生式继承：创建一个空Constructor 让其prototype = F.prototype | {}(主要用于继承字面量对象); 返回 new Constructor() | Object.create(F.prototype)
+    // 组合式继承：原型链继承 + 构造继承 
+    // 寄生组合式继承：寄生式继承 + 组合式继承 将S.prototype = 寄生式继承的返回  解决1.父类构造器被调用两次 2.父类实例被继承两次
+
+    // // 父类
+    // function F() {
+    //   log('F')
+    //   this.a = 1
+    // }
+    // F.prototype.b = 2
+
+    // // 子类
+    // function S(sup) {
+    //   sup.call(this)  // 构造继承
+    // }
+
+    // // 寄生继承
+    // function EmptyConstructor() {}
+    // EmptyConstructor.prototype = F.prototype
+
+    // const o = Object.create(F.prototype)  // es6
+
+    // // 原型链继承
+    // S.prototype = new EmptyConstructor() || o
+
+    // S.prototype.d = () => {}  // 要放在原型链继承后定义原型属性
+
+    // // 设置子类丢失的constructor
+    // S.prototype.constructor = S  // es5
+    // Object.defineProperty(S.prototype, 'contructor', {  // es6
+    //   value: S,
+    //   enumerable: false,  // 使用了define但不配置属性默认都为false；自定义属性默认都为true
+    //   writable: true,
+    //   configurable: true
+    // })
+
+    // // 寄生组合式继承
+    // const s = new S(F)
+    // log(s)
+
+
+
+
+    // Promise: then catch 方法会默认返回一个最终 promiseStatus 为 resolved 的 new Promise resolve(returnValue)
+
+    // const promise = new Promise((rs, rj) => {
+    //     // setTimeout(rs, 1000, 'succ')
+    //     setTimeout(rj, 1000, 'err')
+    //     // throw 也相当于reject
+    //   })
+    //     // .catch(err => {
+    //     //   // throw new Error('catch')
+    //     //   return 2222
+    //     // })
+    
+    // async function fn() {
+    //   // async会返回一个promise 它的最终状态是根据内部await拿到的状态决定的
+    //   //    如果有一个await接收到了reject状态 那么此函数的promise直接返回reject并return(除非捕获异常到了try catch)
+    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolved(returnValue); 如果return值为Promise，那么此函数返回值为此promise而不是async的promise
+    //   const res = await promise
+    //   log('resolving') // await如果不返回resolve状态（返回reject或者不返回这两个状态也就是pending状态） 会直接return此promise 所以这行代码及以后的不执行
+    //   return res // resolve(res)
+    // }
+
+    // async function fn() {
+    //   const a = new Promise((rs) => { setTimeout(rs, 2000, 1) })
+    //   const b = new Promise((rs) => { setTimeout(rs, 2000, 2) })
+
+    //   // async函数内promise并行执行
+    //   // 方式1
+    //   // const retA = await a
+    //   // const retB = await b
+    //   // 方式2
+    //   // const [retA, retB] = await Promise.all([a, b])
+
+    //   // log(retA, retB)
+    // }
+
+    // const f = fn()
+
+    // log(f)
+
+    // f
+    //   .then(res => {
+    //     log('then')
+    //     log(res)
+    //   })
+    //   .catch(err => {
+    //     log('catch')
+    //     log(err)
+    //   })
+
+
+    // // 让await接收到rejected状态也继续往下执行
+    // async function asyncWrapper(promise) {
+    //   try {
+    //     const res = await promise
+    //     return [null, res]
+    //   } catch (e) {
+    //     return [e, null]  // 捕获await接收到的rejected 让它不返回此状态（返回一个成功状态）给yield函数的next().value.catch(让它给.then)
+    //   }
+    // }
+    
+    // const f = asyncWrapper()
+
+    // f.then(res => log(1, res)).catch(err => log(2, err))
+
+    
+
+    // // Generator: 状态机, 还是一个遍历器对象生成函数
+    // // 调用它：返回一个指向内部状态的指针对象, 还是一个遍历器对象
+    // // 调用next 移动内部指针 返回当前阶段的信息
+
+    // function* fn() {
+    //   yield 1
+    //   yield 2
+    //   return 3 // {value: 3, done: true}: for of 不会遍历3（遍历到true就不返回了）
+    // }
+
+    // const f = fn()
+
+    // for(let value of f) {
+    //   log(value)
+    // }
+
+    // // yield*命令可以很方便地取出嵌套数组的所有成员。
+    // function* iterTree(tree) {
+    //   if (Array.isArray(tree)) {
+    //     for(let i=0; i < tree.length; i++) {
+    //       yield* iterTree(tree[i]);
+    //     }
+    //   } else {
+    //     yield tree;
+    //   }
+    // }
+
+    // const tree = [ 'a', ['b', 'c'], ['d', 'e'] ];
+
+    // for(let x of iterTree(tree)) {
+    //   console.log(x);
+    // }
+
+    // [...iterTree(tree)]
+
+    // // Generator 异步应用（async函数实现原理）
+    // function run(gen){
+    //   var g = gen();
+    //   function next(data){
+    //     var result = g.next(data);
+    //     if (result.done) return result.value;
+    //     result.value.then(function(data){
+    //       next(data);
+    //     });
+    //   }
+    //   next();
+    // }
+
+    // run(gen);
+  
+
+
+    // // Iterator遍历器：是一种接口，为各种不同的数据结构提供统一的访问机制
+    // //   使得数据结构的成员能够按某种次序排列
+    // //   供for...of消费
+
+    // // 一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）
+
+    // // Array
+    // // Map
+    // // Set
+    // // String
+    // // TypedArray
+    // // 函数的 arguments 对象
+    // // NodeList 对象
+
+    // // 会默认调用iterator的方法：for of;  解构赋值; 扩展运算符; yield*; Array.from(); Promise.all()
+
+    // const o = {
+    //   a: 1,
+    //   b: 2,
+    //   c: 3,
+    //   [Symbol.iterator]() {
+    //     const values = Object.values(this)
+    //     let count = 0
+    //     return {
+    //       next: () => {
+    //         const cur = values[count ++]
+    //         return {
+    //           value: cur,
+    //           done: !cur
+    //         }
+    //       }
+    //     }
+    //   }
+    //   * [Symbol.iterator]() {
+    //     for (let key in this) {
+    //       yield this[key]
+    //     }
+    //     const values = Object.values(this)
+    //     yield * values
+    //   }
+    
+    // }
+
+    // const iterator = o[Symbol.iterator]()
+
+    // log(iterator.next())
+    // log(iterator.next())
+    // log(iterator.next())
+    // log(iterator.next())
+
+    // log([ ...o ])
+
+    // for (let key of o) {
+    //   log(key)
+    // }
+
+
+    // function* entries(obj) {
+    //   // 1
+    //   for (let key of Object.keys(obj)) {
+    //     yield [key, obj[key]];
+    //   }
+    //   // 2
+    //   for (let key in this) {
+    //     yield this[key]
+    //   }
+    //   // 3
+    //   const values = Object.values(this)
+    //   yield * values
+    // }
+
+    // for (let [key, value] of entries(obj)) {
+    //   console.log(key, '->', value);
+    // }
+
+
+
+    // const arr = [7, 5, 3, 6, 4, 8, 1, 2]
+
+    // 冒泡排序：比较相邻两位，满足条件则将其向右移动一位（每一轮排序一位元素）；先写内循环
+    // function fn(arr) {
+    //   for (let j = 0, length = arr.length; j < length - 1; j ++) {  // 共比较length - 1轮，排到最后一位不用比较
+    //     for (let i = 0; i < length - j - 1; i ++) {  // 每一轮排序一位元素，将其放在最右侧
+    //       if (arr[i] > arr[i + 1]) {
+    //         let temp
+    //         temp = arr[i]
+    //         arr[i] = arr[i + 1]
+    //         arr[i + 1] = temp
+    //       }
+    //     }
+    //   }
+    // }
+
+    // 选择排序：依次拿每一位和后边所有元素进行比较，将最小的放在最左边
+    // function fn(arr) {
+    //   for (let i = 0, length = arr.length; i < length - 1; i ++) {  // 共比较length - 1轮，排到最后一位不用比较
+    //     for (let j = i + 1; j < length; j ++) { // 每一轮排序一位元素，将其放在最右侧
+    //       if (arr[i] > arr[j]) {
+    //         let temp
+    //         temp = arr[i]
+    //         arr[i] = arr[j]
+    //         arr[j] = temp
+    //       }
+    //     }
+    //   }
+    // }
+
+    // 快速排序：一个返回一轮排序的递归函数：找到数组中间值 小于放左边 大于放右边，返回这个新数组
+    // 思想：将原问题拆分为若干个原理相同的子问题，递归拿到字问题的解，组合为原问题的解
+    // function fn(arr){
+    //   if (arr.length <= 1) {
+    //     return arr
+    //   }
+
+    //   const pivotIndex = Math.floor(arr.length / 2)
+    //   const [pivot] = arr.splice(pivotIndex, 1)
+    //   const left = []
+    //   const right = []
+
+    //   for (let i = 0, item; item = arr[i ++];) {
+    //     if (item < pivot) {
+    //       left.push(item)
+    //     } else {
+    //       right.push(item)
+    //     }
+    //   }
+
+    //   // return fn(left).concat([pivot], fn(right))
+    //   return [...fn(left), pivot, ...fn(right)]
+    // }
+
+    // 插入排序 将每个元素跟已排序队列（i之前的也就是便利过的 就是已排序队列）进行比较、插入
+    // function fn(arr) {
+    //   for (let i = 1, { length } = arr; i < length; i ++) {
+    //     for (let j = 0; j < i; j ++) {
+    //       if (arr[i] < arr[j]) {
+    //         arr.splice(j, 0, arr.splice(i, 1)[0])
+    //       }
+    //     }
+    //   }
+    // }
+
+    // 归并排序：找一个中间点 将左右两个数组分别递归归并
+    // 思想：将数列递归两两拆分，拆分至每一组数列最小长度为1，分别进行处理为从小到大排列，再进行两两合并（两两拆分 => 两两合并(合并函数功能为将两个数组合并成从小到大排列，每个数组最小粒度为1)）
+    // function fn(arr) {
+    //   if (arr.length <= 1) {
+    //     return arr
+    //   }
+    //   const mid = Math.floor(arr.length / 2)
+    //   const left = arr.slice(0, mid)
+    //   const right = arr.slice(mid)
+
+    //   return merge(fn(left), fn(right))  // 写一个类似原生的简单方法当作原生用
+
+    //   function merge(a, b) {
+    //     const { length: aLength } = a
+    //     const { length: bLength } = b
+    //     const c = []
+    //     let i = 0, j = 0
+
+    //     while (i < aLength && j < bLength) {
+    //       if (a[i] < b[j]) {
+    //         c.push(a[i ++])
+    //       } else {
+    //         c.push(b[j ++])
+    //       }
+    //     }
+    //     while (i < aLength) {
+    //       c.push(a[i ++])
+    //     }
+    //     while (j < bLength) {
+    //       c.push(b[j ++])
+    //     }
+    //     console.log('将', a, '和', b, '合并为', c)
+    //     return c
+    //   }
+    // }
+
+    // log(fn(arr))
+    // log(arr)
+
+
+    // 去重并记录出现最多的元素次数
+    // var str = 'hkajfahfauhtasaabua';
+    // let max = 0
+    // let maxItem
+    // console.log([...str].reduce((prev, next) => {
+    //   const item = prev[next]
+    //   if (item === undefined) {
+    //     prev[next] = 0
+    //   } else {
+    //     const value = item + 1
+    //     prev[next] = value
+    //     if (value > max) {
+    //       max = value
+    //       maxItem = next
+    //     }
+    //   }
+    //   return prev
+    // }, {}))
+    // console.log(max)
+    // console.log(maxItem)
+
+
+
+    // 二叉查找树，也称二叉搜索树，或二叉排序树。其定义也比较简单，要么是一颗空树，要么就是具有如下性质的二叉树：
+    // （1） 若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；
+    // （2） 若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
+    // （3） 任意节点的左、右子树也分别为二叉查找树；
+    // （4） 没有键值相等的节点。
+
+    // 红黑树是每个节点都带有颜色属性的二叉查找树，颜色或红色或黑色。在二叉查找树强制一般要求以外，对于任何有效的红黑树我们增加了如下的额外要求:
+    // 性质1. 节点是红色或黑色。
+    // 性质2. 根节点是黑色。
+    // 性质3. 每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)
+    // 性质4. 从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。
+
+
+    // // 二叉树遍历
+    // const tree = {
+    // 	value: 'tree',
+    // 	left: {
+    // 		value: '1',
+    // 		left: {
+    //       value: '2',
+    // 		},
+    // 		right: {
+    // 			value: '3',
+    // 			left: {
+    // 				value: '4',
+    // 			},
+    // 			right: {
+    // 				value: '5',
+    // 			}
+    // 		}
+    // 	},
+    // 	right: {
+    // 		value: 'a',
+    // 		left: {
+    // 			value: 'b',
+    // 		},
+    // 		right: {
+    // 			value: 'c',
+    // 			left: {
+    //         value: 'd',
+    // 			},
+    // 			right: {
+    //         value: 'e',
+    // 			}
+    // 		}
+    // 	}
+    // }
+
+    // const result = []
+    // let dp = 0
+    // const stack = [tree]
+
+    // function fn(data, d = 0) {
+    //   if (data) {
+    //     const { value, left, right } = data
+    //     result.push(value)
+    //     fn(left, d + 1)
+    //     fn(right, d + 1)
+    //   } else {
+    //     if (dp <= d) {
+    //       dp = d
+    //     }
+    //   }
+    // }
+
+    // fn(tree)
+
+    // log(result)
+    // log(dp)
+
+    // 结构深度
+    // function dfs(tree, d = 0) {
+    //   if (tree) {
+    //     const { left, right } = tree
+    //     if (!left && !right && dp < d) {
+    //       dp = d
+    //     }
+    //     dfs(left, d + 1)
+    //     dfs(right, d + 1)
+    //   }
+    // }
+    // dfs(tree)
+    // log(dp)
+
+    // 中序：21435 tree badce
+    // 先序：tree 12345 abcde
+    // 后序：24531 bdeca tree
+
+    // // 深度遍历
+    // function dfs(item) {
+    // 	if (item) {
+    // 		dfs(item.left)
+    // 		result.push(item.value)
+    // 		dfs(item.right)
+    // 	}
+    // }
+    // dfs(tree)
+    // log(result)
+
+    // // 广度遍历
+    // function bfs(i = 0) {
+    //   const node = stack[i ++]
+    //   if (node) {
+    //     const { value, left, right } = node
+    //     result.push(value)
+    //     left && stack.push(left)
+    //     right && stack.push(right)
+    //     bfs(i)
+    //   }
+    // }
+    // bfs()
+
+    // log(result)
+    
+
+    // function fn(data) {
+    // 	if (typeof data !== 'object') return
+    // 	for	(let key in data) {
+    // 		if (key === 'value') {
+    // 			result.push(data.value)
+    // 		} else {
+    // 			fn(data[key])
+    // 		}
+    // 	}
+    // }
+    // fn(tree)
+    // log(result)
+		
+
+		// let o = {
+    //   a: {
+    //     b: {}
+    //   },
+    //   c: {
+    //     d: {
+    //       e: {},
+    //       f: {
+    //         g: {
+    //           x: 'x'
+    //         }
+    //       },
+    //       h: {
+    //         i: 'i'
+    //       }
+    //     }
+    //   },
+    //   j: {
+    //     k: 'j'
+    //   }
+    // }
+
+    // o = {
+    //   a: {
+    //     b: {
+    //       c: 'c'
+		// 		},
+		// 		x: {}
+    //   },
+    //   d: {
+    //     e: 'e'
+    //   },
+    //   f: {
+    //     g: {
+		// 			h: {
+		// 				k: 'k'
+		// 			}
+		// 		}
+    //   }
+		// }
+
+		// // 深度遍历
+		// let a
+		// function fn(obj) {
+		// 	if (typeof obj == 'object') {
+		// 		for (let key in obj) {
+		// 			log(key)
+		// 			if (fn(obj[key]) == 'e') {
+		// 				a = obj[key]
+		// 				return 'e'
+		// 			}
+		// 		}
+		// 	}
+		// 	return obj
+		// }
+		// 广度遍历
+		// let data = [o]
+		// let count = 0
+		// function fn() {
+		// 	const node = data[count]
+		// 	if (node && typeof node === 'object') {
+		// 		for (let key in node) {
+		// 			log(key)
+		// 			const item = node[key]
+		// 			if (typeof item === 'object') {
+		// 				data.push(item)
+		// 			}
+		// 			if (item == 'e') {
+		// 				return node
+		// 			}
+		// 		}
+		// 	}
+		// 	count ++
+		// 	return fn()
+		// }
+		// log(fn(data))
+		// log(count)
+		// log(data)
+
+
+
+    // vue watch
+      // const source = {
+      //   demo: 1,
+      //   demo2: 2
+      // }
+      // const temp = JSON.parse(JSON.stringify(source))
+
+      // function watch(target) {
+      //   const handleTarget = Object.keys(target).reduce((pre, key) => {
+      //     pre[key] = {
+      //       set: (value) => {
+      //         target[key](value)
+      //         temp[key] = value
+      //       },
+      //       get() {
+      //         return temp[key]
+      //       }
+      //     }
+      //     return pre
+      //   }, {})
+      //   Object.defineProperties(source, handleTarget)
+      // }
+
+      // watch({
+      //   demo(value) {
+      //     log('demo set', value)
+      //   },
+      //   demo2(value) {
+      //     log('demo2 set', value)
+      //   }
+      // })
+
+      // source.demo2 = 3
+
+
+
+    // 树型结构最大深度
+    // let max = 0
+    // const fn = (data, i = 0) => {
+    //   i ++
+    //   data.forEach(item => {
+    //     const { children } = item
+    //     if (children && children.length > 0) {
+    //       if (i > max) {
+    //         max = i
+    //       }
+    //       fn(children, i)
+    //     }
+    //   })
+    // }
+    // fn(o)
+    // log(max)
+    // 树型结构数据总数item
+    // const fn = (data) => {
+    //   let max = 0
+    //   data.forEach(item => {
+    //     max ++
+    //     const { children } = item
+    //     if (children && children.length > 0) {
+    //       max += fn(children)
+    //     }
+    //   })
+    //   return max
+    // }
+    // log(fn(o))
+
+
+    // 斐波那契数列：从第三位开始 每一位都等于前两位之和
+    // 1 1 2 3 5 8 13 21
+    // function fn(n, a = 1, b = 1) {
+    //   if (n <= 2) return b
+    //   return fn(n - 1, b, a + b)
+    // }
+    // function fn(n) {
+    //   if (n <= 2) return 1 
+    //   let a = 1
+    //   let b = 1
+    //   for(let i = 3; i <= n; i++ ) {
+    //     [a, b] = [b, a + b]
+    //   }
+    //   return b
+    // }
+
+
+    // 线性结构转树型结构
+    // const source = [
+    //   { id: 1, title: 'hello', parent: 0 },
+    //   { id: 2, title: 'hello', parent: 0 },
+    //   { id: 3, title: 'hello', parent: 1 },
+    //   { id: 4, title: 'hello', parent: 3 },
+    //   { id: 5, title: 'hello', parent: 4 },
+    //   { id: 6, title: 'hello', parent: 4 },
+    //   { id: 7, title: 'hello', parent: 3 },
+    //   { id: 8, title: 'hello', parent: 2 }
+    // ]
+
+    // const fn = (data, p = 0) => {
+    //   const o = []
+
+    //   data.forEach(item => {
+    //     const { id, parent } = item
+
+    //     if (parent === p) {
+    //       const children = fn(data, id)
+
+    //       if (children.length) {
+    //         item.children = children
+    //       }
+          
+    //       o.push(item)
+    //     }
+    //   })
+
+    //   return o
+    // }
+
+    // console.log(fn(source))
+
+    // function fn(arr, parent = 0) {
+    //   const out = []
+
+    //   arr.forEach(item => {
+    //     if (item.parent === parent) {
+    //       const children = fn(arr, item.id)
+    //       if (children.length) {
+    //         item.children = children
+    //       }
+    //       out.push(item)
+    //     }
+    //   })
+
+    //   return out
+    // }
+
+    // log(fn(source))
+
+    // function fn(arr, parent = 0) {
+    //   return arr.filter(item => {
+    //     const children = arr.filter(it => item.id == it.parent)
+    //     if (children.length) {
+    //       item.children = children
+    //     }
+    //     return item.parent === parent
+    //   })
+    // }
+
+    // log(fn(source))
+
+    // function fn(arr, parent = 0) {
+    //   const out = []
+    //   arr.forEach(item => {
+    //     if (item.parent == parent) {
+    //       const children = fn(arr, item.id)
+
+    //       if (children.length) {
+    //         item.children = children
+    //       }
+
+    //       out.push(item)
+    //     }
+    //   })
+    //   return out
+    // }
+
+    // log(fn(source))
+
+
+    // tree selected
+    // function fn(data) {
+    //   data.forEach(item => {
+    //     const { children } = item
+    //     if (children && children.length > 0) {
+    //       fn(children)
+    //       item.selected = children.every(({ selected }) => selected === true)
+    //     }
+    //   })
+    // }
+    // fn(arr)
+
+
     // 节流和防抖：限制函数触发周期
     // 节流：规定周期内只执行一次(window.onscroll)
     // 防抖：操作完毕才执行(input onchange)
@@ -1835,301 +2081,7 @@
 
     // document.onclick = fn(f, 1000)
 
-    
 
-
-
-    // function fn() {
-    //   const CSV = 'a,b\na,1\nb,2\n'
-    //   var blob = new Blob(['\uFEFF' + CSV], {type: 'text/txt,charset=UTF-8'});
-    //   url = URL.createObjectURL(blob)
-    //   log(blob)
-    //   const el = document.createElement('a')
-    //   el.download = 'test.csv'
-    //   el.href = url
-    //   el.click()
-    // }
-    // fn()
-    
-    // 前端读取 & 导出excel： js-xlsx
-
-
-    // BFC（Block Formatting Context）: 
-    // 是一个页面上一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然
-    // 它决定了块级元素如何对它的子元素进行布局，以及其他元素与它的关系
-    // 触发条件：
-    // 1.float的值不为none
-    // 2.overflow的值不为visible
-    // 3.position的值不为static、relative
-    // 4.display的值为table-cell、tabble-caption、inline-block
-    // 5.display为 flex 或 inline-flex元素的直接子元素
-    // 6.display为 grid 或 inline-grid 元素的直接子元素
-    // 规则：
-    // 1.浮动的元素会被父级计算高度（父级触发了BFC）
-    // 2.非浮动元素不会覆盖浮动元素位置（非浮动元素触发了BFC）
-    // 3.margin不会传递给父级（父级触发了BFC）
-    // 4.两个相邻元素上下margin不会重叠（给其中一个元素增加一个父级，然后让他的父级触发BFC）
-
-
-    // js清除浏览器缓存的几种方法
-
-    
-    // 线性结构转树型结构
-    // const source = [
-    //   { id: 1, title: 'hello', parent: 0 },
-    //   { id: 2, title: 'hello', parent: 0 },
-    //   { id: 3, title: 'hello', parent: 1 },
-    //   { id: 4, title: 'hello', parent: 3 },
-    //   { id: 5, title: 'hello', parent: 4 },
-    //   { id: 6, title: 'hello', parent: 4 },
-    //   { id: 7, title: 'hello', parent: 3 },
-    //   { id: 8, title: 'hello', parent: 2 }
-    // ]
-
-    // function fn(arr, parent = 0) {
-    //   const out = []
-
-    //   arr.forEach(item => {
-    //     if (item.parent === parent) {
-    //       const children = fn(arr, item.id)
-    //       if (children.length) {
-    //         item.children = children
-    //       }
-    //       out.push(item)
-    //     }
-    //   })
-
-    //   return out
-    // }
-
-    // log(fn(source))
-
-    // function fn(arr, parent = 0) {
-    //   return arr.filter(item => {
-    //     const children = arr.filter(it => item.id == it.parent)
-    //     if (children.length) {
-    //       item.children = children
-    //     }
-    //     return item.parent === parent
-    //   })
-    // }
-
-    // log(fn(source))
-
-    // function fn(arr, parent = 0) {
-    //   const out = []
-    //   arr.forEach(item => {
-    //     if (item.parent == parent) {
-    //       const children = fn(arr, item.id)
-
-    //       if (children.length) {
-    //         item.children = children
-    //       }
-
-    //       out.push(item)
-    //     }
-    //   })
-    //   return out
-    // }
-
-    // log(fn(source))
-
-
-    // const registerCallBackUrl = `${window.location.href}&withCoupon=1${Object.keys(params).reduce((pre, next) => pre + `&${next}=${params[next]}`, '')}`
-
-    // 严格模式 'use strict': 可以在作用域内部进行较为严格的错误条件检测
-    // 1. 不允许意外创建全局变量 必须先声明后使用 不能delete删除var创建的变量
-    // 2. 操作对象：对只读属性的对象赋值；对不可配置的对象delete；对不可拓展的对象添加属性
-    // 3. 函数参数名不能重复；严格模式下arguments与参数完全独立：对参数重新赋值不会影响arguments
-    // 4. this 始终指向指定的值（通过call apply bind），否则指向 undefined 而不指向window
-
-
-    // 前端预览图片
-    // 1. new FildReader().readAsDataURL(file).onload(info => info.result)
-    // 2. window.URL.createObjectURL(blob)
-    // 3. canvas => base64
-
-    // new FormData().append('', file)
-
-    // vue watch
-      // const source = {
-      //   demo: 1,
-      //   demo2: 2
-      // }
-      // const temp = JSON.parse(JSON.stringify(source))
-
-      // function watch(target) {
-      //   const handleTarget = Object.keys(target).reduce((pre, key) => {
-      //     pre[key] = {
-      //       set: (value) => {
-      //         target[key](value)
-      //         temp[key] = value
-      //       },
-      //       get() {
-      //         return temp[key]
-      //       }
-      //     }
-      //     return pre
-      //   }, {})
-      //   Object.defineProperties(source, handleTarget)
-      // }
-
-      // watch({
-      //   demo(value) {
-      //     log('demo set', value)
-      //   },
-      //   demo2(value) {
-      //     log('demo2 set', value)
-      //   }
-      // })
-
-      // source.demo2 = 3
-
-    
-
-
-    // fetch
-    // fetch('https://img.alicdn.com/tfs/TB1U1V4XeH2gK0jSZFEXXcqMpXa-1200-1200.png', {
-    //   // method: "POST", // *GET, POST, PUT, DELETE, etc.
-    //   // mode: "cors", // no-cors, cors, *same-origin
-    //   // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //   // credentials: "same-origin", // include, *same-origin, omit
-    //   // redirect: "follow", // manual, *follow, error
-    //   // referrer: "no-referrer", // no-referrer, *client
-    //   // body: JSON.stringify(data), // body data type must match "Content-Type" header
-    //   // headers: {
-    //   //     // "Content-Type": "application/json",
-    //   //     // "Content-Type": "application/x-www-form-urlencoded",
-    //   //     // 'Cache-Control': 'no-cache'
-    //   // },
-    // })
-    //   .then(res => res.blob())
-    //   .then(res => {
-    //     log(res)
-    //     const url = URL.createObjectURL(res)
-    //     log(url)
-    //     document.querySelector('img').src = url
-    //   })
-
-    // var anotherRequest = new Request(myRequest, myInit)
-    // // 这非常有用，因为请求和响应主体只是一个用途。制作这样的副本允许您再次使用请求/响应，同时init根据需要改变选项。必须在阅读正文之前制作副本，并且阅读副本中的正文也会在原始请求中将其标记为已读。
-    // var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "text/plain");
-
-    // 当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 即使该 HTTP 响应的状态码是 404 或 500。相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），仅当网络故障时或请求被阻止时，才会标记为 reject。
-
-    // web 离线检测 navigator.onLine // boole
-    // web 在线离线 事件 online offline
-
-    // 表单 submit reset
-    // <input type="reset" />
-    // <button type="reset">Reset Form</button>
-
-    // form.submit() // reset()
-
-    // 表单中第一个控件元素
-    // field1 = form.elements[0]
-    // 表单中名为textbox1的控件元素s
-    // field2 = form.elements["textbox1"]
-
-    // pattern input约束字段
-    // checkValidity 表单或表单元素检测有效性：可以自己写一个
-
-    // contenteditable: 给任意元素设置该属性 可变为可编辑元素 
-
-
-
-    // 树型结构最大深度
-    // let max = 0
-    // const fn = (data, i = 0) => {
-    //   i ++
-    //   data.forEach(item => {
-    //     const { children } = item
-    //     if (children && children.length > 0) {
-    //       if (i > max) {
-    //         max = i
-    //       }
-    //       fn(children, i)
-    //     }
-    //   })
-    // }
-    // fn(o)
-    // log(max)
-    // 树型结构数据总数item
-    // const fn = (data) => {
-    //   let max = 0
-    //   data.forEach(item => {
-    //     max ++
-    //     const { children } = item
-    //     if (children && children.length > 0) {
-    //       max += fn(children)
-    //     }
-    //   })
-    //   return max
-    // }
-    // log(fn(o))
-
-
-    // defer与async的区别是：defer要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；async一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。一句话，defer是“渲染完再执行”，async是“下载完就执行”。另外，如果有多个defer脚本，会按照它们在页面出现的顺序加载，而多个async脚本是不能保证加载顺序的
-    // import()类似于 Node 的require方法，区别主要是前者是异步加载，后者是同步加载
-    // CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
-    // CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
-
-
-    // tree selected
-    // function fn(data) {
-    //   data.forEach(item => {
-    //     const { children } = item
-    //     if (children && children.length > 0) {
-    //       fn(children)
-    //       item.selected = children.every(({ selected }) => selected === true)
-    //     }
-    //   })
-    // }
-    // fn(arr)
-
-
-    // 数组扁平化
-
-    // const flatten = arr => {
-    //   arr.reduce((prev, item) => (
-    //     prev.concat(Array.isArray(item) ? flatten(item) : item)
-    //   ), [])
-    // }
-
-    // Array.protype.flat()用于将数组“拉平”，变成一维数组，返回一个新数组。
-    // flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次
-    // flat()会跳过空格
-
-    // function flatten(arr){
-    //   while(arr.some(item=>Array.isArray(item))) {
-    //       arr = [].concat(...arr);
-    //   }
-    //   return arr;
-    // }
-
-    // 创建指定长度的数组
-    // [...new Array(5).keys()]
-    // Array.from({ length: 5 })
-    //  伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）
-    //  可迭代对象（可以获取对象中的元素,如 Map和 Set 等）
-
-
-    // this传递
-    // function fn(f) {
-    //   f()
-    // }
-    // function Fn() {
-    //   this.f = function() {
-    //     log(this)
-    //   }
-    //   this.f2 = () => {
-    //     log(this)
-    //   }
-    // }
-
-    // fn(new Fn().f)  // window
-    // fn(new Fn().f2) // Fn{}
 
     // createVNode
     // const o = [
@@ -2192,7 +2144,6 @@
 
 
 
-
     // ReactDOM.render 实现
     // function render(vNode, container) {
     //   if (typeof vNode === 'string') return container.appendChild(document.createTextNode(vNode))
@@ -2214,48 +2165,6 @@
     //   container.appendChild(el)
     // }
 
-
-    // 自定义事件
-    // const box = document.getElementById('box')
-    // box.addEventListener('testEvent', (e) => {
-    //   console.log(e)
-    // }, false)
-
-    // const event = document.createEvent('HTMLEvents')
-    // event.initEvent('testEvent', false, false)// 事件是否冒泡; 是否可以用 preventDefault() 方法取消事件
-
-    // box.dispatchEvent(event)
-
-
-    // [1, 4, -5, 10].find((n) => n < 0, obj) // -5 findIndex 这两个方法都可以接受第二个参数，用来绑定回调函数的this对象
-    // function f(v){
-    //   return v > this.age;
-    // }
-    // let person = {name: 'John', age: 20};
-    // [10, 12, 26, 15].find(f, person); 
-
-    // Array.of(1, 2) // [1, 2]
-
-    // 截数组
-    // const arr = [1,2,3,4,5,6,7]
-    // 1. const [first, ...rest] = arr
-    // 2. arr.slice(1, arr.length)
-
-    // 父窗口通过window.open获取子窗口；子窗口通过window.opener window.parent获取父窗口
-
-    // 嵌套解构赋值
-    // const { a: { b: { c: x = 'default' }, a, b } } = {a: {b: {c: 1}}}  // 解构赋值别名使用默认值
-    // log(a, b)  // error ,a ,b
-    // log(x)  // 1
-    // function move({x = 0, y = 0} = {}) {  // 函数解构赋值也使用默认值
-    //   return [x, y]
-    // }
-    // log(move())  // 不会报错
-
-    // 交换变量的值
-    // let x = 1;
-    // let y = 2;
-    // [x, y] = [y, x];
 
     // 递归几种情况 || 递归尾调用
     // const o = [
@@ -2359,74 +2268,39 @@
     //   console.log('sc')
     // }(0)
 
-    // function Func() {
-    //   this.name = 'name'
-    //   this.sayName = function() {
-    //     console.log(this.name)
-    //   }
+    // const createPromise = (url) => {
+    //   return () => (
+    //     new Promise((rs, rj) => {
+    //       const img = document.createElement('img')  // || new Image()
+    //       img.src = url
+    //       img.style.width = '100px'
+    //       img.style.height = '100px'
+    //       img.onload = function () {
+    //         log(url)
+    //         box.appendChild(img)
+    //         rs()
+    //       }
+    //     })
+    //   )
     // }
 
-    // Func.prototype = {
-    //   // constructor: Func,
-    //   b: 'b',
-    //   sayThis: function() {
-    //     console.log(this)
-    //   }
-    // }
-
-    // Object.defineProperties(Func.prototype, {
-    //   constructor: {
-    //     constructor: false,
-    //     value: Func
-    //   }
-    // })
-
-    // const o = New(Func)
-
-    // // o.sayThis()
-
-    // for (let key in o) {
-    //   log(key)
-    // }
-
-    // log(o)
-
-
-    // function New(fn) {
-    //   const obj = {}
-    //   fn.call(obj)
-    //   obj.__proto__ = fn.prototype
-    //   return obj
-    // }
-
-
-
-    // const arr = [2,2,2,2,1,1,1,2,2,4,4]
-    // const newArr = []
-    // const obj = {}
-    // for (let i of arr) {
-    //   obj[i] = true
-    // }
-    // console.log(Object.keys(obj))
-
-    // for (let i of arr) {
-    //   if (newArr.indexOf(i) == -1) {
-    //     newArr.push(i)
-    //   }
-    // }
-    // console.log(newArr)
+    // arr.map(url => createPromise(url)).reduce(
+    //   (prev, next) => prev.then(() => next()),
+    //   Promise.resolve()
+    // )
 
 
     // splice: 删除 插入 替换 截取
 
     // const arr = [{a: 1,b: {b2: 2}},[2,3,[4,5]],'c']
     // function deepCopy(obj) {
-    //   let newObj = obj.constructor === Object ? {} : []
-    //   for (var key in obj) {
-    //     if (typeof obj[key] === 'object') {
-    //       newObj[key] = arguments.callee(obj[key])
+    //   const newObj = obj.constructor === Object ? {} : []
+    //   for (let key in obj) {
+    //     const { [key]: value } = obj
+    //     if (typeof value === 'object') {
+    //       newObj[key] = deepCopy(value)
     //     } else {
-    //       newObj[key] = obj[key]
+    //       newObj[key] = value
     //     }
     //   }
     //   return newObj
@@ -2439,6 +2313,103 @@
 
     // console.log(arr)
     // console.log(newArr)
+
+
+
+    // 数组扁平化
+
+    // const flatten = arr => {
+    //   arr.reduce((prev, item) => (
+    //     prev.concat(Array.isArray(item) ? flatten(item) : item)
+    //   ), [])
+    // }
+
+    // Array.protype.flat()用于将数组“拉平”，变成一维数组，返回一个新数组。
+    // flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次
+    // flat()会跳过空格
+
+    // function flatten(arr){
+    //   while(arr.some(item=>Array.isArray(item))) {
+    //       arr = [].concat(...arr);
+    //   }
+    //   return arr;
+    // }
+
+
+    // 创建指定长度的数组
+    // [...new Array(5).keys()]
+    // Array.from({ length: 5 })
+    //  伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）
+    //  可迭代对象（可以获取对象中的元素,如 Map和 Set 等）
+
+    // defer与async的区别是：defer要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；async一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。一句话，defer是“渲染完再执行”，async是“下载完就执行”。另外，如果有多个defer脚本，会按照它们在页面出现的顺序加载，而多个async脚本是不能保证加载顺序的
+    // import()类似于 Node 的require方法，区别主要是前者是异步加载，后者是同步加载
+    // CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+    // CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+
+
+    // this传递
+    // function fn(f) {
+    //   f()
+    // }
+    // function Fn() {
+    //   this.f = function() {
+    //     log(this)
+    //   }
+    //   this.f2 = () => {
+    //     log(this)
+    //   }
+    // }
+
+    // fn(new Fn().f)  // window
+    // fn(new Fn().f2) // Fn{}
+
+    
+
+
+    // 自定义事件
+    // const box = document.getElementById('box')
+    // box.addEventListener('testEvent', (e) => {
+    //   console.log(e)
+    // }, false)
+
+    // const event = document.createEvent('HTMLEvents')
+    // event.initEvent('testEvent', false, false)// 事件是否冒泡 默认false冒泡; 是否可以用 preventDefault() 方法取消事件
+
+    // box.dispatchEvent(event)
+
+
+    // [1, 4, -5, 10].find((n) => n < 0, obj) // -5 findIndex 这两个方法都可以接受第二个参数，用来绑定回调函数的this对象
+    // function f(v){
+    //   return v > this.age;
+    // }
+    // let person = {name: 'John', age: 20};
+    // [10, 12, 26, 15].find(f, person); 
+
+    // Array.of(1, 2) // [1, 2]
+
+    // 截数组
+    // const arr = [1,2,3,4,5,6,7]
+    // 1. const [first, ...rest] = arr
+    // 2. arr.slice(1, arr.length)
+
+    // 父窗口通过window.open获取子窗口；子窗口通过window.opener window.parent获取父窗口
+
+    // 嵌套解构赋值
+    // const { a: { b: { c: x = 'default' }, a, b } } = {a: {b: {c: 1}}}  // 解构赋值别名使用默认值
+    // log(a, b)  // error ,a ,b
+    // log(x)  // 1
+    // function move({x = 0, y = 0} = {}) {  // 函数解构赋值也使用默认值
+    //   return [x, y]
+    // }
+    // log(move())  // 不会报错
+
+    // 交换变量的值
+    // let x = 1;
+    // let y = 2;
+    // [x, y] = [y, x];
+
+    
 
     // const obj = new Object(function(){})  // 传什么类型的值就生成什么类型的对象实例
     // console.log(obj instanceof Function)
@@ -2467,7 +2438,7 @@
     // //http://www.wrox.com/illegal value.htm#starttabulator
     // alert(decodeURIComponent(uri))
 
-    // Math.max() min() 技巧  values.constuctor === Array.prototype
+    // Math.max() min() 技巧
     // var max = Math.max.apply(Math, values);
 
     // input 只允许输入？？？
@@ -2598,7 +2569,7 @@
     // Js代码优化
     // js 代码性能优化
     //   script标签使用defer属性：跟文档同时加载 在文档加载完后执行 anync 跟文档同时加载 加载完立刻执行
-    //   尽量减或批量化DOM操作
+    //   尽量减少或批量化DOM操作
     //   对重复访问的dom对象使用局部变量保存 否则每次访问都要去DOM操作 而且每次使用完毕进行销毁
     //   元素加事件尽量使用时间委托 因为遍历DOM元素会影响性能
     //   尽量避免全局变量的搜索 声明局部变量 避免作用域链的查找
@@ -2609,15 +2580,7 @@
     // 单向数据流
     // 单向数据流？
     //   单向数据流是指只能从一个方向一个源头来修改状态 它限制了修改状态的方式 让状态变的可追踪 易调试 出了问题	可以更快速的找到问题所在 所以比如父给子传值 这个值在子组件内不得修改 修改了就不符合单向数据流会让应用内数据的流向变得繁琐 会导致一系列问题
-    // setState
-    // setState的理解？
-    //   当调用setState，react会收集一批需要更新的组件，每一个组件又对应一批需要更新的状态，然后一次性批量更新来保证渲染的性能，是通过一个队列机制来实现的异步更新
-    //       当执行setState的时候会收集需要更新的state 合并后放入更新队列而不会立即更新 到了一定时间它会批量处理这些更新 执行更新周期重绘页面
-    //       setState在rend函数执行的时候才会被更新或者shoulComponentUpdate返回false之后
-    // setState同步
-    // setState怎么实现同步更新？
-    //   setState也可以同步更新 由react引发的事件处理而调用的setState是异步更新 而绕过react通过addEventListener()添加绑定事件函数和setInterval setTimeout所调用的setState是同步更新 还可以利用函数式setState中的state来获取到正在队列中的最新state 或是通过setState第二个回调函数参数来拿到更新之后的state
-    // setState更新原理
+
     // setState更新机制原理？
     //   setState是通过一个更新机制 batch update 来实现的 在MVC或者是MVVM框架中可以理解为将一段时间内对model的修改批量更新至view的过程
     //   每次setState会将新state放入队列当中 然后根据一个变量来判断是否直接更新state 这个变量默认为false 也就是直接同步更新state 但是当通过react事件或生命周期调用的setState react会调用一个函数来修改这个变量为ture 从而放入等待队列中一步批量更新
@@ -2630,18 +2593,26 @@
     // react初始化渲染原理
     // react-babel 会将标签编译成React.createElement(), 返回一个DOM描述对象（虚拟DOM）
     // {
-    // $$typeof: Symbol(react.element),	key: null,	props: {a: "a", children: "1"},	ref: null,	type: "div",	_owner: null,	_store: {validated: false}, _self: null,	_source: null,	__proto__: Object
+    // $$typeof: Symbol(react.element),	
+    // key: null,	
+    // type: "div",	
+    // props: {a: "a", children: "1"},	
+    // ref: null,	
+    // _owner: null,	
+    // _store: {validated: false}, 
+    // _self: null,	
+    // _source: null,
+    // __proto__: Object
     // }
 
     // 判断Element类型：1.DOM描述对象或数组 2.基础数据类型
     // 1. 步骤：首先判断type，1.1 原生DOM字符串 1.2 组件函数：
     //       1.1 直接调用ReactDOMComponent.mountComponent：生成真实DOM元素，再将children插入为子元素判断类型重复以上
     //       1.2 调用ReactCompositeComponentWrapper.mountComponent：react会生成组件实例 FuncComponent：Func(props)；ClassComponent：new Func(props).render()，调用生命周期，返回Element判断类型重复以上
-    //   2. 是基础类型再判断是不是空类型 2.1 string | number 2.2. undefined null false true
+    // 2. 是基础类型再判断是不是空类型 2.1 string | number 2.2. undefined null false true
     //       2.1 ReactDOMTextComponent
     //       2.2 ReactDOMEmptyComponent
     // 调用这些方法生成真实DOM对象并插入到对应container
-    //  
 
 
 
