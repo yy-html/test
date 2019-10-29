@@ -13,12 +13,14 @@
       outline: 1px #000 solid;
     }
     .box {
-      border: 1px #000 solid;
+      /* border: 1px #000 solid;
       height: 100px;
-      padding: 2px;
+      padding: 2px; */
+      width: 6rem;
+      height: 2rem;
     }
     .box1 {
-
+      
     }
   </style>
 </head>
@@ -26,19 +28,17 @@
 <body>
   <div class="box" id="box" title="box">
     <div class="box1" id="box1">
-
+      
     </div>
   </div>
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
 
- 
-
-
+    
   
   </script>
-
   <script>
+
 
 
 
@@ -52,6 +52,51 @@
     // const observer = new MutationObserver((mutationsList) => {})
     // observer.observe(targetNode, config)
     // observer.disconnect()
+
+    // 前端协作规范
+    // 1. 工作流规范：版本提交信息规范 版本发布规范 code review
+    // 2. 技术栈规范：前端框架 UI库 
+    // 3. 项目组织规范：目录结构 模版 脚手架
+    // 5. 编码规范：html规范 css规范 js规范 react规范
+    // 5. 文档规范：文档中心 文档格式
+    // 6. 测试规范：测试流程 单元测试
+    // 7. 前后端协作规范：前后端接口约定 接口文档
+    // 9. 技术分享：总结现有问题 拥抱新技术
+
+    // 提高开发维护效率 降低沟通成本 规范还是实现前端自动化的基础
+
+    // webpack
+    // loader：代码转化器 由A文件源码转换为B文件源码 逐个传递源码至每个loader 由后往前
+    // plugin：在webpack打包过程的生命周期中会广播很多时间 plugin用来监听这些事件 通过webpack提供的API改变输出结果
+
+
+    // es7
+    // array includes
+    // 指数运算符 a ** 2 === Math.pow(a, 2)
+    // // 8
+    // async/await
+    // Object.values/entries/getOwnPropertyDescriptors
+    // string padStart/padEnd: 填充字符串到达当前长度
+    // 函数参数结尾允许逗号
+    // // 9
+    // 异步迭代：for await (let value of asyncIterator) {}
+    // Promise.finally()
+    // 10
+    // array flat/flatMap
+    // string trimStart/trimEnd/matchAll
+    // 行分隔符/段分隔符
+    // Object.fromEntires
+    // Function.prototype.toString 返回精准字符
+    // try/catch 不必绑定err参数
+    // BigInt
+
+
+
+
+
+
+    
+
 
      
     // 技巧
@@ -432,11 +477,9 @@
 
 
     // 移动端 1rem === 100px 解决方案
-    // document.documentElement.style.fontSize = screen.width / 3.75 + 'px'
-    // document.documentElement.style.fontSize = 100 / 375 * 100 + 'vw' // 26.6667
+    // document.documentElement.style.fontSize = screen.width / 7.5 + 'px'
+    // document.documentElement.style.fontSize = 100 / 375 * 100 / 2 + 'vw' // 26.6667
     // document.documentElement.style.fontSize = screen.width * (100 / 375) + 'px'
-
-    
 
     // hooks 设计动机：
     // 1. class类难以理解（牵强）
@@ -446,7 +489,6 @@
       //  hooks将相互关联的逻辑组合到一起
 
     
-
 
 
 
@@ -479,7 +521,7 @@
     // 6. FileReader
     // 7. navigator.onLine   online   offline
     // 8. requestFullScreen() 开启全屏显示 / cancelFullScreen() 关闭全屏显示
-    // 9. 离线缓存 Service workers
+    // 9. 离线缓存 ServiceWorkers
       // 拖拽元素
       // 1.drag 应用于拖拽元素，整个拖拽过程都会调用
       // 2.dragstart应用于拖拽元素，当拖拽开始时调用
@@ -513,7 +555,7 @@
 
     // // 水平居中
     // 1. text-align：center（子元素：字符串 行内元素 行内块元素）
-    // 2. margin：auto(块元素 有宽度)
+    // 2. margin：0 auto(块元素 有宽度)
     // 3. flex + 主侧轴 | 子元素margin：auto
     // 4. position + thransform: thranslate()
     // // 垂直居中
@@ -530,7 +572,7 @@
     // 存在循环引用会抛出错误
 
 
-    // 代码复用：1. 封装:面向对象封装 函数封装 2. 继承  react：1. HOC 2. render Prop 3. 自定义hooks 4. providers consumers
+    // 代码复用：1. 封装:面向对象封装 函数封装 2. 继承  react：1. HOC 2. render Prop 3. 自定义hooks 4. providers/consumers模式
 
 
     // 一次完整的HTTP请求过程
@@ -624,12 +666,12 @@
   
     // 链表 VS 数组
     // 链表： 1. 内存上存储：不需要连续空间
-    //       2. 增删：效率高
-    //       3. 读取：效率低（因为要从head开始遍历）
+    //       2. 写：效率高
+    //       3. 读：效率低（因为要从head开始遍历）
 
     // 数组： 1. 内存上存储：是一块连续的区域
-    //       2. 增删：效率低（因为所操作的索引之后的元素都要移动）
-    //       3. 读取：效率高（因为内存中是连续的 知道每一个元素的内存地址）
+    //       2. 写：效率低（因为所操作的索引之后的元素都要移动）
+    //       3. 读：效率高（因为内存中是连续的 知道每一个元素的内存地址）
 
 
     // 上移下移
@@ -707,7 +749,7 @@
 		// log(element.nodeType)		// 1
 		// log(attribute.nodeType)	// 2
 		// log(text.nodeType)			// 3
-		// log(document.nodetype) // 9
+		// log(document.nodeType) // 9
 
 		// log(element.nodeName)		// DIV: 标签名大写
 		// log(attribute.nodeName)	// id: 属性名
@@ -763,7 +805,7 @@
 
     // myDiv.style.cssText  // 可读写
 
-    // myDiv.getArrtibute('style')  // 可读写 set
+    // myDiv.setArrtibute('style')  // 可读写 get
 
     // 行内样式 & 内联样式
     // window.getComputedStyle(mtDiv, null) // {}   // 只读
@@ -958,7 +1000,7 @@
 		// null == undefined 和自己; 除此之外不和任何类型 ==
 		// ①、如果有一个操作数是布尔值，则在比较相等性之前先将其转换为数值——false转换为0，而true转换为1；
 		// ②、如果一个操作数是字符串，另一个操作数是数值，在比较相等性之前先将字符串转换为数值
-		// ③、如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的基本类型值按照前面的规则进行比较
+		// ③、如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的类型值判断是不是基础类型，不是的话再调用toString，按照前面的规则进行比较
 		// const a = {
 		// 	i: 0,
 		// 	valueOf: function() {
@@ -1102,7 +1144,7 @@
 
 
     // BFC（Block Formatting Context）: 
-    // 是一个页面上一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然
+    // 是一个页面上一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然，也有一些内部规则
     // 它决定了块级元素如何对它的子元素进行布局，以及其他元素与它的关系
     // 触发条件：
     // 1.float的值不为none
@@ -1197,7 +1239,14 @@
 
 
 
-    // ES7  
+
+
+
+
+
+
+
+    // ES7
     // Array.prototype.includes
     // 3 ** 2 // 9
     // ES8
@@ -1492,12 +1541,11 @@
     //     yield [key, obj[key]];
     //   }
     //   // 2
-    //   for (let key in this) {
-    //     yield this[key]
+    //   for (let key in obj) {
+    //     yield [key, obj[key]]
     //   }
     //   // 3
-    //   const values = Object.values(this)
-    //   yield * values
+    //   yield* Object.values(obj)
     // }
 
     // for (let [key, value] of entries(obj)) {
@@ -2778,7 +2826,7 @@
     // 事件队列又分为宏任务队列和微任务队列：
     // 宏任务：定时器
     // 微任务：new Promise；new MutaionObserver
-    // 轮询事件列表有优先级 首先会查找微任务队列并执行清空队列 没有再查找宏任务队列（每次事件循环只会拿出一个宏任务） 如此循环
+    // 轮询事件列表有优先级 首先运行一个宏任务，当前宏任务执行完毕会查找微任务队列并执行清空队列 然后再执行一个宏任务（每次事件循环只会拿出一个宏任务） 如此循环
 
     // 调用栈：解析器去处理程序的机制，是一种栈数据结构：能够追踪子任务的运行状态
 
