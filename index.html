@@ -13,13 +13,6 @@
       outline: 1px #000 solid;
     }
     .box {
-      /* border: 1px #000 solid;
-      height: 100px;
-      padding: 2px; */
-      width: 6rem;
-      height: 2rem;
-    }
-    .box1 {
       
     }
   </style>
@@ -27,21 +20,31 @@
 
 <body>
   <div class="box" id="box" title="box">
-    <div class="box1" id="box1">
+    <!-- <div class="box1" id="box1">
       
-    </div>
+    </div> -->
   </div>
 
+
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
+    // 自我介绍
+    // 您好我叫刘桂圣 
+    // 我从事web前端开发有3年时间 
+    // 通过3年的开发经验 
+    // 至今可以熟练运用前端开发所涉及的基础技术体系
+    // 在公司的主要任务就是完成前端项目的开发 处理项目相关的一些事务
+    // 做过一些pc端和移动端的项目 
+    // 前端框架主要是react体系
 
-    
+    // 自己的优点缺点？
+    // 作为一个开发者 最重要的 逻辑思维能力；
+    // 而且互联网开发技术更新迭代很快 需要不断进行学习 学习能力
+
   
-  </script>
-  <script>
-
-    
     
 
+    // 进程和线程
+    // 根本区别：进程是操作系统资源分配的基本单位，而线程是任务调度和执行的基本单位
 
     // 链表
     // //节点
@@ -117,21 +120,29 @@
     
     
     // 创建模版 => 上传文件夹 描述等信息 => 利用git API创建一个git仓库并将文件提交到远程仓库 => 在数据库记录对应信息 => 列表刷新展示
-    // 使用模版 => 选择执行路径 => 在数据库中寻找对应信息 => 利用git API将对应模版在git仓库上down下来 => 写入到开发路径
+    // 使用模版 => 在数据库中寻找对应信息 => 利用git API将对应模版在git仓库上down下来 => 写入到开发路径
+
+    // 模拟终端：实现接入阿里自动化发布体系
+    // 利用node-pty 操作终端命令
+    // xterm模拟展示终端输入输出
+    // Electron同时在主进程和渲染进程对nodeJS暴漏了所有接口
+    //   在主进程进行终端命令操作 监听data exit事件
+    //   将运行日志和输出结果通过ipc通信方式（进程间通信方式）传递给渲染进程的xtermJS
+
+
     
 
 
     // cli
     // 脚手架雏形：npm pubilsh 一个全局安装的包 bin字段下
     // 1. get云服务器上一个zip 解压到进程运行目录下
-    // 2. 将脚手架内容放在cli内 copy内容至进程运行目录下
+    // 2. 将脚手架内容放在包内 copy内容至进程运行目录下
 
     // 考虑的问题：
     // 1. 版本管理：发布新版本 | 有了新版本想继续使用老版本。npm天然支持版本管理
     // 2. cli运行时自动检测版本更新：package.json version 与 npm view react version：返回16.9.0 比较版本进行提示
     // 3. 根据用户选择生成自定义模版：通过问题模式拿到用户的答案
-    // 4. 友好的UI界面：字体排版、颜色 | 进度条
-    // 5. cli运行时考虑同名文件夹 是否为空文件夹
+    // 4. 友好的UI界面：字体排版、颜色 | 进度日志
 
 
 
@@ -155,11 +166,11 @@
     // 构建/发布/测试/部署自动化
 
     // 前端协作规范
-    // 1. 工作流规范：代码存放位置，分支 / 提交信息 / tag版本发布 规范，code review
-    // 2. 项目组织规范：目录结构 模版 脚手架
-    // 3. 技术栈规范：前端框架 UI库 
+    // 1. 项目组织规范：目录结构 模版 脚手架
+    // 2. 工作流规范：代码存放位置，分支 / tag版本 / 提交信息 规范，code review
+    // 3. 技术栈规范：前端框架 UI库
     // 5. 编码规范：html规范 css规范 js规范 react规范
-    // 5. 文档规范：文档中心 文档格式 项目整体描述/技术沉淀/遇到的问题
+    // 5. 文档规范：文档格式 项目整体描述/技术沉淀/遇到的问题
     // 6. 测试规范：测试流程 单元测试
     // 7. 前后端协作规范：前后端接口约定 接口文档
     // 8. 技术分享：总结现有问题 拥抱新技术
@@ -177,9 +188,25 @@
 
 
 
-    // webpack
-    // loader：代码转化器 由A文件源码转换为B文件源码 逐个传递源码至每个loader 由后往前
-    // plugin：在webpack打包过程的生命周期中会广播很多时间 plugin用来监听这些事件 通过webpack提供的API改变输出结果
+    // webpack本质是一个node模块
+    // 识别入口文件 => 构建AST语法树 => 分析文件依赖（递归） => 处理（loader plugin） => 根据entry配置生成代码块chunk
+    // loader：转换文件代码(接收 输出js源码的函数) 由A文件源码转换为B文件源码 逆向编译，链式传递
+    // plugin：拓展功能(具有apply方法的对象 会被webpack compiler调用) 在webpack打包过程的生命周期中会广播很多事件 plugin用来监听这些事件 通过webpack提供的API改变输出结果   
+      // CommonsChunkPlugin：对多入口文件的公共模块进行单独打包
+      // ExtractTextPlugin：单独打包样式表
+
+    // 热替换
+    // 使用express启动本地服务，当浏览器访问资源时对此做响应。
+    // 服务端和客户端使用websocket实现长连接
+    // webpack监听源文件的变化，即当开发者保存文件时触发webpack的重新编译。
+
+    // 每次编译都会生成hash值、已改动模块的json文件、已改动模块代码的js文件
+    // 编译完成后通过socket向客户端推送当前编译的hash戳
+    // 客户端的websocket监听到有文件改动推送过来的hash戳，会和上一次对比
+
+    // 一致则走缓存
+    // 不一致则通过ajax和jsonp向服务端获取最新资源
+    // 使用内存文件系统去替换有修改的内容实现局部刷新
 
 
     // es7
@@ -202,12 +229,30 @@
     // try/catch 不必绑定err参数
     // BigInt
 
+    // 字符串方法：
+      // padStart/padEnd: 填充字符串到达当前长度
+      // trimStart/trimEnd/matchAll
+    // 数组方法：
+      // includes/flat/flatMap
+    // Object方法：
+      // Object.values/entries/fromEntires/getOwnPropertyDescriptors
+    // 函数：
+      // 函数参数结尾允许逗号
+      // Function.prototype.toString 返回精准字符
+    // async/await
+    // 异步迭代：for await (let value of asyncIterator) {}
+    // Promise.finally()
+    // 指数运算符 a ** 2 === Math.pow(a, 2)
+    // 行分隔符/段分隔符
+    // try/catch 不必绑定err参数
+    // BigInt
 
 
 
 
 
-    
+
+
 
 
      
@@ -240,7 +285,7 @@
     // 缓存位置：
     // 1. Service Worker：运行在浏览器背后的独立线程
     // 2. Memory Cache 内存缓存：（主要包括样式/脚本/图片；会话级 随进程的释放而释放）需要注意的事情是，内存缓存在缓存资源时并不关心返回资源的HTTP缓存头Cache-Control是什么值，同时资源的匹配也并非仅仅是对URL做匹配，还可能会对Content-Type，CORS等其他特征做校验。
-    // 3. Disk Cache 硬盘缓存：强缓存（需要根据响应头强缓存字段判断）
+    // 3. Disk Cache 硬盘缓存：强缓存（需要根据响应头强缓存字段判断）协商缓存
     // 4. Push Cache：是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使用。它只在会话（Session）中存在，一旦会话结束就被释放，并且缓存时间也很短暂，在Chrome浏览器中只有5分钟左右，同时它也并非严格执行HTTP头中的缓存指令。
 
     // React-事务机制
@@ -273,9 +318,9 @@
     //   mergeProps: (stateProps, dispatchProps, ownProps) => { return }
     //   optipons: { pure: true }
     // 1.通过上下文拿到store的数据
-    // 2.在didMount订阅store的变化监听本组件setState
+    // 2.在didMount订阅store的变化监听本组件setState（changeState）
     // 3.将3个props形成的mergeProps传递给渲染组件，默认Object.assign({}, ownProps, stateProps, dispatchProps)
-    // 4.做优化，默认对比前后store的数据（在changeState里）和ownProps（在willReceiveProps里）
+    // 4.做优化，默认对比前后store的数据（在changeState里）和ownProps（在willReceiveProps里）对比的同时缓存mergeProps
     //   var selector = {
     //     run: function runComponentSelector(props) {
     //       try {
@@ -294,7 +339,7 @@
     //   selector.run(this.props || nextProps)
 
     // // react-router：
-    // // BrowserRouter：
+    // BrowserRouter：
     // function createBrowserHistory() {
     //   return {
     //     listen(listener) {
@@ -438,7 +483,9 @@
     //                 history.push(this.props.to)
     //               }}
     //               href={history.createHref(location)} // 支持右键 (在新标签页中打开)
-    //             />
+    //             >
+    //               {this.props.children}
+    //             </a>
     //           )
     //         }}
     //       </Context.Consumer>
@@ -595,9 +642,9 @@
 
     // hooks 设计动机：
     // 1. class类难以理解（牵强）
-    // 2. 组件逻辑复用困难 class组件复用方式会形成嵌套地狱 
+    // 2. 组件复用产生嵌套地狱 class组件复用方式会形成嵌套地狱 
       //  hooks提供自定义hook
-    // 3. 逻辑复杂：同一个生命周期可能会包含很多互不相关的逻辑 而且相当一部分逻辑会被生命周期拆分开 
+    // 3. 逻辑分散 | 复杂：同一个功能点所涉及的逻辑会被生命周期拆分开 | 同一个生命周期可能会包含很多互不相关的逻辑
       //  hooks将相互关联的逻辑组合到一起
 
     
@@ -611,6 +658,7 @@
     // 2. GET有参数长度限制 POST没有
     // 3. GET请求会被浏览器主动缓存 POST需手动设置
     // 4. GET请求参数会被保存在历史记录 POST不会
+    // 5. 语义化不同
 
 
     // 跨域
@@ -628,7 +676,7 @@
     // 1. 本地存储 webStorage local/sesision
     // 2. 地理定位 navigator.geolocation.getCurrentPosition()
     // 3. 新增语义化标签header footer nav article section / 新增canvas video audio标签 / 新增表单控件类型 url number time search date email
-    // 4. webSocket / webWork
+    // 4. webSocket：在TCP连接上的双向通信协议 / webWork：多线程处理
     // 5. 拖拽 drag / drop
     // 6. FileReader
     // 7. navigator.onLine   online   offline
@@ -666,12 +714,12 @@
     // pointer-events: none; 阻止元素任何JS事件
 
     // // 水平居中
-    // 1. text-align：center（子元素：字符串 行内元素 行内块元素）
-    // 2. margin：0 auto(块元素 有宽度)
+    // 1. text-align：center（字符串 行内元素 行内块元素）
+    // 2. margin：0 auto(块元素 行内块元素 有宽度)
     // 3. flex + 主侧轴 | 子元素margin：auto
     // 4. position + thransform: thranslate()
     // // 垂直居中
-    // 1. line-height：（单行 行内元素 行内块元素）
+    // 1. line-height：（单行字符串 行内元素 行内块元素）
     // 2. 父：line-height / font-size : 0 子：vertical-align：middle
     // 3. flex
     // 4. position + thransform / margin-left + thransform
@@ -709,11 +757,17 @@
     // 4. painting按照计算出来的规则 画到屏幕上
     // 3.4两步也可以叫做回流
 
+    // link标签一般情况下不会阻塞domTree的构建
+    // link标签会阻塞renderTree的构建
+    // link标签会阻塞script标签的执行
+
     // CSSOM 会阻塞渲染，只有当 CSSOM 构建完毕后才会进入下一个阶段构建渲染树。
     // 通常情况下 DOM 和 CSSOM 是并行构建的，
     //   但是当浏览器遇到一个不带 defer 或 async 属性的 script 标签时， DOM 构建将暂停，
     //   如果此时又恰巧浏览器尚未完成 CSSOM 的下载和构建，由于 JavaScript 可以修改 CSSOM，
     //   所以需要等 CSSOM 构建完毕后再执行 JS，最后才重新 DOM 构建。
+
+    
 
     // 回流(reflow) & 重绘(repaint)
     // 回流：当render Tree中一些节点因尺寸，布局，隐藏，内容等改变需要重新构建，这时浏览器会重新构造这部分渲染树
@@ -851,9 +905,9 @@
     // window.screen.height/width：客户端分辨率
 
     // event:
-    // offsetX/Y：相对于事件源的鼠标距离
-    // clientX/Y：相对于浏览器视口的鼠标距离
-    // screenX/Y：相对于屏幕的鼠标距离
+    // offsetX/Y：相对于事件源的鼠标坐标
+    // clientX/Y：相对于浏览器视口的鼠标坐标
+    // screenX/Y：相对于屏幕的鼠标坐标
 
     // dom.getBoundingClientRect()：返回4个属性 距离浏览器视口的距离
     
@@ -1040,7 +1094,14 @@
 		// 	if (num == 1) return total
 		// 	return arguments.callee(num - 1, total * num)
 		// }
-		// log(fn(5, 1))
+    // log(fn(5, 1))
+
+    // let n = 5
+    // let total = 1
+    // while (n) {
+    //   total *= n --
+    // }
+    // log(total)
 
 
 		// 函数式编程有一个概念，叫做柯里化（currying），意思是将多参数的函数转换成单参数的形式。这里也可以使用柯里化。
@@ -1431,11 +1492,6 @@
     // }
     // log(move())  // 不会报错
 
-    // 交换变量的值
-    // let x = 1;
-    // let y = 2;
-    // [x, y] = [y, x];
-
     
 
     // const obj = new Object(function(){})  // 传什么类型的值就生成什么类型的对象实例
@@ -1497,11 +1553,6 @@
     //   log(arguments.callee)
     // }
 
-    // Object.keys && Object.values
-    // Object.entries方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（ enumerable ）属性的键值对数组
-
-    // 􏲒􏱁 resizeTo()􏱰 resizeBy()􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚 调整浏览器窗口大小
-
     
     // 当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。 而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境
     // js运行时进入全局环境，生成全局执行上下文
@@ -1552,9 +1603,9 @@
 
 
     // react知识
-    // 重复代码逻辑：就要考虑复用 1. 高阶函数 2. HOC 3. renderProps 
+    // 重复代码逻辑：就要考虑复用 1. 高阶函数 2. HOC 3. renderProps 4. Provider/Consumer 5. hooks
 
-    // 为什么不在componentWillMount中请求n数据？
+    // 为什么不在componentWillMount中请求数据？
     // 如果使用服务端渲染，componentWillMount会执行多次；
     // componentDidMount中DOM元素已经初始化完毕，可以对DOM元素进行操作 不会阻碍更新
 
@@ -1895,16 +1946,6 @@
 
 
 
-
-    // ES7
-    // Array.prototype.includes
-    // 3 ** 2 // 9
-    // ES8
-    // async await
-    // Object.values entries getOwnPropertyDescriptors
-    // 共享内存和原子
-
-
     // 真正意义的浅拷贝
     // Object.create(
     //   Object.getPrototypeOf(o),
@@ -1928,16 +1969,14 @@
 
 
 
-
-
     // function promisify(targetFunc) {
     //   return function (...args) {
     //     return new Promise((rl, rj) => {
-    //       args.push(function callback(err, ...data) {
+    //       args.push(function callback(err, data) {
     //         if (err) {
     //           return rj(err)
     //         }
-    //         rl(...data)
+    //         rl(data)
     //       })
     //       targetFunc.apply(this, args)
     //     })
@@ -1979,8 +2018,8 @@
     // F.prototype.b = 2
 
     // // 子类
-    // function S(sup) {
-    //   sup.call(this)  // 构造继承
+    // function S(F) {
+    //   F.call(this)  // 构造继承
     // }
 
     // // 寄生继承
@@ -2006,6 +2045,8 @@
     // // 寄生组合式继承
     // const s = new S(F)
     // log(s)
+
+    
 
 
 
@@ -2092,7 +2133,8 @@
     //   log(value)
     // }
 
-    // // yield*命令可以很方便地取出嵌套数组的所有成员。
+    // yield*命令可以很方便地取出嵌套数组的所有成员。
+
     // function* iterTree(tree) {
     //   if (Array.isArray(tree)) {
     //     for(let i=0; i < tree.length; i++) {
@@ -2103,13 +2145,26 @@
     //   }
     // }
 
-    // const tree = [ 'a', ['b', 'c'], ['d', 'e'] ];
+    // function* iterTree1(tree) {
+    //   for(let i=0; i < tree.length; i++) {
+    //     const item = tree[i]
+    //     if (Array.isArray(item)) {
+    //       yield* iterTree1(item)
+    //     } else {
+    //       yield item
+    //     }
+    //   }
+    // }
+
+    // const tree = [ 'a', ['b', 'c', [1, [2, 3], 4], 5], [[6, [7, 8], 9], 'd', 'e'] ];
 
     // for(let x of iterTree(tree)) {
     //   console.log(x);
     // }
 
-    // [...iterTree(tree)]
+    // log([...iterTree1(tree)])
+      
+
 
     // // Generator 异步应用（async函数实现原理）
     // function run(gen){
@@ -2330,7 +2385,7 @@
     // console.log(max)
     // console.log(maxItem)
 
-
+    
 
     // 二叉查找树，也称二叉搜索树，或二叉排序树。其定义也比较简单，要么是一颗空树，要么就是具有如下性质的二叉树：
     // （1） 若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；
@@ -3019,12 +3074,9 @@
     // const flatten = arr => {
     //   arr.reduce((prev, item) => (
     //     prev.concat(Array.isArray(item) ? flatten(item) : item)
+    //     [...prev, ...(Array.isArray(next) ? fn(next) : [next])]
     //   ), [])
     // }
-
-    // Array.protype.flat()用于将数组“拉平”，变成一维数组，返回一个新数组。
-    // flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次
-    // flat()会跳过空格
 
     // function flatten(arr){
     //   while(arr.some(item=>Array.isArray(item))) {
@@ -3033,8 +3085,11 @@
     //   return arr;
     // }
 
+    // Array.protype.flat()用于将数组“拉平”，变成一维数组，返回一个新数组。
+    // flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次
+    // flat()会跳过空格
+
     
   </script>
 </body>
-
 </html>
