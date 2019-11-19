@@ -40,6 +40,37 @@
     // 作为一个开发者 最重要的 逻辑思维能力；
     // 而且互联网开发技术更新迭代很快 需要不断进行学习 学习能力
 
+    // 函数柯里化
+    // vue react区别
+     
+
+
+    // node做中间层的好处
+    // 页面渲染 合并接口 减少请求 二次处理数据 数据缓存 解决跨域
+
+    // webpack优化
+
+    // 开发体验优化减少构建时间
+    //   缓存编译结果：
+    //     cache-loader
+    //     babel-loader cache
+    //   多核处理打包过程：
+    //     happypack 将处理loader时的任务分配制多线程去处理
+    //   抽离静态依赖（不会因为开发者重启服务或执行build而改变的资源）：
+    //     1.webpack-dll-plugin动态链接库（首次构建将这些依赖单独打包，后续构建直接引用）
+    //     2.配置externals 发布到服务端cdn(将静态依赖包当作外部资源进行加载)
+
+    // 性能优化
+    // 代码分割code splitting
+    //   入口配置：entry 入口使用多个入口文件
+    //   动态加载：import
+    //   SplitChunks抽取公共代码（每当你对某一文件做点改变，访问你站点的人们就要重新下载它。然而依赖却很少变动 利用浏览器缓存）：
+    // 压缩js uglifyjs
+    // 合并压缩图片：
+    //   url-loader option.limit: number 小于限制即将图片转换为base64 减少请求数
+    //   image-webpack-loader：大图压缩
+
+    
   
     
 
@@ -1943,6 +1974,32 @@
 
 
 
+    // function fn() {
+    //   log(this)
+    //   const { length } = this
+    //   let ret = this
+    //   let i = 0
+    //   let emptyStart = 0
+      
+    //   while (this[i] === ' ') {
+    //     i ++
+    //     ret = this.slice(i)
+    //   }
+
+    //   emptyStart = i
+    //   i = length - 1
+
+    //   while (this[i] === ' ') {
+    //     i --
+    //     ret = this.slice(emptyStart, i + 1)
+    //   }
+
+    //   log(1, ret)
+    // }
+
+    // fn.call(new String('   abc   '))
+
+
 
 
 
@@ -2387,6 +2444,8 @@
 
     
 
+    
+
     // 二叉查找树，也称二叉搜索树，或二叉排序树。其定义也比较简单，要么是一颗空树，要么就是具有如下性质的二叉树：
     // （1） 若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；
     // （2） 若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
@@ -2435,6 +2494,7 @@
     // 	}
     // }
 
+    
     // const result = []
     // let dp = 0
     // const stack = [tree]
@@ -2555,7 +2615,7 @@
 		// 			}
 		// 		}
     //   }
-		// }
+    // }
 
 		// // 深度遍历
 		// let a
@@ -2671,13 +2731,13 @@
     //   return fn(n - 1, b, a + b)
     // }
     // function fn(n) {
-    //   if (n <= 2) return 1 
+    //   if (n <= 2) return 1
     //   let a = 1
     //   let b = 1
-    //   for(let i = 3; i <= n; i++ ) {
+    //   Array.from({ length: n - 3 }).forEach(item => {
     //     [a, b] = [b, a + b]
-    //   }
-    //   return b
+    //   })
+    //   return a + b
     // }
 
 
@@ -2784,13 +2844,13 @@
     // const f = () => log(1)
 
     // 节流
-    // const throttle = (fn, interval) => {
+    // const throttle = (fn, delay) => {
     //   let time = 0
-    //   return (...rest) => {
+    //   return function (...rest) {
     //     const now = Date.now()
-    //     if (now - time > interval) {
+    //     if (now - time > delay) {
     //       time = now
-    //       fn(...rest)
+    //       fn.apply(this, rest)
     //     }
     //   }
     // }
@@ -2798,11 +2858,13 @@
     // document.onmousemove = throttle(f, 1000)
     
     // 防抖
-    // function fn(f, time) {
-    //   let timeout
-    //   return (...arg) => {
-    //     clearTimeout(timeout)
-    //     timeout = setTimeout(f, time, ...arg)
+    // function fn(func, delay) {
+    //   let timer = null
+    //   return function (...rest) {
+    //     clearTimeout(timer)
+    //     timer = setTimeout(() => {
+    //       func.apply(this, rest)
+    //     }, delay)
     //   }
     // }
 
@@ -2826,11 +2888,11 @@
     //       time = 0
     //       log(2)
     //     } else {
+    //       log(1)
     //       time = Date.now()
     //     }
     //   }
     // }
-    // window.onclick = fn()
 
     // document.onclick = fn(f, 1000)
 
@@ -3046,17 +3108,16 @@
     // splice: 删除 插入 替换 截取
 
     // const arr = [{a: 1,b: {b2: 2}},[2,3,[4,5]],'c']
-    // function deepCopy(obj) {
-    //   const newObj = obj.constructor === Object ? {} : []
-    //   for (let key in obj) {
-    //     const { [key]: value } = obj
+    // function deepCopy(data) {
+    //   const ret = data instanceof Array ? [] : {}
+    //   for (let key in data) {
+    //     let value = data[key]
     //     if (typeof value === 'object') {
-    //       newObj[key] = deepCopy(value)
-    //     } else {
-    //       newObj[key] = value
+    //       value = deepCopy(value)
     //     }
+    //     ret[key] = value
     //   }
-    //   return newObj
+    //   return ret
     // }
 
     // const newArr = deepCopy(arr)
