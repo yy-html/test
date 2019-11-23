@@ -27,6 +27,10 @@
 
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
+
+
+
+
     // 自我介绍
     // 您好我叫刘桂圣 
     // 我从事web前端开发有3年时间 
@@ -42,8 +46,6 @@
 
     // 函数柯里化
     // vue react区别
-     
-
 
     // node做中间层的好处
     // 页面渲染 合并接口 减少请求 二次处理数据 数据缓存 解决跨域
@@ -71,7 +73,6 @@
     //   image-webpack-loader：大图压缩
 
     
-  
     
 
     // 进程和线程
@@ -85,12 +86,12 @@
     //   this.previous = null;         //上一个节点链接
     // }
 
-    // //链表类
+    //链表类
     // class List {
     //   constructor(head = 'head') {
     //     this.head = new Node(head)
     //   }
-    //   find() {
+    //   find(item) {
     //     let currNode = this.head;
     //     while ( currNode.element != item ){
     //       currNode = currNode.next;
@@ -105,7 +106,7 @@
     //     return currNode;
     //   }
     //   insert(newElement, item) {
-    //     var newNode = new Node( newElement );
+    //     var newNode = new Node(newElement);
     //     var currNode = this.find(item);
     //     newNode.next = currNode.next;
     //     newNode.previous = currNode;
@@ -114,7 +115,7 @@
     //   display() {
     //     let currNode = this.head;
     //     while (!(currNode.next == null)){
-    //       console.debug( currNode.next.element );
+    //       console.debug('show', currNode.next.element );
     //       currNode = currNode.next;
     //     }
     //   }
@@ -134,9 +135,59 @@
     //       currNode.previous = null;
     //     }
     //   }
+    //   reverse() {
+    //     let end
+
+    //     const f = (node, prev) => {
+    //       end = node
+    //       const { next, element } = node
+    //       if (next !== null) {
+    //         f(next, node)
+    //       }
+    //       if (element === this.head.element) {
+    //         return next.next = null
+    //       }
+    //       node.next = prev
+    //     }
+
+    //     f(this.head)
+
+    //     this.head.next = end
+    //   }
+    //   reverse() {
+    //     let end
+
+    //     const f = (node, prev) => {
+    //       end = node
+    //       const { next, element } = node
+    //       if (next !== null) {
+    //         f(next, node)
+    //       }
+    //       if (element === this.head.element) {
+    //         node.next = end
+    //         next.next = null
+    //         return node
+    //       }
+    //       node.next = prev
+    //     }
+
+    //     return f(this.head)
+    //   }
     // }
 
-    // const fruits = new List()
+    // const list = new List()
+
+    // list.insert(1 , 'head')
+    // list.insert(2 , 1)
+    // list.insert(3 , 2)
+    
+    // log(list.reverse())
+    // list.display()
+
+
+
+
+    
 
 
     
