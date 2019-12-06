@@ -6,28 +6,38 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
   <title>{{title}}</title>
-  <!-- <link rel="stylesheet" href="./node_modules/xterm/dist/xterm.css" /> -->
   <style>
 
     body * {
       outline: 1px #000 solid;
     }
     .box {
-      
+      overflow: hidden;
+      height: 300px;
+    }
+    .box1 {
+      overflow: hidden;
+      height: 100%;
+    }
+    .box2 {
+      float: right;
+      width: 200px;
+      height: 100%;
     }
   </style>
 </head>
 
 <body>
-  <div class="box" id="box" title="box">
-    <!-- <div class="box1" id="box1">
-      
-    </div> -->
-  </div>
-
+  <div id="root"></div>
+  <!-- <script type="text/javascript" src="http://localhost:3000/commons-commons.js"></script>
+  <script type="text/javascript" src="http://localhost:3000/bundle.js"></script> -->
+  
+  <!-- <div class="box" id="box" title="box">
+  </div> -->
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
 
+  
 
 
 
@@ -40,9 +50,42 @@
     // 做过一些pc端和移动端的项目 
     // 前端框架主要是react体系
 
+
+
     // 自己的优点缺点？
     // 作为一个开发者 最重要的 逻辑思维能力；
     // 而且互联网开发技术更新迭代很快 需要不断进行学习 学习能力
+
+    // ES6 module / require
+    // 1.
+    // test.js
+    // export var count = 0 // 这里改变了接口
+    // export function add() {
+    //   count++
+    // }
+    // // index.js
+    // import { count, add } from './test.js'
+    // console.log(count)  // 0
+    // add()
+    // console.log(count)  // 1
+    // 2.
+    // // test.js
+    // var count = 0
+    // function add() {
+    //   count++
+    // }
+    // export default {
+    //   count: count,   // 因为这里相当于 count: 0； 并没有改变接口
+    //   add: add
+    // }
+    // // index.js
+    // import mod from './test.js'
+
+    // console.log(mod.count)  // 0
+    // mod.add()
+    // console.log(mod.count)  // 0
+
+
 
     // 函数柯里化
     // vue react区别
@@ -1164,6 +1207,7 @@
 
 
 
+
 	// 函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）
 	// 尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用帧，取代外层函数的调用帧就可以了
 	// 这就叫做"尾调用优化"（Tail call optimization），即只保留内层函数的调用记录
@@ -2024,6 +2068,29 @@
 
 
 
+    // 8 // 2 2 2
+    // 7 // 7
+    // 6 // 2 3
+
+    // function calculate(n) {
+    //   let i = 2
+    //   let total = n
+    //   const ret = []
+    //   while (i !== n) {
+    //     const divisor = total / i
+    //     if (Math.floor(divisor) === divisor) {
+    //       total = divisor
+    //       ret.push(i)
+    //       i = 2
+    //     } else {
+    //       i ++
+    //     }
+    //   }
+    //   return ret
+    // }
+
+    // log(calculate(12))
+
 
     // function fn() {
     //   log(this)
@@ -2508,6 +2575,47 @@
     // 性质2. 根节点是黑色。
     // 性质3. 每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)
     // 性质4. 从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。
+
+
+    // const obj = {
+    //   a: {
+    //     b: {
+    //       c: 1
+    //     }
+    //   }
+    // }
+
+    // log(g(obj, 'a.b.c.d', 2))
+
+    // function g(obj, path, defaultV) {
+    //   // 递归
+    //   const splitPath = path.split('.')
+    //   let i = 0
+    //   function find(tree) {
+    //     const key = splitPath[i ++]
+    //     const item = tree[key]
+    //     if (!key) {
+    //       return tree
+    //     } else if (!item) {
+    //       return defaultV
+    //     }
+    //     return find(item)
+    //   }
+
+    //   // 循环
+    //   let item = tree
+    //   while (splitPath[i]) {
+    //     const next = item[splitPath[i ++]]
+    //     if (next) {
+    //       item = next
+    //     } else {
+    //       return defaultV
+    //     }
+    //   }
+    //   return item
+      
+    //   return find(obj)
+    // }
 
 
     // // 二叉树遍历

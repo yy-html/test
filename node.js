@@ -11,7 +11,17 @@ const log = console.log
 const app = new Koa()
 const router = new Router()
 const wrapRouter = new Router()
-const port = 8080
+const port = 8081
+
+const a = require('./test.js')
+
+log(a)
+a.a = 1
+
+const b = require('./test.js')
+
+log(b)
+
 
 render(app, {
   root: path.join(__dirname),   // 视图的位置
@@ -19,17 +29,20 @@ render(app, {
   debug: process.env.NODE_ENV !== 'production'  //是否开启调试模式
 })
 
-router.all('*', async (ctx, next) => {
-  // const page = await fsp.readFile('./index.html', 'utf8')
-  // ctx.body = page
-  await ctx.render('index', {
-    title: 'run by nodeJS'
-  })
-})
+// router.all('*', async (ctx, next) => {
+//   // const page = await fsp.readFile('./index.html', 'utf8')
+//   // ctx.body = page
+//   await ctx.render('index.html', {
+//     title: 'run by nodeJS'
+//   })
+// })
 
 wrapRouter.use('/', router.routes(), router.allowedMethods())
 
 app.use(async (ctx, next) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  ctx.set("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+  ctx.set("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
   const start = Date.now()
   await next()
   const end = Date.now()
@@ -47,26 +60,26 @@ app.listen(port, () => {
 
 
 
-const fsp = new Proxy(fs, {
-  get(target, key) {
-    return promisify(target[key])
-  }
-})
+// const fsp = new Proxy(fs, {
+//   get(target, key) {
+//     return promisify(target[key])
+//   }
+// })
 
-function promisify(targetFunc) {
-  return function wrap(...args) {
-    return new Promise((rs, rj) => {
-      const callback = (err, data) => {
-        if (err) {
-          return rj(err)
-        }
-        rs(data)
-      }
-      args.push(callback)
-      targetFunc.apply(this, args)
-    })
-  }
-}
+// function promisify(targetFunc) {
+//   return function wrap(...args) {
+//     return new Promise((rs, rj) => {
+//       const callback = (err, data) => {
+//         if (err) {
+//           return rj(err)
+//         }
+//         rs(data)
+//       }
+//       args.push(callback)
+//       targetFunc.apply(this, args)
+//     })
+//   }
+// }
 
 
 // 路由： 通过不同的访问路径 导向不同的controler
