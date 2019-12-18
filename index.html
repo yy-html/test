@@ -14,6 +14,10 @@
     .box {
       overflow: hidden;
       height: 300px;
+      width: 300px;
+      border: 10px #000 solid;
+      padding: 20px;
+      box-sizing: border-box;
     }
     .box1 {
       overflow: hidden;
@@ -28,7 +32,8 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <!-- <div class="box">   -->
+  </div>
   <!-- <script type="text/javascript" src="http://localhost:3000/commons-commons.js"></script>
   <script type="text/javascript" src="http://localhost:3000/bundle.js"></script> -->
   
@@ -36,14 +41,11 @@
   </div> -->
 
   <script>const log = console.log;const dir = console.dir;const box = document.querySelector('.box')
-
   
-
-
 
     // 自我介绍
     // 您好我叫刘桂圣 
-    // 我从事web前端开发有3年时间 
+    // 我从事web前端开发有3年时间
     // 通过3年的开发经验 
     // 至今可以熟练运用前端开发所涉及的基础技术体系
     // 在公司的主要任务就是完成前端项目的开发 处理项目相关的一些事务
@@ -2061,6 +2063,43 @@
     // flex-basis
     // align-self: // 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch
     // flex: flex-grow || flex-shrink || flex-basis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // function fn(str) {
+    //   const { length } = str
+    //   let b = Math.floor(length / 3)
+    //   const n = length % 3
+    //   const splitArr = str.split('')
+    //   const head = splitArr.splice(0, n)
+
+    //   if (b > 0) {
+    //     for (let { length } = splitArr, i = length - 1; i >= 0; i --) {
+    //       if (i == 0) break
+    //       if (!(i % 3)) {
+    //         splitArr[i] = ',' + splitArr[i]
+    //       }
+    //     }
+    //   }
+    //   return [...head, n ? ',' : '', ...splitArr].join('')
+    // }
+
+    // log(fn('1234567890')) // 12,345,678   // 1,234,567
 
 
 
