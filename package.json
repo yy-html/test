@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/yy-html/test#readme",
   "dependencies": {
+    "antd": "^3.26.4",
     "art-template": "^4.13.2",
     "koa": "^2.8.1",
     "koa-art-template": "^1.1.1",
