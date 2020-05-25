@@ -862,12 +862,12 @@
     //   DOM：描述了文档节点之间的结构和属性
     //   CSSOM：描述了标签样式
     //     每一个浏览器都会有一个 “浏览器自定义样式（user agent styles）”，也就是说如果我们不提供自定义样式的话，我们的页面将会按照浏览器提供的样式来渲染
-    // 2. 将两棵树组合成 Render Tree
+    // 2. layout：将两棵树组合成 Render Tree
     //   render Tree 和 DOM Tree区别：
     //     render Tree中包含节点对应的样式；
     //     render Tree中不包含display: none的节点和head节点
     //   (display：none会触发reflow visibility：hidden只会触发重绘因为位置没有发生变化)
-    // 3. layout（计算布局过程） 
+    // 3. layout：布局计算 
     //   有了Render Tree 浏览器已经能知道文档结构的从属关系和它们所对应的样式了 从而计算出每个节点在屏幕中的位置
     // 4. painting按照计算出来的规则 画到屏幕上
     // 3.4两步也可以叫做回流
