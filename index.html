@@ -42,6 +42,9 @@
 
   <script>const log = console.log;const dir = console.dir;
 
+    // 如果 setTimeout 存在嵌套调用，那么系统会设置最短时间间隔为 4 毫秒
+    // 未激活的页面，setTimeout 执行最小间隔是 1000 毫秒
+
 
     // ES6 module / require
     // 1.
@@ -893,6 +896,10 @@
 
     // 浏览器会优化回流和重绘操作：浏览器会维护一个队列，将回流和重绘操作放入这个队列，等队列中的操作到了一定数量或者到了一定时间就会进行一个批操作
     // 查询布局信息的样式时会强制重排，导致浏览器无法优化多次重排
+      // offsetTop, offsetLeft, offsetWidth, offsetHeight
+      // scrollTop, scrollLeft, scrollWidth, scrollHeight
+      // clientTop, clientLeft, clientWidth, clientHeight
+      // getComputedStyle() (currentStyle in IE)
     // 自己的优化：批操作 直接改变className或cssText累加或setAttribute('style')；DOM元素批添加
     
 
