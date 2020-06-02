@@ -1988,9 +1988,19 @@
     // 事件队列又分为宏任务队列和微任务队列：
     // 宏任务：定时器
     // 微任务：new Promise；new MutaionObserver
-    // 轮询事件列表有优先级 首先运行一个宏任务，当前宏任务执行完毕会查找微任务队列并执行清空队列 然后再执行一个宏任务（每次事件循环只会拿出一个宏任务） 如此循环
+    // 首先运行一个宏任务，在主函数执行完毕后 当前宏任务执行完毕前 会查找微任务队列并执行清空队列 然后再执行一个宏任务（每次事件循环只会拿出一个宏任务） 当前任务执行完成再执行到期的延迟任务 如此循环；微任务和宏任务是绑定的，每个宏任务在执行时，会创建自己的微任务队列
 
     // 调用栈：解析器去处理程序的机制，是一种栈数据结构：能够追踪子任务的运行状态
+
+    // 如果 setTimeout 存在嵌套调用，那么系统会设置最短时间间隔为 4 毫秒，在 Chrome 中，定时器被嵌套调用 5 次以上，系统会判断该函数方法被阻塞了
+    // 未激活的页面，setTimeout 执行最小间隔是 1000 毫秒
+    // 延时执行时间有最大值
+
+    // 定时器=》渲染进程创建回调任务（任务name 发起时间 延迟时间）=》将任务添加进延迟队列（宏任务）=》主线程任务调度计算出到期任务并执行
+
+    // XMLHttpRequest=》交给网络进程和其他线程去执行请求=》将执行结果通过ipc通信的方式通知渲染进程=》渲染进程将回调任务push到事件队列末尾
+
+    // 主线程一直是依次执行一个队列中的任务，这里的多个队列和优先级，是另外一个调度系统，决定了先把哪个任务放入主线程的执行队列中
 
     // node event loop
     // timer => i/o cb => poll => check => close cb
@@ -2291,17 +2301,17 @@
     // }
 
     // async function fn() {
-    //   const a = new Promise((rs) => { setTimeout(rs, 2000, 1) })
+    //   const a = new Promise((rs) => { setTimeout(rs, 1000, 1) })
     //   const b = new Promise((rs) => { setTimeout(rs, 2000, 2) })
 
-    //   // async函数内promise并行执行
-    //   // 方式1
-    //   // const retA = await a
-    //   // const retB = await b
-    //   // 方式2
-    //   // const [retA, retB] = await Promise.all([a, b])
+      // async函数内promise并行执行
+      // 方式1
+      // const retA = await a
+      // const retB = await b
+      // 方式2
+      // const [retA, retB] = await Promise.all([a, b])
 
-    //   // log(retA, retB)
+      // log(retA, retB)
     // }
 
     // const f = fn()
@@ -2334,6 +2344,7 @@
     // f.then(res => log(1, res)).catch(err => log(2, err))
 
     
+    // Iterator：done: false和value: undefined属性都是可以省略的
 
     // // Generator: 状态机, 还是一个遍历器对象生成函数
     // // 调用它：返回一个指向内部状态的指针对象, 还是一个遍历器对象
