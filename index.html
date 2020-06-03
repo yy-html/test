@@ -2345,6 +2345,8 @@
 
     
     // Iterator：done: false和value: undefined属性都是可以省略的
+    // throw方法被捕获以后，会附带执行一次try块以后的next方法，如果还有yield继续执行next返回done：false（只抛错 不退出gen）
+    // return(ret)方法被捕获以后，会附带执行一次finally块中的next方法并且value为其yield value || return value，如没有finally，则相当于插入一条return ret；如果还有yield继续执行next返回done：true（退出gen）
 
     // // Generator: 状态机, 还是一个遍历器对象生成函数
     // // 调用它：返回一个指向内部状态的指针对象, 还是一个遍历器对象
