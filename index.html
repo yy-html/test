@@ -42,6 +42,49 @@
 
   <script>const log = console.log;const dir = console.dir;
 
+    // babel
+    // 解析parse：babel
+    // 转换transform：plugin（env）
+    // 生成generate：babel
+
+    // 1.babel-polyfill（转换API）：入口引入@babel/polyfill
+    // 2.@babel/preset-env.useBuiltIns：usage(新)：检测代码中 ES6/7/8 等的使用情况，仅仅加载代码中用到的 polyfills
+    // //.babelrc
+    // {
+    //   "presets": [
+    //     [
+    //       "@babel/preset-env",
+    //       {
+    //         "useBuiltIns": "usage", // 按需加载polyfill，直接修改原型
+    //         "corejs": 3 // 默认2
+    //       }
+    //     ]
+    //   ],
+    //   "plugins": [
+    //     [
+    //       "@babel/plugin-transform-runtime" // 是一个可以重复使用 Babel 注入的帮助程序，以节省代码大小的插件。注意：诸如 Array.prototype.flat() 等实例方法将不起作用，因为这需要修改现有的内置函数(可以使用 @babel/polyfill 来解决这个问题) ——> 对此需要说明的是如果你配置的是corejs3， core-js@3 现在已经支持原型方法，同时不污染原型。
+    //     ]
+    //   ]
+    // }
+    // 3.@babel/plugin-transform-runtime && @babel/runtime && @babel/runtime-corejs3
+    // {
+    //   "presets": [
+    //     [
+    //       "@babel/preset-env"
+    //     ]
+    //   ],
+    //   "plugins": [
+    //     [
+    //       "@babel/plugin-transform-runtime",{ // 帮助语法从inject改为require(babel/runtime)
+    //         "corejs": 3 // 帮助API从inject改为require(babel/runtime)
+    //       }
+    //     ]
+    //   ]
+    // }
+    
+
+
+
     // 如果 setTimeout 存在嵌套调用，那么系统会设置最短时间间隔为 4 毫秒
     // 未激活的页面，setTimeout 执行最小间隔是 1000 毫秒
 
@@ -216,50 +259,6 @@
     
     // log(list.reverse())
     // list.display()
-
-
-
-
-    
-
-
-    
-    // 七巧板
-    // 背景：目的为提高开发过程 20% 到 30% 的提效 提高自动化程度 素材沉淀
-    // 开发、发布过程割裂
-    // 可复用的代码累积分散
-    // 在开发后台管理项目的过程中
-    //   发现有很多功能类似的页面结构是可以复用的
-    //   遇到这种情况时 我们一般都是去做过的页面复制 粘贴 然后把不匹配的部分删除
-    //   可以找一个方式去集中管理这些模版/代码块
-    
-    
-    // 创建模版 => 上传文件夹 描述等信息 => 利用git API创建一个git仓库并将文件提交到远程仓库 => 在数据库记录对应信息 => 列表刷新展示
-    // 使用模版 => 在数据库中寻找对应信息 => 利用git API将对应模版在git仓库上down下来 => 写入到开发路径
-
-    // 模拟终端：实现接入阿里自动化发布体系
-    // 利用node-pty 操作终端命令
-    // xterm模拟展示终端输入输出
-    // Electron同时在主进程和渲染进程对nodeJS暴漏了所有接口
-    //   在主进程进行终端命令操作 监听data exit事件
-    //   将运行日志和输出结果通过ipc通信方式（进程间通信方式）传递给渲染进程的xtermJS
-
-
-    
-
-
-    // cli
-    // 脚手架雏形：npm pubilsh 一个全局安装的包 bin字段下
-    // 1. get云服务器上一个zip 解压到进程运行目录下
-    // 2. 将脚手架内容放在包内 copy内容至进程运行目录下
-
-    // 考虑的问题：
-    // 1. 版本管理：发布新版本 | 有了新版本想继续使用老版本。npm天然支持版本管理
-    // 2. cli运行时自动检测版本更新：package.json version 与 npm view react version：返回16.9.0 比较版本进行提示
-    // 3. 根据用户选择生成自定义模版：通过问题模式拿到用户的答案
-    // 4. 友好的UI界面：字体排版、颜色 | 进度日志
-
-
 
 
 
@@ -705,9 +704,6 @@
     // 把key放在整个表单上可能更有意义。每次改变时，表单中的所有组件都将用一个新初始化的状态重新创建。
 
 
-  
-
-    
 
     
     // 禁用鼠标事件属性：pointer-events: none;
@@ -824,6 +820,11 @@
     // 弹性盒 flexbox
     // box-sizing
     // vh vw
+
+    // [元素类型]-[元素作用/内容]
+    // 如:搜索按钮: btn-search
+    // 登录表单:form-login
+    // 新闻列表:list-news
 
 
     // pointer-events: none; 阻止元素任何JS事件
@@ -2487,6 +2488,78 @@
     // for (let [key, value] of entries(obj)) {
     //   console.log(key, '->', value);
     // }
+
+
+    // function createP(time) {
+    //   return new Promise((rs, rj) => {
+    //     setTimeout(() => {
+    //       log(time)
+    //       rs(time)
+    //     }, time * 1000)
+    //   })
+    // }
+
+  // const i = [
+  //   createP(1),
+  //   createP(2),
+  //   createP(3),
+  // ]
+
+  // const i = {
+  //   i: 0,
+  //   [Symbol.iterator]() {
+  //     console.log('iterator')
+
+  //     return {
+  //       next: () => {
+  //         const done = this.i ++ > 2
+  //         return {
+  //           value: new Promise((rs, rj) => {
+  //             createP(this.i).then(() => {
+  //               rs(this.i)
+  //             })
+  //           }),
+  //           done,
+  //         }
+  //       }
+  //     }
+  //   },
+  //   [Symbol.asyncIterator]() {
+  //     console.log('asyncIterator')
+  //     return {
+  //       next: () => {
+  //         return new Promise((rs, rj) => {
+  //           const done = this.i ++ > 2
+  //           createP(this.i).then(() => {
+  //             rs({
+  //               value: this.i,
+  //               done: done,
+  //             })
+  //           })
+  //         })
+  //       }
+  //     }
+  //   }
+  // }
+
+  // async function f() {
+  //   for await (const x of i) {
+  //     console.log('x', x);
+  //   }
+  // }
+
+  // f()
+
+  // async function* gen1() {
+  //   yield 'a';
+  //   yield 'b';
+  //   return 2;
+  // }
+
+  // async function* gen2() {
+  //   // result 最终会等于 2
+  //   const result = yield* gen1();
+  // }
 
 
 
