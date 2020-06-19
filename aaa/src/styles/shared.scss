@@ -1,0 +1,52 @@
+#dms {
+  // 各个页面通用的样式
+
+  // 页面容器
+  .page-container {
+    background: white;
+    padding: 12px;
+    min-width: 1080px;
+  }
+
+
+  // 列表页面 上方查询区域
+  .query-panel {
+    .ivu-card-body {
+      padding-top: 24px;
+      padding-bottom: 0;
+      overflow: visible;
+    }
+
+    .ivu-form {
+      display: flex;
+      flex-wrap: wrap;
+
+      .ivu-form-item-content {
+        width: 250px;
+      }
+
+      &.fixed-col {
+        .ivu-form-item {
+          width: 100%;
+          .ivu-form-item-content {
+            width: auto;
+          }
+        }
+      }
+    }
+
+    .query-btn {
+      button {
+        min-width: 80px;
+        border-radius: 2px;
+        margin-right: 12px;
+        &:focus {outline:none;}
+      }
+    }
+  }
+
+  // 列表页面 下方表格
+  .list-container {
+    margin-top:25px;
+  }
+}

@@ -1,0 +1,266 @@
+#dms {
+  .spin-icon-load {
+    animation: ani-spin 1s linear infinite;
+    font-size: 30px !important;
+    font-weight: bold;
+  }
+  .ivu-table-cell {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .ivu-table-cell:first-child{
+    padding-left:10px;
+  }
+  .view-content {
+    padding-bottom: 60px;
+    position: relative;
+  }
+  .ivu-select-multiple .ivu-select-selection .ivu-select-placeholder {
+    font-size: 14px;
+  }
+  @keyframes ani-spin {
+    from { transform: rotate(0deg);}
+    50%  { transform: rotate(180deg);}
+    to   { transform: rotate(360deg);}
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  .flex-text-vertical {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .flex-last-right {
+  margin-left: auto;
+  }
+  .fl {
+    float: left;
+  }
+  .fr {
+    float: right;
+  }
+  .pl-12 {
+    padding-left: 12px;
+  }
+  .pr-12 {
+    padding-right: 12px;
+  }
+  
+  .ml-12 {
+    margin-left: 12px;
+  }
+  .ml-6 {
+    margin-left: 6px;
+  }
+  .mr-6 {
+    margin-right: 6px;
+  }
+  .fz12 {
+    font-size: 12px;
+  }
+  .fz16 {
+    font-size: 16px;
+  }
+  .fz20 {
+    font-size: 20px;
+  }
+  
+  .no-wrap {
+    white-space: nowrap;
+  }
+  .flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+  
+    &.flex-vertical {
+      flex-direction: column;
+    }
+    
+    ul {
+      list-style-type: none;
+    }
+    
+    .flex-text-vertical {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .flex-last-right {
+    margin-left: auto;
+    }
+    
+    .pl-12 {
+      padding-left: 12px;
+    }
+    .pr-12 {
+      padding-right: 12px;
+    }
+    
+    .ml-12 {
+      margin-left: 12px;
+    }
+    .ml-6 {
+      margin-left: 6px;
+    }
+    .mr-6 {
+      margin-right: 6px;
+    }
+
+    .no-wrap {
+      white-space: nowrap;
+    }
+    .flex {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+    
+      &.flex-vertical {
+        flex-direction: column;
+      }
+      
+      &.flex-auto {
+        flex: 1;
+        -webkit-flex: 1;
+      }
+      
+      &.flex-center {
+        justify-content: center;
+        -webkit-justify-content: center;
+      
+        align-items: center;
+        -webkit-align-items: center;
+      }
+      
+      &.flex-space-between {
+        justify-content: space-between;
+        -webkit-justify-content: space-between;
+      }
+      
+      &.flex-space-around {
+        justify-content: space-around;
+        -webkit-justify-content: space-around;
+      }
+      
+      &.flex-start {
+        justify-content: flex-start;
+        -webkit-justify-content: flex-start;
+      }
+    
+      &.flex-end {
+        justify-content: flex-end;
+        -webkit-justify-content: flex-end;
+      }
+      
+      &.flex-wrap {
+        flex-wrap: wrap
+      }
+    }
+    
+    button:focus, button:active, button:hover {
+      border-color: #dcdee2;
+      &:focus, &:active, &:hover {
+        box-shadow:none;
+        border-color: #dcdee2;
+      }
+    }
+  }
+  
+  .disable-select {
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+  }
+  
+  // 更改inputNumber里面placeholder
+  .ivu-input-number-input::-webkit-input-placeholder{
+    color: #ccc;
+    font-size:14px;
+  }
+  .ivu-input-number-input{
+    font-size:14px;
+  }
+  // 表单的边框颜色
+  .ivu-input{
+    border:1px solid#E6E6E6;
+  }
+  .ivu-select-input{
+    border-color:#E6E6E6!important;
+  }
+  // 禁止选中input里面的字体颜色
+  // .ivu-select-input[disabled], .ivu-input[disabled], fieldset[disabled] .ivu-input, .ivu-input-number-input[disabled], .ivu-select-disabled .ivu-select-selection{
+  //   color:#ccc!important;
+  // }
+  .ivu-form-item .ivu-form-item-label{
+    color: #2F324D!important;
+    font-size:14px;
+  }
+  
+  .panel-header{
+    font-weight:bold;
+    p{
+      padding-left: 10px;
+    }
+    .ivu-input-number-input{
+      font-size:14px;
+    }
+    // 表单的边框颜色
+    .ivu-input{
+      border:1px solid#E6E6E6;
+    }
+    .ivu-select-input{
+      border-color:#E6E6E6!important;
+    }
+    // 禁止选中input里面的字体颜色
+    // .ivu-select-input[disabled], .ivu-input[disabled], fieldset[disabled] .ivu-input, .ivu-input-number-input[disabled], .ivu-select-disabled .ivu-select-selection{
+    //   color:#ccc!important;
+    // }
+    .ivu-form-item .ivu-form-item-label{
+      color: #2F324D!important;
+      font-size:14px;
+    }
+    
+    .panel-header{
+      font-weight:bold;
+      p{
+        padding-left: 10px;
+      }
+      
+    }
+    .panel-container .panel-header::before{
+      width:3px!important;
+    }
+    
+    
+    .ivu-tabs-nav-container:focus .ivu-tabs-tab-focused{
+      border-color:#ccc!important;
+    }
+    
+    .station-select-width{
+      width:300px;
+    }
+    .ivu-switch{
+      background-color:#bbb;
+    }
+    .ivu-switch-checked{
+      background-color: #5C8BF3;
+    }
+  }
+}
+.ivu-table-cell {
+  .ivu-btn {
+    margin: 3px;
+  }
+}

@@ -1,0 +1,19 @@
+{
+    "name": "dms",
+    "base": false,
+    "isBaseRoute": false,
+    "preload": false,
+    "path": "/dms",
+    "useHashPath": true,
+    "preFilePath": "/dms/",
+    "main": "/dms/main.js",
+    "store": "/dms/store.js",
+    "routes": "/dms/routes.js",
+    "filePatterns": [
+        "/main.*.css$",
+        "/vendor.*.css$",
+        "/vendor.*.js$",
+        "/main.*.js$",
+        "/manifest.*.js$"
+    ]
+}
