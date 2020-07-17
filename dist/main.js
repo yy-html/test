@@ -90,35 +90,10 @@
 /*!******************!*\
   !*** ./babel.js ***!
   \******************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _exports_exports__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./exports/exports */ \"./exports/exports.js\");\n/* harmony import */ var _exports_exports2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./exports/exports2 */ \"./exports/exports2.js\");\n// const a = require('./exports/exports')\n// const b = import('./exports/exports2')\n\n\n\nconsole.log(_exports_exports__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\nconsole.log(_exports_exports2__WEBPACK_IMPORTED_MODULE_1__[\"default\"])\n\n//# sourceURL=webpack:///./babel.js?");
-
-/***/ }),
-
-/***/ "./exports/exports.js":
-/*!****************************!*\
-  !*** ./exports/exports.js ***!
-  \****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  a: 1\n});\n\n//# sourceURL=webpack:///./exports/exports.js?");
-
-/***/ }),
-
-/***/ "./exports/exports2.js":
-/*!*****************************!*\
-  !*** ./exports/exports2.js ***!
-  \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  a: 1\n});\n\n//# sourceURL=webpack:///./exports/exports2.js?");
+eval("console.log(ddddd)\n\n//# sourceURL=webpack:///./babel.js?");
 
 /***/ })
 
