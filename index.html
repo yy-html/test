@@ -9,31 +9,17 @@
   <style>
 
     body * {
-      outline: 1px #000 solid;
+
     }
     .box {
-      overflow: hidden;
-      height: 300px;
-      width: 300px;
-      border: 10px #000 solid;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-    .box1 {
-      overflow: hidden;
-      height: 100%;
-    }
-    .box2 {
-      float: right;
-      width: 200px;
-      height: 100%;
+      
     }
   </style>
 </head>
 
 <body>
   <div class="box">  
-    
+
   </div>
   <!-- <script type="text/javascript" src="http://localhost:3000/commons-commons.js"></script>
   <script type="text/javascript" src="http://localhost:3000/bundle.js"></script> -->
@@ -42,12 +28,6 @@
   </div> -->
 
   <script>const { log, dir } = console
-
-
-
-
-
-  
 
 
 
@@ -105,7 +85,7 @@
     //   ],
     //   "plugins": [
     //     [
-    //       "@babel/plugin-transform-runtime" // 是一个可以重复使用 Babel 注入的帮助程序，以节省代码大小的插件。注意：诸如 Array.prototype.flat() 等实例方法将不起作用，因为这需要修改现有的内置函数(可以使用 @babel/polyfill 来解决这个问题) ——> 对此需要说明的是如果你配置的是corejs3， core-js@3 现在已经支持原型方法，同时不污染原型。
+    //       "@babel/plugin-transform-runtime" // 是一个可以重复使用 Babel 注入的帮助程序，以节省代码大小的插件。
     //     ]
     //   ]
     // }
@@ -119,7 +99,7 @@
     //   "plugins": [
     //     [
     //       "@babel/plugin-transform-runtime",{ // 帮助语法从inject改为require(babel/runtime)
-    //         "corejs": 3 // 帮助API从inject改为require(babel/runtime)
+    //         "corejs": 3 // 同时从@babel/runtime-corejs3引入API，不会污染原型；core-js@3 现在已经支持原型方法，同时不污染原型。
     //       }
     //     ]
     //   ]
