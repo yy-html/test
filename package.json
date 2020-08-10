@@ -31,12 +31,7 @@
     "koa-art-template": "^1.1.1",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
-    "react": "^16.10.2",
     "react-powerplug": "^1.0.0",
-    "react-redux": "5.0.7",
-    "react-router": "^5.0.1",
-    "react-router-dom": "^5.0.1",
-    "redux": "^4.0.4",
     "xterm": "^3.14.5"
   },
   "devDependencies": {
