@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+
+  // React.Component
+  function ReactComponent(props, context, updater) {
+    this.props = props;
+    this.context = context;
+    this.refs = emptyObject;
+    this.updater = updater || ReactNoopUpdateQueue;
+  }
+
+  ReactComponent.prototype.isReactComponent = {};
+
+  ReactComponent.prototype.setState = function (partialState, callback) {
+    !(typeof partialState === 'object' || typeof partialState === 'function' || partialState == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'setState(...): takes an object of state variables to update or a function which returns an object of state variables.') : _prodInvariant('85') : void 0;
+    this.updater.enqueueSetState(this, partialState);
+    if (callback) {
+      this.updater.enqueueCallback(this, callback, 'setState');
+    }
+  };
+
+  ReactComponent.prototype.forceUpdate = function (callback) {
+    this.updater.enqueueForceUpdate(this);
+    if (callback) {
+      this.updater.enqueueCallback(this, callback, 'forceUpdate');
+    }
+  };
+
+  // React.pureComponent
+  function ComponentDummy() {}
+  ComponentDummy.prototype = ReactComponent.prototype;
+  ReactPureComponent.prototype = new ComponentDummy();
+  ReactPureComponent.prototype.constructor = ReactPureComponent;
+  _assign(ReactPureComponent.prototype, ReactComponent.prototype);
+  ReactPureComponent.prototype.isPureReactComponent = true;
+
+  // React.createElement
+  const e = {
+    $$typeof: Symbol(react.element),
+    key: "1",
+    props: {a: "a", children: "children"},
+    ref: 'a',
+    type: class App,
+    _owner: null,
+    _store: {validated: false},
+    _self: null,
+    _source: null,
+  }
+  // type && type.defaultProps: 利用propTypes定义默认props
+
+  
+  </script>
+  
+</body>
+</html>
