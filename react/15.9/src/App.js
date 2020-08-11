@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 const { log, dir } = console
 
@@ -9,6 +9,7 @@ class App extends Component {
 
   componentWillMount() {
     log('mounted')
+    // log(1, <Fragment />)
   }
 
   render() {

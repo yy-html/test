@@ -48,13 +48,18 @@
     key: "1",
     props: {a: "a", children: "children"},
     ref: 'a',
-    type: class App,
+    type: class App | 'div',
     _owner: null,
     _store: {validated: false},
     _self: null,
     _source: null,
   }
-  // type && type.defaultProps: 利用propTypes定义默认props
+  type && type.defaultProps: 利用propTypes定义默认props
+
+  // React.cloneElement
+  merge props
+  childrenLength < 1: 不处理children 继承props.children
+
 
   
   </script>

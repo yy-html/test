@@ -43,9 +43,16 @@
     "tiny-warning": "^1.0.3",
     "value-equal": "^1.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "webpack-dev-server": "^3.11.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC"
