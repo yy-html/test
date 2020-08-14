@@ -58,7 +58,69 @@
 
   // React.cloneElement
   merge props
-  childrenLength < 1: 不处理children 继承props.children
+  childrenLength < 1: 不处理children 继承props.children 同create
+
+  // React.hooks
+  useState(initialState) {
+    // dispatcher = resolveDispatcher() = ReactCurrentDispatcher.current = ReactDom.injectDispatcher
+    var dispatcher = resolveDispatcher()
+    return dispatcher.useState(initialState)
+  }
+  =>
+  injectDispatcher.useState(initialState) {
+    function mountHookTypesDev() {
+      if (hookTypesDev === null) {
+        hookTypesDev = [currentHookNameInDev]
+      } else {
+        hookTypesDev.push(currentHookNameInDev)
+      }
+    }
+    // function updateHookTypesDev() {
+    //   {
+    //     if (hookTypesDev !== null) {
+    //       hookTypesUpdateIndexDev++
+    //     }
+    //   }
+    // }
+    currentHookNameInDev = 'useState'
+    mountHookTypesDev()
+    var prevDispatcher = ReactCurrentDispatcher.current
+    ReactCurrentDispatcher.current = InvalidNestedHooksDispatcherOnMountInDEV
+
+    try {
+      return mountState(initialState)
+    } finally {
+      ReactCurrentDispatcher.current = prevDispatcher
+    }
+  }
+  =>
+  mountState(initialState) {
+    // 每个hook对应一个链表元素
+    var hook = mountWorkInProgressHook();
+    if (workInProgressHook === null) {
+      // 保存表头
+      currentlyRenderingFiber$1.memoizedState = workInProgressHook = hook;
+    } else {
+      // 追加链表元素
+      workInProgressHook = workInProgressHook.next = hook;
+    }
+    hook = {
+      memoizedState: initialState,
+      baseState: initialState,
+      baseQueue: null,
+      queue: {
+        pending: null,
+        dispatch: dispatchAction.bind(null, currentlyRenderingFiber$1, queue),
+        lastRenderedReducer: basicStateReducer,
+        lastRenderedState: initialState
+      },
+      next: null
+    }
+    return [hook.memoizedState, hook.queue.dispatch]
+  }
+  =>
+
+
 
 
   
