@@ -23,14 +23,13 @@ class App extends Component {
 function A() {
   const [t, setT] = useState(1)
   const [t2, setT2, f] = useState({a: 1})
-  useEffect()
 
   // log('render', t2 === f.memoizedState.next.baseState)
 
   return <div onClick={() => {
-    setT2({a: 2})
+    setT(t + 1)
   }}>
-
+    {t}
   </div>
 }
 
