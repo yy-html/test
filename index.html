@@ -12,9 +12,12 @@
 </head>
 
 <body>
-  <div class="box">  
-    <img id="previewContainer" />      
+  <div class="box" name="box">  
+    <img name="img" id="previewContainer" />      
   </div>
+  <form name="test">
+    <input name="input" />
+  </form>
   <!-- <script type="text/javascript" src="http://localhost:3000/commons-commons.js"></script>
   <script type="text/javascript" src="http://localhost:3000/bundle.js"></script> -->
   
@@ -22,6 +25,7 @@
   </div> -->
 
   <script>const { log, dir } = console
+
 
     // command line api 
     // $_: 返回最近返回的值
@@ -52,9 +56,10 @@
 
     // }
 
+    // log(new A())
     // log(new B())
 
-    // B.prototype 下会copy a访问器属性 c不会
+    // B实例和B.prototype 下会copy a访问器属性 c不会copy到原型
     // 此时B不能设置a属性
 
   /* rgba的四个值分别为：红(R)、绿(G)、蓝(B)、透明度(A) */
@@ -1108,6 +1113,8 @@
 
 
     // DOM
+    // Element name 会被当作document下的属性
+    // Element id 会被当作window下的属性
 
     // box => HTMLDivElement => HTMLElement => Element => Node => EventTarget => Object
 
