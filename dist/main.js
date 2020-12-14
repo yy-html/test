@@ -208,7 +208,19 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./exports/exports2 */ \"./exports/exports2.js\")).then(() => {})\n\n//# sourceURL=webpack:///./babel.js?");
+eval("const a1 = __webpack_require__(/*! ./exports/exports */ \"./exports/exports.js\")\n\nconsole.log(a1)\n\n__webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./exports/exports2 */ \"./exports/exports2.js\")).then(() => {})\n\n\n\n//# sourceURL=webpack:///./babel.js?");
+
+/***/ }),
+
+/***/ "./exports/exports.js":
+/*!****************************!*\
+  !*** ./exports/exports.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  a: 1\n});\n\n//# sourceURL=webpack:///./exports/exports.js?");
 
 /***/ })
 

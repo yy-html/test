@@ -24,7 +24,19 @@
   <!-- <div class="box" id="box" title="box">
   </div> -->
 
-  <script>const { log, dir } = console;
+  <script>const { log, dir } = console;const box = document.querySelector('.box');
+
+    // 大文件上传
+    // 前端：Blob.prototype.slice 切片二进制 并发上传 用index确定切片顺序 total确定是否传递完
+    // 服务端：合并
+
+    // 切片进度
+    // xhr.upload.onprogress
+    // 文件进度
+    // 切片/文件
+
+    // 断点续传
+    // 服务端保存已上传的切片 hash，前端每次上传前向服务端获取已上传的切片
 
 
     // new URLSearchParams(location.search).get(key)
@@ -366,6 +378,8 @@
     // const observer = new MutationObserver((mutationsList) => {})
     // observer.observe(targetNode, config)
     // observer.disconnect()
+    // 尺寸观察者
+    // ResizeObserver
 
     // 前端工程化
     // 结构文件模块化/代码组件化
@@ -1870,6 +1884,19 @@
 
     // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级作用域链的 是完全共享的
     // ：内部函数的作用域链仍然保持着对父执行环境活动对象的引用
+    // var f = (function() {
+    //   var n = 10;
+    //   return new Function('++n;console.log(n);');
+    // })();
+
+    // f(); // n is not defined
+
+    // 结论：该程序是对“程序3”的进一步印证和补充。由该程序可以得出的结论是：闭包函数的作用域是在编译它的时候确定的。
+
+    // 说明：
+    // 使用Function构造器可以创建一个function对象，函数体使用一个字符串指定，它可以像普通函数一样执行，并在首次执行时编译。因此，虽然在匿名函数内部定义了此function对象，但一直要到调用它的时候才会编译，即执行到“f()”时，而此时原函数的作用域已经不存在了。
+
+
 
     // 前端资源优化
     // 1. 文件压缩
@@ -2134,7 +2161,41 @@
     // JS的垃圾回收机制会按固定的时间周期性的执行
     // 最常见的方式是 1. 标记清除
 
+    // 这个算法把“对象是否不再需要”简化定义为“对象是否可以获得”.
+
+    // 这个算法假定设置一个叫做根root的对象(在Javascript里，根是全局对象). 垃圾回收器将从根开始, 找到所有从根开始引用的对象, 然后找这些对象引用的对象, 从根开始,垃圾回收器将找到所有可以获得的对象和所有不能获得的对象.
+
+    // 从2012年起, 所有现代浏览器都使用了标记-清除内存回收算法。所有对JavaScript垃圾回收算法的改进都是基于标记-清除算法的改进.
+
+    
+
     // 2. 引用计数
+    // 垃圾回收算法主要依赖于引用的概念. 在内存管理的环境中, 一个对象如果有访问另一个对象的权限（隐式或者显式）, 叫做一个对象引用另一个对象. 例如: 一个Javascript对象具有对它原型的引用（隐式引用）和对它属性的引用（显式引用）.
+
+    // 引用计数垃圾收集
+
+    // 这是最简单的垃圾收集算法.此算法把“对象是否不再需要”简化定义为“对象有没有其他对象引用到它”. 如果没有引用指向该对象（零引用）, 对象将被垃圾回收机制回收. 示例:
+
+    // let arr = [1, 2, 3, 4];
+    // arr = null; // [1,2,3,4]这时没有被引用, 会被自动回收
+    // 限制: 循环引用
+
+    // 在下面的例子中, 两个对象对象被创建并互相引用, 就造成了循环引用. 它们被调用之后不会离开函数作用域, 所以它们已经没有用了, 可以被回收了. 然而, 引用计数算法考虑到它们互相都有至少一次引用, 所以它们不会被回收.
+
+    // function f() {
+    // var o1 = {};
+    // var o2 = {};
+    // o1.p = o2; // o1 引用 o2
+    // o2.p = o1; // o2 引用 o1. 这里会形成一个循环引用
+    // }
+    // f();
+
+    // var div;
+    // window.onload = function(){
+    // div = document.getElementById("myDivElement");
+    // div.circularReference = div;
+    // div.lotsOfData = new Array(10000).join("*");
+    // };
 
 
 
@@ -3009,6 +3070,53 @@
     // bfs()
 
     // log(result)
+
+    // 循环:
+    // function cloneLoop(x) {
+    //   const root = {};
+
+    //   // 栈
+    //   const loopList = [
+    //       {
+    //           parent: root,
+    //           key: undefined,
+    //           data: x,
+    //       }
+    //   ];
+
+    //   while(loopList.length) {
+    //       // 深度优先
+    //       const node = loopList.shift();
+    
+    //       const parent = node.parent;
+    //       const key = node.key;
+    //       const data = node.data;
+
+    //       // 初始化赋值目标，key为undefined则拷贝到父元素，否则拷贝到子元素
+    //       let res = parent;
+    //       if (typeof key !== 'undefined') {
+    //           res = parent[key] = {};
+    //       }
+
+    //       for(let k in data) {
+    //           if (data.hasOwnProperty(k)) {
+    //               if (typeof data[k] === 'object') {
+    //                   // 下一次循环
+    //                   loopList.push({
+    //                       parent: res,
+    //                       key: k,
+    //                       data: data[k],
+    //                   });
+                      
+    //               } else {
+    //                   res[k] = data[k];
+    //               }   
+    //           }
+    //       }
+    //   }
+
+    //   return root;
+    // }
     
 
     // function fn(data) {
