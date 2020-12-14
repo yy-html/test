@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+
+  // React.Component
+  function ReactComponent(props, context, updater) {
+    this.props = props;
+    this.context = context;
+    this.refs = emptyObject;
+    this.updater = updater || ReactNoopUpdateQueue;
+  }
+
+  ReactComponent.prototype.isReactComponent = {};
+
+  ReactComponent.prototype.setState = function (partialState, callback) {
+    !(typeof partialState === 'object' || typeof partialState === 'function' || partialState == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'setState(...): takes an object of state variables to update or a function which returns an object of state variables.') : _prodInvariant('85') : void 0;
+    this.updater.enqueueSetState(this, partialState);
+    if (callback) {
+      this.updater.enqueueCallback(this, callback, 'setState');
+    }
+  };
+
+  ReactComponent.prototype.forceUpdate = function (callback) {
+    this.updater.enqueueForceUpdate(this);
+    if (callback) {
+      this.updater.enqueueCallback(this, callback, 'forceUpdate');
+    }
+  };
+
+  // React.pureComponent
+  function ComponentDummy() {}
+  ComponentDummy.prototype = ReactComponent.prototype;
+  ReactPureComponent.prototype = new ComponentDummy();
+  ReactPureComponent.prototype.constructor = ReactPureComponent;
+  _assign(ReactPureComponent.prototype, ReactComponent.prototype);
+  ReactPureComponent.prototype.isPureReactComponent = true;
+
+  // React.createElement
+  const e = {
+    $$typeof: Symbol(react.element),
+    key: "1",
+    props: {a: "a", children: "children"},
+    ref: 'a',
+    type: class App | 'div',
+    _owner: null,
+    _store: {validated: false},
+    _self: null,
+    _source: null,
+  }
+  type && type.defaultProps: 利用propTypes定义默认props
+
+  // React.cloneElement
+  merge props
+  childrenLength < 1: 不处理children 继承props.children 同create
+
+  // React.hooks
+  useState(initialState) {
+    // dispatcher = resolveDispatcher() = ReactCurrentDispatcher.current = ReactDom.injectDispatcher
+    var dispatcher = resolveDispatcher()
+    return dispatcher.useState(initialState)
+  }
+  =>
+  injectDispatcher.useState(initialState) {
+    function mountHookTypesDev() {
+      if (hookTypesDev === null) {
+        hookTypesDev = [currentHookNameInDev]
+      } else {
+        hookTypesDev.push(currentHookNameInDev)
+      }
+    }
+    // function updateHookTypesDev() {
+    //   {
+    //     if (hookTypesDev !== null) {
+    //       hookTypesUpdateIndexDev++
+    //     }
+    //   }
+    // }
+    currentHookNameInDev = 'useState'
+    mountHookTypesDev()
+    var prevDispatcher = ReactCurrentDispatcher.current
+    ReactCurrentDispatcher.current = InvalidNestedHooksDispatcherOnMountInDEV
+
+    try {
+      return mountState(initialState)
+    } finally {
+      ReactCurrentDispatcher.current = prevDispatcher
+    }
+  }
+  =>
+  mountState(initialState) {
+    // 每个hook对应一个链表元素
+    var hook = mountWorkInProgressHook();
+    if (workInProgressHook === null) {
+      // 保存表头
+      currentlyRenderingFiber$1.memoizedState = workInProgressHook = hook;
+    } else {
+      // 追加链表元素
+      workInProgressHook = workInProgressHook.next = hook;
+    }
+    hook = {
+      memoizedState: initialState,
+      baseState: initialState,
+      baseQueue: null,
+      queue: {
+        pending: null,
+        dispatch: dispatchAction.bind(null, currentlyRenderingFiber$1, queue),
+        lastRenderedReducer: basicStateReducer,
+        lastRenderedState: initialState
+      },
+      next: null
+    }
+    return [hook.memoizedState, hook.queue.dispatch]
+  }
+  =>
+
+
+
+
+  
+  </script>
+  
+</body>
+</html>

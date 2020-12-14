@@ -1,0 +1,45 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node.js",
+    "open:browser": "open http://www.baidu.com",
+    "webpack": "webpack --mode=development babel.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yy-html/test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yy-html/test/issues"
+  },
+  "homepage": "https://github.com/yy-html/test#readme",
+  "dependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "antd": "^3.26.4",
+    "art-template": "^4.13.2",
+    "global": "^4.4.0",
+    "koa": "^2.8.1",
+    "koa-art-template": "^1.1.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "react-powerplug": "^1.0.0",
+    "xterm": "^3.14.5"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-react": "^7.10.1",
+    "@babel/runtime": "^7.10.2",
+    "@babel/runtime-corejs3": "^7.10.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

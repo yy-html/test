@@ -3,183 +3,719 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+  <title>{{title}}</title>
   <style>
-    
+
   </style>
 </head>
 
 <body>
-  <div class="box">
-    <div class="box1"></div>
-    <div class="box2"></div>
+  <div class="box" name="box">  
+    <img name="img" id="previewContainer" />      
   </div>
+  <form name="test">
+    <input name="input" />
+  </form>
+  <!-- <script type="text/javascript" src="http://localhost:3000/commons-commons.js"></script>
+  <script type="text/javascript" src="http://localhost:3000/bundle.js"></script> -->
   
+  <!-- <div class="box" id="box" title="box">
+  </div> -->
 
-  <script>const log = console.log; const dir = console.dir; const box = document.querySelector('.box')
-    
-    
+  <script>const { log, dir } = console;
 
-    // Promise: then catch 方法会默认返回一个最终 promiseStatus 为 resolved 的 new Promise resolve(returnValue)
 
-    // const promise = new Promise((resolve, r) => {
-    //     // setTimeout(resolve, 1000, 'succ')
-    //     setTimeout(r, 1000, 'err')
-    //   })
-    //     // .catch(err => {
-    //     //   // throw new Error('catch')
-    //     //   return 2222
-    //     // })
-    
-    // async function fn() {
-    //   // async会返回一个promise 它的最终状态是根据内部await拿到的状态决定的
-    //   //    如果有一个await接收到了reject状态 那么此函数的promise直接返回reject并return
-    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolve(returnValue)
-    //   const res = await promise
-    //   log('resolving') // await如果不返回resolve状态（返回reject或者不返回这两个状态也就是pending状态） 会直接return此promise 所以这行代码及以后的不执行
-    //   return res // resolve(res)
+    // new URLSearchParams(location.search).get(key)
+
+
+    // command line api 
+    // $_: 返回最近返回的值
+    // $0 - $4: 返回最近选择的dom元素
+    // $(str): document.querySelector()
+    // $$(str): document.querySelectorAll()
+    // $x(path): 返回一个与给定 XPath 表达式匹配的 DOM 元素数组
+    // clear(): 清除控制台
+    // copy(var): 
+    // inspect(dom): element面板打开对应元素
+    // getEventListeners(dom): 
+    // unmonitor(function): 调用指定函数时，系统会向控制台记录一条消息，其中指明函数名称及在调用时传递到该函数的参数
+    // monitorEvents(dom, [events]) unmonitorEvents: 当在指定对象上发生一个指定事件时，将 Event 对象记录到控制台。您可以指定一个要监控的单独事件、一个事件数组或一个映射到预定义事件集合的常规事件“类型”
+
+
+
+    // class A {
+    //   constructor() {
+    //     this.c = 1
+    //   }
+    //   get a() {
+
+    //   }
+    //   b() {}
     // }
 
-    // const f = fn()
+    // class B extends A {
 
-    // log(f)
-
-    // f
-    //   .then(res => {
-    //     log('then')
-    //     log(res)
-    //   })
-    //   .catch(err => {
-    //     log('catch')
-    //     log(err)
-    //   })
-
-    
-
-    // Generator: 状态机, 还是一个遍历器对象生成函数
-    // 调用它：返回一个指向内部状态的指针对象, 还是一个遍历器对象
-
-    // function* fn() {
-    //   yield 1
-    //   yield 2
-    //   return 3 // {value: 3, done: true}: for of 不会遍历3（遍历到true就不返回了）
     // }
 
-    // const f = fn()
+    // log(new A())
+    // log(new B())
 
-    // for(let value of f) {
-    //   log(value)
-    // }
+    // B实例和B.prototype 下会copy a访问器属性 c不会copy到原型
+    // 此时B不能设置a属性
 
-    function* fn() {
-    	const y = yield fetch('https://api.github.com/users/github')
-    	return y
-    }
+  /* rgba的四个值分别为：红(R)、绿(G)、蓝(B)、透明度(A) */
+  // --whiteShadow: -15px -15px 25px rgba(255, 117, 117, .5);
+  // --blackShadow: 15px 15px 25px rgba(110, 40, 40, .2);
+  // box-shadow: inset var(--blackShadow),
+  //             inset var(--whiteShadow);
 
-	  const f = fn()
-  
+    // 运算符：
+    //   宽泛：一元/二元/三元运算符：delete ++ -- void/+/? :
+    //   算术运算符：+ / -- %
+    //   赋值运算符：= *=
+    //   比较运算符：< !== ? :
+    //   位运算符：
+    //   逻辑运算符：! && ||
+    //   类型运算符：typeof instanceof
+    //   条件运算符：? :
+    //   具体：逗号运算符/new运算符/delete运算符
+
+    // 表达式：js短语，js引擎会计算出一个value
+    //   原始表达式：表达式的最小单位 常量直接量/变量/关键字/ 
+    //   初始化表达式：也叫对象/数组直接量 也属于原始表达式
+    //   函数定义表达式：函数直接量 某种意义上也可以成为初始化表达式
+    //   函数调用表达式
+    //   属性访问表达式
+    //   对象创建表达式
+    //   运算表达式：[运算符类型]表达式: 算数表达式
+
+    // 语句：具有副作用
+    //   表达式语句：赋值表达式语句/函数调用表达式语句
+    //   复合语句空语句
+    //   声明语句
+    //   条件语句 if else switch for
 
 
-    // Iterator遍历器：是一种接口，为各种不同的数据结构提供统一的访问机制
-      // 使得数据结构的成员能够按某种次序排列
-      // 供for...of消费
 
-    // 一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）
+    // setInterval(function() {
+    //     check()
+    //   }, 4000)
 
-    // Array
-    // Map
-    // Set
-    // String
-    // TypedArray
-    // 函数的 arguments 对象
-    // NodeList 对象
-
-    // 会默认调用iterator的方法：for of;  解构赋值; 扩展运算符; yield* []; Array.from(); Promise.all()
-
-    // const o = {
-    //   a: 1,
-    //   b: 2,
-    //   c: 3,
-    //   // [Symbol.iterator]() {
-    //   //   const values = Object.values(this)
-    //   //   let i = 0
-    //   //   return {
-    //   //     next: () => (
-    //   //       {
-    //   //         value: values[i ++],
-    //   //         done: i > keys.length
-    //   //       }
-    //   //     )
-    //   //   }
-    //   // }
-    //   * [Symbol.iterator]() {
-    //     for (let key in this) {
-    //       yield this[key]
+    //   const check = function() {
+    //     function doCheck(a) {
+    //       if (("" + a / a)["length"] !== 1 || a % 20 === 0) {
+    //         debugger
+    //       } else {
+    //         debugger
+    //       }
+    //       doCheck(++a)
     //     }
-        // const values = Object.values(this)
-        // yield * values
+
+    //     try { doCheck(0) } catch {}
     //   }
+
+    //   check()
+    //   let a
+
+    //   log(("" + a / a)["length"] !== 1 || a % 20 === 0)
+
+    // canvas.getContext("2d").drawImage(new Img,0,0,width,height)
+    // canvas.toDataURL('image/jpeg', 0.93)
+    // new FileReader().readAsDataURL(file)
+    // fetch => response.blob()
+    // URL.createObjectURL(blob)
+
+    // 创建固定长度
+    // [...Array(5).keys()]
+    // Array.from({ length: 5 })
+    // Array(5).fill()
+
+    // Array(7).join(0)
+    // '0'.repeat(5)
+
+
+    // babel
+    // 解析parse：babel
+    // 转换transform：plugin（env）
+    // 生成generate：babel
+
+    // 1.babel-polyfill（转换API）：入口引入@babel/polyfill
+    // 2.@babel/preset-env.useBuiltIns：usage(新)：检测代码中 ES6/7/8 等的使用情况，仅仅加载代码中用到的 polyfills
+    // //.babelrc
+    // {
+    //   "presets": [
+    //     [
+    //       "@babel/preset-env",
+    //       {
+    //         "useBuiltIns": "usage", // 按需加载polyfill，直接修改原型
+    //         "corejs": 3 // 默认2
+    //       }
+    //     ]
+    //   ],
+    //   "plugins": [
+    //     [
+    //       "@babel/plugin-transform-runtime" // 是一个可以重复使用 Babel 注入的帮助程序，以节省代码大小的插件。
+    //     ]
+    //   ]
+    // }
+    // 3.@babel/plugin-transform-runtime && @babel/runtime && @babel/runtime-corejs3
+    // {
+    //   "presets": [
+    //     [
+    //       "@babel/preset-env"
+    //     ]
+    //   ],
+    //   "plugins": [
+    //     [
+    //       "@babel/plugin-transform-runtime",{ // 帮助语法从inject改为require(babel/runtime)
+    //         "corejs": 3 // 从@babel/runtime-corejs3引入API，不会污染原型；core-js@3 现在已经支持原型方法，同时不污染原型。
+    //       }
+    //     ]
+    //   ]
+    // }
     
+
+
+
+    // 如果 setTimeout 存在嵌套调用，那么系统会设置最短时间间隔为 4 毫秒
+    // 未激活的页面，setTimeout 执行最小间隔是 1000 毫秒
+
+
+    // ES6 module / require
+    // 1.
+    // test.js
+    // export var count = 0 // 这里改变了接口
+    // export function add() {
+    //   count++
     // }
-
-    // const iterator = o[Symbol.iterator]()
-
-    // log(iterator.next())
-    // log(iterator.next())
-    // log(iterator.next())
-    // log(iterator.next())
-
-    // log([ ...o ])
-
-    // for (let key of o) {
-    //   log(key)
+    // // index.js
+    // import { count, add } from './test.js'
+    // console.log(count)  // 0
+    // add()
+    // console.log(count)  // 1
+    // 2.
+    // // test.js
+    // var count = 0
+    // function add() {
+    //   count++
     // }
-
-
-    // function* entries(obj) {
-    //   for (let key of Object.keys(obj)) {
-    //     yield [key, obj[key]];
-    //   }
+    // export default {
+    //   count: count,   // 因为这里相当于 count: 0； 并没有改变接口
+    //   add: add
     // }
+    // // index.js
+    // import mod from './test.js'
 
-    // for (let [key, value] of entries(obj)) {
-    //   console.log(key, '->', value);
-    // }
-  
-    // 链表 VS 数组
-    // 链表： 1. 内存上存储：不需要连续空间
-    //       2. 增删：效率高
-    //       3. 读取：效率低（因为要从head开始遍历）
-
-    // 数组： 1. 内存上存储：是一块连续的区域
-    //       2. 增删：效率低（因为所操作的索引之后的元素都要移动）
-    //       3. 读取：效率高（因为内存中是连续的 知道每一个元素的内存地址）
+    // console.log(mod.count)  // 0
+    // mod.add()
+    // console.log(mod.count)  // 0
 
 
-    // 上移下移
-    // const arr = [1,2,3,4,5]
 
-    // function fn(i, t) {
+    // 函数柯里化
+    // vue react区别
 
-    //   if (i < t) {
-    //     t -= 1
-    //   }
-      
-    //   arr.splice(t, 0, ...arr.splice(i, 1))
-    // }
+    // node做中间层的好处
+    // 页面渲染 合并接口 减少请求 二次处理数据 数据缓存 解决跨域
 
-    // fn(2, 3)
+    // webpack优化
+
+    // 开发体验优化减少构建时间
+    //   缓存编译结果：
+    //     cache-loader
+    //     babel-loader cache
+    //   多核处理打包过程：
+    //     happypack 将处理loader时的任务分配制多线程去处理
+    //   抽离静态依赖（不会因为开发者重启服务或执行build而改变的资源）：
+    //     1.webpack-dll-plugin动态链接库（首次构建将这些依赖单独打包，后续构建直接引用）
+    //     2.配置externals 发布到服务端cdn(将静态依赖包当作外部资源进行加载)
+
+    // 性能优化
+    // 代码分割code splitting
+    //   入口配置：entry 入口使用多个入口文件
+    //   动态加载：import
+    //   SplitChunks抽取公共代码（每当你对某一文件做点改变，访问你站点的人们就要重新下载它。然而依赖却很少变动 利用浏览器缓存）：
+    // 压缩js uglifyjs
+    // 合并压缩图片：
+    //   url-loader option.limit: number 小于限制即将图片转换为base64 减少请求数
+    //   image-webpack-loader：大图压缩
 
     
-    // Object.is()，其行为与===基本一致，不过有两处不同：
+    
 
-    // +0不等于-0。
-    // NaN等于自身。
+    // 进程和线程
+    // 根本区别：进程是操作系统资源分配的基本单位，而线程是任务调度和执行的基本单位
 
-  
-// React 合成事件注册 && 分发 过程
+    // 链表
+    // //节点
+    // function Node(element) {
+    //   this.element = element;   //当前节点的元素
+    //   this.next = null;         //下一个节点链接
+    //   this.previous = null;         //上一个节点链接
+    // }
+
+    //链表类
+    // class List {
+    //   constructor(head = 'head') {
+    //     this.head = new Node(head)
+    //   }
+    //   find(item) {
+    //     let currNode = this.head;
+    //     while ( currNode.element != item ){
+    //       currNode = currNode.next;
+    //     }
+    //     return currNode;
+    //   }
+    //   findLast() {
+    //     var currNode = this.head;
+    //     while ( !( currNode.next == null )){
+    //       currNode = currNode.next;
+    //     }
+    //     return currNode;
+    //   }
+    //   insert(newElement, item) {
+    //     var newNode = new Node(newElement);
+    //     var currNode = this.find(item);
+    //     newNode.next = currNode.next;
+    //     newNode.previous = currNode;
+    //     currNode.next = newNode;
+    //   }
+    //   display() {
+    //     let currNode = this.head;
+    //     while (!(currNode.next == null)){
+    //       console.debug('show', currNode.next.element );
+    //       currNode = currNode.next;
+    //     }
+    //   }
+    //   dispReverse() {
+    //     var currNode = this.findLast();
+    //     while (!( currNode.previous == null)) {
+    //       console.log( currNode.element );
+    //       currNode = currNode.previous;
+    //     }
+    //   }
+    //   remove(item) {
+    //     var currNode = this.find ( item );
+    //     if (!(currNode.next == null )) {
+    //       currNode.previous.next = currNode.next;
+    //       currNode.next.previous = currNode.previous;
+    //       currNode.next = null;
+    //       currNode.previous = null;
+    //     }
+    //   }
+    //   reverse() {
+    //     let end
+
+    //     const f = (node, prev) => {
+    //       end = node
+    //       const { next, element } = node
+    //       if (next !== null) {
+    //         f(next, node)
+    //       }
+    //       if (element === this.head.element) {
+    //         return next.next = null
+    //       }
+    //       node.next = prev
+    //     }
+
+    //     f(this.head)
+
+    //     this.head.next = end
+    //   }
+    //   reverse() {
+    //     let end
+
+    //     const f = (node, prev) => {
+    //       end = node
+    //       const { next, element } = node
+    //       if (next !== null) {
+    //         f(next, node)
+    //       }
+    //       if (element === this.head.element) {
+    //         node.next = end
+    //         next.next = null
+    //         return node
+    //       }
+    //       node.next = prev
+    //     }
+
+    //     return f(this.head)
+    //   }
+    // }
+
+    // const list = new List()
+
+    // list.insert(1 , 'head')
+    // list.insert(2 , 1)
+    // list.insert(3 , 2)
+    
+    // log(list.reverse())
+    // list.display()
+
+
+
+    // 交集观察者
+    // const io = new IntersectionObserver((entries) => {}, {})
+    // io.observe(document.getElementById('example'))
+    // io.unobserve(element)
+    // io.disconnect()
+    // DOM观察者
+    // const config = { attributes: true, childList: true, subtree: true }
+    // const observer = new MutationObserver((mutationsList) => {})
+    // observer.observe(targetNode, config)
+    // observer.disconnect()
+
+    // 前端工程化
+    // 结构文件模块化/代码组件化
+    // 资源/性能优化
+    // 开发/协作规范化
+    // 构建/发布/测试/部署自动化
+
+    // 前端协作规范
+    // 1. 项目组织规范：目录结构 模版 脚手架
+    // 2. 工作流规范：代码存放位置，分支 / tag版本 / 提交信息 规范，code review
+    // 3. 技术栈规范：前端框架 UI库
+    // 5. 编码规范：html规范 css规范 js规范 react规范
+    // 5. 文档规范：文档格式 项目整体描述/技术沉淀/遇到的问题
+    // 6. 测试规范：测试流程 单元测试
+    // 7. 前后端协作规范：前后端接口约定 接口文档
+    // 8. 技术分享：总结现有问题 拥抱新技术
+
+    // 提高开发维护效率 降低沟通成本 规范还是实现前端自动化的基础
+
+    // def
+    // 1.执行构建命令
+    // 2.调用Git Api拿到项目信息
+    // 3.提前配置构建方式（根目录有一个json文件配置）
+    // 本地构建：提前配置好打包目录，在服务器拿到仓库里打包后的js文件并发布至CDN
+    // 云构建：在云端打包并发布
+    // 4.去版本切换平台切换环境及其版本
+    // html文件在node端是通过模版的方式来生成的，响应html文档资源之前会首先去版本平台拿到当前环境所在版本信息，并通过模版引擎将版本号传至script引用
+
+
+
+    // webpack本质是一个node模块
+    // 识别入口文件 => 构建AST语法树 => 分析文件依赖（递归） => 处理（loader plugin） => 根据entry配置生成代码块chunk
+    // loader：转换文件代码(接收 输出js源码的函数) 由A文件源码转换为B文件源码 逆向编译，链式传递
+    // plugin：拓展功能(具有apply方法的对象 会被webpack compiler调用) 在webpack打包过程的生命周期中会广播很多事件 plugin用来监听这些事件 通过webpack提供的API改变输出结果   
+      // CommonsChunkPlugin：对多入口文件的公共模块进行单独打包
+      // ExtractTextPlugin：单独打包样式表
+
+    // 热替换
+    // 使用express启动本地服务，当浏览器访问资源时对此做响应。
+    // 服务端和客户端使用websocket实现长连接
+    // webpack监听源文件的变化，即当开发者保存文件时触发webpack的重新编译。
+
+    // 每次编译都会生成hash值、已改动模块的json文件、已改动模块代码的js文件
+    // 编译完成后通过socket向客户端推送当前编译的hash戳
+    // 客户端的websocket监听到有文件改动推送过来的hash戳，会和上一次对比
+
+    // 一致则走缓存
+    // 不一致则通过ajax和jsonp向服务端获取最新资源
+    // 使用内存文件系统去替换有修改的内容实现局部刷新
+
+
+    // es7
+    // array includes
+    // 指数运算符 a ** 2 === Math.pow(a, 2)
+    // // 8
+    // async/await
+    // Object.values/entries/getOwnPropertyDescriptors
+    // string padStart/padEnd: 填充字符串到达当前长度
+    // 函数参数结尾允许逗号
+    // // 9
+    // 异步迭代：for await (let value of asyncIterator) {}
+    // Promise.finally()
+    // 10
+    // array flat/flatMap
+    // string trimStart/trimEnd/matchAll
+    // 行分隔符/段分隔符
+    // Object.fromEntires
+    // Function.prototype.toString 返回精准字符
+    // try/catch 不必绑定err参数
+    // BigInt
+
+    // 字符串方法：
+      // padStart/padEnd: 填充字符串到达当前长度
+      // trimStart/trimEnd/matchAll
+    // 数组方法：
+      // includes/flat/flatMap
+    // Object方法：
+      // Object.values/entries/fromEntires/getOwnPropertyDescriptors
+    // 函数：
+      // 函数参数结尾允许逗号
+      // Function.prototype.toString 返回精准字符
+    // async/await
+    // 异步迭代：for await (let value of asyncIterator) {}
+    // Promise.finally()
+    // 指数运算符 a ** 2 === Math.pow(a, 2)
+    // 行分隔符/段分隔符
+    // try/catch 不必绑定err参数
+    // BigInt
+
+
+
+
+
+
+
+
+
+     
+    // 技巧
+    // const a = o.arr || (o.arr = [])
+ 
+    // 圆
+    // var dt=1;  //弧度0.5,大概30°
+    // function run(){
+    //     var r=100;
+    //     var Py=Math.sin(dt)*r;
+    //     var Px=Math.cos(dt)*r;
+    //     box.style.left = Px + 'px'
+    //     box.style.top = Py + 'px'
+    //     dt+=0.03
+    // }
+    // window.setInterval(run, 10)
+
+    // 浏览器缓存：
+    // http缓存：
+    // 对于http缓存可以分为3个步骤：
+    // 1. 发起请求 2. 后端处理 3. 浏览器响应
+    // 当第一次发起请求，服务端会将资源和响应头缓存字段一块返回给客户端，浏览器将资源和响应头缓存在本地；
+    // 再次发起请求，浏览器会判断强缓存字段（Expires：过期时间 / Cache-Control：max-age 过期间隔/秒）是否过期，没有过期的话直接读取本地缓存；
+    // 如果强缓存过期，会将协商缓存字段请求头发送给服务器，协商缓存有两个规则：
+    // 1. Last-Modified/If-Modifiled-Since：资源最后修改时间
+    // 2. ETag/If-None-Match：资源改动唯一标示
+    // 服务端在接收到请求后，会判断客户端缓存资源与服务器资源是否一致，如果一致，只返回Header，并返回状态码304，浏览器接收响应后读取本地缓存
+    // 如果不一致，返回最新资源和状态码200
+    // 缓存位置：
+    // 1. Service Worker：运行在浏览器背后的独立线程
+    // 2. Memory Cache 内存缓存：（主要包括样式/脚本/图片；会话级 随进程的释放而释放）需要注意的事情是，内存缓存在缓存资源时并不关心返回资源的HTTP缓存头Cache-Control是什么值，同时资源的匹配也并非仅仅是对URL做匹配，还可能会对Content-Type，CORS等其他特征做校验。
+    // 3. Disk Cache 硬盘缓存：强缓存（需要根据响应头强缓存字段判断）协商缓存
+    // 4. Push Cache：是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使用。它只在会话（Session）中存在，一旦会话结束就被释放，并且缓存时间也很短暂，在Chrome浏览器中只有5分钟左右，同时它也并非严格执行HTTP头中的缓存指令。
+
+    // React-事务机制
+    // DOM操作
+    // => react触发事件
+    // => 开启事务（事务开启前会将isBatchingUpdates设置为true）
+    // => transaction.perform(callback, null, a, b, c, d, e)
+    // => 调用两个wrapper对象的initialize初始化方法，
+    // => 调用事务回调也就是DOM事件diaptchEvent
+    // => 回调里调用setState（判断isBatchingUpdates为true 将state放入更新队列，callback放入队列，组件实例放入dityComponents）
+    // => 调用两个wrapper对象的close方法（1.更新state 调用生命周期 调用callback 2.reset isBatchingUpdates为false）
+    // => 完成本次事务的更新
+
+
+    // react初始化渲染机制：笔记
+
+    // redux: 
+    // {
+    //   getState,
+    //   dispatch,
+    //   subscrib,
+    //   replaceReducer,
+    // }
+
+    // react-redux
+    // Provider：通过props接收store，来getChildContext创建一个context对象，供connect消费
+    // connect：connect(mapStateToProps, mapDispatchToProps, mergeProps, optipons)
+    //   mapStateToProps(store.getState(), this.props)
+    //   mapDispatchToProps(store.dispatch, this.props)
+    //   mergeProps: (stateProps, dispatchProps, ownProps) => { return }
+    //   optipons: { pure: true }
+    // 1.通过上下文拿到store的数据
+    // 2.在didMount订阅store的变化监听本组件setState（changeState）
+    // 3.将3个props形成的mergeProps传递给渲染组件，默认Object.assign({}, ownProps, stateProps, dispatchProps)
+    // 4.做优化，默认对比前后store的数据（在changeState里）和ownProps（在willReceiveProps里）对比的同时缓存mergeProps
+    //   var selector = {
+    //     run: function runComponentSelector(props) {
+    //       try {
+    //         var nextProps = sourceSelector(store.getState(), props);
+    //         if (nextProps !== selector.props || selector.error) {
+    //           selector.shouldComponentUpdate = true;
+    //           selector.props = nextProps;
+    //           selector.error = null;
+    //         }
+    //       } catch (error) {
+    //         selector.shouldComponentUpdate = true;
+    //         selector.error = error;
+    //       }
+    //     }
+    //   };
+    //   selector.run(this.props || nextProps)
+
+    // // react-router：
+    // BrowserRouter：
+    // function createBrowserHistory() {
+    //   return {
+    //     listen(listener) {
+    //       transitionManager.appendListener(listener)
+    //       if (first) {  // 第一次调用，添加浏览器前进后退事件
+    //         window.addEventListener('popstate | hashchange', function handleChange() {
+    //           transitionManager.notifyListeners(history.location, history.action)  // 每当浏览器前进返回调用监听函数
+    //         })
+    //       }
+    //     },
+    //     push(path) {
+    //       window.history.pushState()
+    //       transitionManager.notifyListeners(history.location, history.action)
+    //     }
+    //   }
+    // }
+
+    // class Router extends React.Component {  // Router负责提供Provider 调用监听,监听本组件setState来更新location
+    //   constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //       location: props.history.location
+    //     }
+    //     this.unlisten = props.history.listen((location) => {
+	  //       if (this._isMounted) {
+	  //         this.setState({
+	  //           location: location
+	  //         });
+	  //       } else {
+	  //         this._pendingLocation = location;
+	  //       }
+	  //     })
+    //   }
+    //   render() {
+    //     <Context.Provider
+    //       value={{
+    //         location: this.state.location,
+    //         history: this.props.history,
+    //         math: Router.computeRootMatch(this.state.location.pathname),
+    //       }}
+    //     >{this.props.children}</Context.Provider>
+    //   }
+    // }
+
+    // export class BrowserRouter extends React.Component {  // BrowserRouter负责提供history对象给Router
+    //   constructor(props) {
+    //     super(props)
+    //     this.history = createBrowserHistory(this.props)
+    //   }
+    //   render() {
+    //     return (
+    //       <Router history={this.history}>
+    //         {this.props.children}
+    //       </Router>
+    //     )
+    //   }
+    // }
+    // // Route：
+    // class Route extends React.Component {
+    //   render() {
+    //     return (
+    //       <Context.Consumer>
+    //         {(context) => {
+    //           const { children, component: Component, render } = this.props
+    //           const props = Object.assign(  // 做一个merge操作：有自己的属性就用自己的 没有的话就用Router提供的
+    //             {},
+    //             context,
+    //             {
+    //               location: this.props.location || context.location,
+    //               match: 
+    //                 this.props.computedMatch
+    //                   ? this.props.computedMatch 
+    //                   : path 
+    //                     ? matchPath(location.pathname, this.props) 
+    //                     : context.math } // 有Switch包裹就用props.
+    //           )
+    //           return (
+    //             children // children > match(path) > component > render
+    //               ? typeof children === 'function' 
+    //                 ? children(props) 
+    //                 : children 
+    //               : match // 判断path是否匹配 不匹配的话match为null
+    //                 ? Component 
+    //                   ? <Component {...props} /> 
+    //                   : render 
+    //                     ? render(props) 
+    //                     : null 
+    //                 : null
+    //           )
+    //         }}
+    //       </Context.Consumer>
+    //     )
+    //   }
+    // }
+    // // Switch：
+    // class Switch extends React.Component {
+    //   render() {
+    //     return (
+    //       <Context.Consumer> 
+    //         {(context) => {
+    //           const { children } = this.props
+    //           const child = children.find((child) => (
+    //             child.props.path ?
+    //               matchPath(location.pathname, child.props) :
+    //               null
+    //           ))
+    //           return (
+    //             React.cloneElement(child, {
+    //               location: location,
+    //               computedMatch: match
+    //             })
+    //           )
+    //         }}
+    //       </Context.Consumer>
+    //     )
+    //   }
+    // }
+    // // Redirect：
+    // class Redirect extends React.Component {
+    //   render() {
+    //     return (
+    //       <Context.Consumer>
+    //         {({ history }) => {
+    //           history.push(this.props.to)
+    //           return null
+    //         }}
+    //       </Context.Consumer>
+    //     )
+    //   }
+    // }
+    // // Link：
+    // class Link extends React.Component {
+    //   render() {
+    //     return (
+    //       <Context.Consumer>
+    //         {({ location, history }) => {
+    //           return (
+    //             <a 
+    //               onClick={(event) => {
+    //                 event.preventDefault()
+    //                 history.push(this.props.to)
+    //               }}
+    //               href={history.createHref(location)} // 支持右键 (在新标签页中打开)
+    //             >
+    //               {this.props.children}
+    //             </a>
+    //           )
+    //         }}
+    //       </Context.Consumer>
+    //     )
+    //   }
+    // }
+    // // withRouter：
+    // function withRouter(Component) {
+    //   return (props) => (
+    //     <Context.Consumer>
+    //       {(context) => (
+    //         <Component {...context} {...props} />
+    //       ) || <Component />}
+    //     </Context.Consumer>
+    //   )
+    // }
+    
+
+
+ 
+    // react合成事件系统：
+    // React 合成事件注册 && 分发 过程
 		// mounted && updated
 		// 	=>	_updateDOMProperties(处理props):
 		// 				对DOM元素设置唯一_rootNodeID
@@ -195,7 +731,410 @@
 		// react阻止冒泡: event.nativeEvent 获取原生事件对象
 		// 1. 阻止合成事件间的冒泡：e.stopPropagation()
 		// 2. 阻止合成事件冒泡到原生document事件：e.nativeEvent.stopstopImmediatePropagation()
-		// 3. 组织合成事件冒泡到除document以外的其他原生事件：在该原生事件上通过e.target来排除目标元素return
+    // 3. 组织合成事件冒泡到除document以外的其他原生事件：在该原生事件上通过e.target来排除目标元素return
+    
+
+    // 新版createContext：
+    // 涉及到一些Fiber的运作机制：
+    // 得益于Fiber的链表机制，一个Provider的所有的consumer里面的children都会注册到事件池里面，并提供一个propagateContextChange方法。
+    // Provider变化触发updateContextProvider函数，从而每个consumer的child的Fiber节点会执行propagateContextChange方法（如果位运算通过的话，可以看第二个问题），
+    // 在 propagateContextChange 中，以当前 fiber 节点为根的子树中寻找相匹配 Consumer 节点，给与更新标记，当render过程执行到此节点会执行更新。
+    // 因此，虽然 shouldComponentUpdate 造成了 Consumer的父组件无法被标记更新，但 Provider 的 propagateContextChange 能使 Consumer 组件重新被标记，从而能够被 render。
+
+    // 同一个createContext生成的Provider对应的Consumer会将 本Consumer组件（或者组件children）给予更新标记，注册到事件池里进行监听
+    // 当Proiver组件发生更新并对比（Object.is）value有变更 会在render过程进行对标记节点的更新
+
+
+
+// 业务组件当中可以内嵌Route标签做tag切换
+
+// export default class First extends Component{
+//     render(){
+//         console.log(this)
+//         const {match} = this.props
+//         return(
+//             <div>
+//                 <p>First</p>
+//                 <NavLink    style={{color: '#000'}}
+//                             to={`${match.url}/0`}
+//                             activeClassName='active2'
+//                             activeStyle={{color: 'pink'}}>
+//                     <button>First-params：1</button>
+//                 </NavLink>
+//                 <NavLink    style={{color: '#000'}}
+//                             to={`${match.url}/1`}
+//                             activeClassName='active2'
+//                             activeStyle={{color: 'pink'}}>
+//                             {/*isActive={ () => true}
+//                             exact(bool)：为true时，只有当导致和完全匹配class和style才会应用
+//                             strict(bool)：为true时，在确定为位置是否与当前URL匹配时，将考虑位置pathname后的斜线*/}
+//                     <button>First-params：2</button>
+//                 </NavLink>
+                
+//                 {/* children使用方式与render一致，只不过无论路由是否匹配都会被渲染 但是跟render一样 只有path匹配才有回调的 match 对象 不匹配为null */}
+//                 <Route  path={`${match.path}/:id?`}   //设置params非必传：? 枚举params(0|1)
+//                         render={ ({match}) => (
+//                             <Fragment>
+//                                 {match.params.id ? (
+//                                     //<FirstList /> 写成这种形式需要传递{...props} 或 组件内使用withRouter
+//                                     <Route path={`${match.path}`} component={FirstList} />
+//                                 ) : (
+//                                     <div>Select</div>
+//                                 )}
+//                             </Fragment>
+//                         )} />
+//             </div>
+//         )
+//     }
+// }
+
+    // <EmailInput
+    //   defaultEmail={this.props.user.email}
+    //   key={this.props.user.id}
+    // />
+    // 在我们的例子中，我们可以使用用户ID在新用户被选中时重新创建"EmailInput"：
+    // 每当ID改变时，EmailInput将被重新创建，它的状态将被重置为最新的defaultEmail值(示例)。
+    // 使用这种方法，您不需要向每个输入项添加key。
+    // 把key放在整个表单上可能更有意义。每次改变时，表单中的所有组件都将用一个新初始化的状态重新创建。
+
+
+
+    
+    // 禁用鼠标事件属性：pointer-events: none;
+    // UI开发调试：outline: 1px #000 solid;
+    // 禁止用户选择：
+      // -webkit-touch-callout: none;
+      // -webkit-user-select: none;
+
+    // 热加载：监听本地文件修改，服务器推送到客户端，将更新补丁通过前端API调用实现重新加载
+
+    // const createPromise = (time, id) => () =>
+    //   new Promise(solve =>
+    //     setTimeout(() => {
+    //       console.log("promise", id);
+    //       solve();
+    //     }, time)
+    //   );
+    // function runPromiseByQueue(myPromises) {
+    //   myPromises.reduce(
+    //     (prev, next) => prev.then(() => next()),
+    //     Promise.resolve()
+    //   );
+    // }
+    // async function runPromiseByQueue(promises) {
+    //   for(let promise of promises) {
+    //     await promise()
+    //   }
+    // }
+    // runPromiseByQueue([
+    //   createPromise(3000, 1),
+    //   createPromise(2000, 2),
+    //   createPromise(1000, 3)
+    // ])
+    // createPromise(3000, 1)()
+    //   .then(() => 
+    //     createPromise(2000, 2)()
+    //   )
+    //   .then(() => 
+    //     createPromise(1000, 3)()
+    //   )
+
+
+    // 移动端 1rem === 100px 解决方案
+    // document.documentElement.style.fontSize = screen.width / 7.5 + 'px'
+    // document.documentElement.style.fontSize = 100 / 375 * 100 / 2 + 'vw' // 26.6667
+    // document.documentElement.style.fontSize = screen.width * (100 / 375) + 'px'
+
+    // hooks 设计动机：
+    // 1. class类难以理解（牵强）
+    // 2. 组件复用产生嵌套地狱 class组件复用方式会形成嵌套地狱 
+      //  hooks提供自定义hook
+    // 3. 逻辑分散 | 复杂：同一个功能点所涉及的逻辑会被生命周期拆分开 | 同一个生命周期可能会包含很多互不相关的逻辑
+      //  hooks将相互关联的逻辑组合到一起
+
+    
+
+
+
+    
+
+    //
+    // 1. 传参方式不通 URL RequestBody
+    // 2. GET有参数长度限制 POST没有
+    // 3. GET请求会被浏览器主动缓存 POST需手动设置
+    // 4. GET请求参数会被保存在历史记录 POST不会
+    // 5. 语义化不同
+
+
+    // 跨域
+    // 1. JSONP
+    // 2. CORS (Access-Control-Allow-Origin)
+    // 3. doucment.domain = 'taobao.com' (二级域名相同)
+    // 4. window.name + iframe跨域
+    // 5. 反向代理(框架+webpack)
+    // 6. 搭建服务器代理做中间层(node中间件) 绕过浏览器
+    // 7. postMessage跨域
+    // 8. WebSocket协议跨域
+
+
+    // html5
+    // 1. 本地存储 webStorage local/sesision
+    // 2. 地理定位 navigator.geolocation.getCurrentPosition()
+    // 3. 新增语义化标签header footer nav article section / 新增canvas video audio标签 / 新增表单控件类型 url number time search date email
+    // 4. webSocket：在TCP连接上的双向通信协议 / webWork：多线程处理
+    // 5. 拖拽 drag / drop
+    // 6. FileReader
+    // 7. navigator.onLine   online   offline
+    // 8. requestFullScreen() 开启全屏显示 / cancelFullScreen() 关闭全屏显示
+    // 9. 离线缓存 ServiceWorkers
+      // 拖拽元素
+      // 1.drag 应用于拖拽元素，整个拖拽过程都会调用
+      // 2.dragstart应用于拖拽元素，当拖拽开始时调用
+      // 3.dragleave应用于拖拽元素，当鼠标离开拖拽元素时调用
+      // 4.dragend应用于拖拽元素，当拖拽结束时调用
+      // 目标元素
+      // 1.dragenter应用于目标元素，当拖拽元素进入时调用
+      // 2.dragover应用于目标元素，当停留在目标元素上时调用 阻止浏览器的默认禁止行为（event.preventDefault）
+      // 3.drop应用于目标元素，当在目标元素上松开鼠标时调用
+      // 4.dragleave应用于目标元素，当鼠标离开目标元素时调用
+    
+    
+
+    // css3
+    // 选择器
+    // border-radius border-image box-shadow
+    // background-origin size clip 
+    // 渐变属性 线性渐变 径向渐变
+    // 文本效果 Text
+    // @font-face 在线使用字体 图标
+    // 2D 3D 转换 transform
+    // 过渡 transition
+    // @keyframes
+    // 多列
+    // 弹性盒 flexbox
+    // box-sizing
+    // vh vw
+
+    // [元素类型]-[元素作用/内容]
+    // 如:搜索按钮: btn-search
+    // 登录表单:form-login
+    // 新闻列表:list-news
+
+    // .el-button+.el-button {
+    //   margin-left: 10px;
+    // }
+
+
+    // pointer-events: none; 阻止元素任何JS事件
+
+    // // 水平居中
+    // 1. text-align：center（字符串 行内元素 行内块元素）
+    // 2. margin：0 auto(块元素 行内块元素 有宽度)
+    // 3. flex + 主侧轴 | 子元素margin：auto
+    // 4. position + thransform: thranslate()
+    // // 垂直居中
+    // 1. line-height：（单行字符串 行内元素 行内块元素）
+    // 2. 父：line-height / font-size : 0 子：vertical-align：middle
+    // 3. flex
+    // 4. position + thransform / margin-left + thransform
+    // 5. 父元素（diaplay：table） 子元素（display：table-cell vertical-middle）
+
+    // clip-path: polygon circle ellipse(50% 0, 100% 50%, 50% 100%, 0 50%)
+    // border-radius: 5em 1em 5em 1em / 5em 1em 5em 1em;
+    // width: min-content;
+    // box-shadow: 0 0 0 5px #000 inset,
+    //           0 0 0 10px #555 inset,
+    //           0 0 0 15px #999 inset;
+    // filter: blur... / drop-shadow(2px 2px 10px rgba(0,0,0,.5));
+
+    // 网格
+    // background: #58a;
+    // background-image: linear-gradient(white 2px, transparent 0),
+    //                   linear-gradient(to right, white 2px, transparent 0),
+    //                   linear-gradient(rgba(255, 255, 255, .5) 1px, transparent 0),
+    //                   linear-gradient(to right, rgba(255, 255, 255, .5) 1px, transparent 0);
+    // background-size: 75px 75px, 75px 75px, 15px 15px, 15px 15px;
+    // 条纹
+    // background: repeating-linear-gradient(60deg, #fb3 0, #fb3 15px, #58a 0, #58a 30px);
+    // 棋盘
+    // background: #eee;
+    // background-image:
+    //   linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0),
+    //   linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0);
+    // background-size: 30px 30px;
+    // background-position: 0 0, 15px 15px;
+    // 饼图
+    // background: conic-gradient(lightblue 30%, yellowgreen 0, yellowgreen 50%, cyan 0);
+    // 回弹
+    // animation: bounce 3s both cubic-bezier(.7, .1, .3, 2);
+    // transform-origin: 1.4em -.4em;
+    // transition: transform .5s cubic-bezier(.25, .1, .3, 1.5);
+
+
+
+
+
+
+    // JSON.stringify()
+    // 作为对象属性 会忽略 function undefined Symbol (NaN 正负无穷Inifinty 会转为null)
+    // 在数组内 以上项都会转为null
+    // 存在循环引用会抛出错误
+
+
+    // 代码复用：1. 封装:面向对象封装 函数封装 2. 继承  react：1. HOC 2. render Prop 3. 自定义hooks 4. providers/consumers模式
+
+
+    // 一次完整的HTTP请求过程
+    // 构建请求行，准备发起请求
+    // 查找http请求缓存
+    // 获取ip（查找dns缓存 dns解析）
+    // 等待tcp队列（Chrome 有个机制，同一个域名同时最多只能建立 6 个 TCP 连接，如果在同一个域名下同时有 10 个请求发生，那么其中 4 个请求会进入排队等待状态，直至进行中的请求完成）
+    // 建立tcp连接（三次握手）
+    // 发起http请求
+    // 服务器响应HTTP请求，浏览器得到HTML代码
+    // 浏览器渲染
+
+    // 浏览器渲染过程
+    // 1. 构建 DOM Tree & CSSOM Tree（Recalculate Style 样式表对象模型）；CSSOM 和 DOM 二者无关联，是各自独立的树 
+    //   DOM：描述了文档节点之间的结构和属性
+    //   CSSOM：描述了标签样式
+    //     每一个浏览器都会有一个 “浏览器自定义样式（user agent styles）”，也就是说如果我们不提供自定义样式的话，我们的页面将会按照浏览器提供的样式来渲染
+    // 2. layout：将两棵树组合成 Render Tree
+    //   render Tree 和 DOM Tree区别：
+    //     render Tree中包含节点对应的样式；
+    //     render Tree中不包含display: none的节点和head节点
+    //   (display：none会触发reflow visibility：hidden只会触发重绘因为位置没有发生变化)
+    // 3. layout：布局计算 
+    //   有了Render Tree 浏览器已经能知道文档结构的从属关系和它们所对应的样式了 从而计算出每个节点在屏幕中的位置
+    //   会把布局运算的结果重新写回布局树中，所以布局树既是输入内容也是输出内容
+    // 4. 分层；生成图层树LayerTree =》 绘制列表（用来记录绘制顺序和绘制指令的列表）=》栅格化（合成线程会将图层划分为图块，将图块转换为位图）
+    // 5. 绘制painting：按照计算出来的规则:合成线程就会生成一个绘制图块的命令——“DrawQuad”，然后将该命令提交给浏览器进程，将其页面内容绘制到内存中，最后再将内存显示在屏幕上
+    // 3.4.5也可以叫做回流
+
+    // link标签一般情况下不会阻塞domTree的构建
+    // link标签会阻塞renderTree的构建
+    // link标签会阻塞script标签的执行
+
+    // CSSOM 会阻塞渲染，只有当 CSSOM 构建完毕后才会进入下一个阶段构建渲染树。
+    // 通常情况下 DOM 和 CSSOM 是并行构建的，
+    //   但是当浏览器遇到一个不带 defer 或 async 属性的 script 标签时， DOM 构建将暂停，
+    //   如果此时又恰巧浏览器尚未完成 CSSOM 的下载和构建，由于 JavaScript 可以修改 CSSOM，
+    //   所以需要等 CSSOM 构建完毕后再执行 JS，最后才重新 DOM 构建。
+
+    
+
+    // 回流(reflow) & 重绘(repaint) https://csstriggers.com/
+    // 回流：当render Tree中一些节点因尺寸，布局，隐藏，内容等改变需要重新构建，这时浏览器会重新构造这部分渲染树
+    // 重绘：回流完成后，浏览器会重新绘制改变的部分和受影响的部分到屏幕中；或者NODE需要更改的属性只会影响外观而不会影响布局(非几何属性)，会触发重绘 重新绘制受改变的部分元素。重绘省去了布局和分层阶段
+    // 回流一定会发生重绘 重绘不一定会引发回流
+
+    // 浏览器会优化回流和重绘操作：浏览器会维护一个队列，将回流和重绘操作放入这个队列，等队列中的操作到了一定数量或者到了一定时间就会进行一个批操作
+    // 查询布局信息的样式时会强制重排，导致浏览器无法优化多次重排
+      // offsetTop, offsetLeft, offsetWidth, offsetHeight
+      // scrollTop, scrollLeft, scrollWidth, scrollHeight
+      // clientTop, clientLeft, clientWidth, clientHeight
+      // getComputedStyle() (currentStyle in IE)
+    // 自己的优化：批操作 直接改变className或cssText累加或setAttribute('style')；DOM元素批添加
+    
+
+    // HTTP请求方式
+    // 1、OPTIONS 返回服务器针对特定资源所支持的HTTP请求方法，也可以利用向web服务器发送‘*’的请求来测试服务器的功能性
+    // 2、HEAD 向服务器索与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以再不必传输整个响应内容的情况下，就可以获取包含在响应小消息头中的元信息。
+    // 3、GET 向特定的资源发出请求。注意：GET方法不应当被用于产生“副作用”的操作中，例如在Web Application中，其中一个原因是GET可能会被网络蜘蛛等随意访问。Loadrunner中对应get请求函数：web_link和web_url
+    // 4、POST 向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。 Loadrunner中对应POST请求函数：web_submit_data,web_submit_form
+    // 5、PUT 向指定资源位置上传其最新内容
+    // 6、DELETE 请求服务器删除Request-URL所标识的资源
+    // 7、TRACE 回显服务器收到的请求，主要用于测试或诊断
+    // 8、CONNECT HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。
+    // 注意：
+    // 1）方法名称是区分大小写的，当某个请求所针对的资源不支持对应的请求方法的时候，服务器应当返回状态码405（Mothod Not Allowed）；当服务器不认识或者不支持对应的请求方法时，应返回状态码501（Not Implemented）。
+    // 2）HTTP服务器至少应该实现GET和HEAD/POST方法，其他方法都是可选的，此外除上述方法，特定的HTTP服务器支持扩展自定义的方法。
+
+    // post put： body
+    // get delete： url
+
+    // 请求头
+
+    // response 状态码
+    // 1XX－信息类(Information),表示收到Web浏览器请求，正在进一步的处理中，例如post请求
+    // 2XX－成功类（Successful）,表示用户请求被正确接收，理解和处理例如：200 OK
+    // 3XX-重定向类(Redirection),表示请求没有成功，客户必须采取进一步的动作。
+    // 4XX-客户端错误(Client Error)，表示客户端提交的请求有错误 例如：404 NOT Found，请求资源不存在。
+    // 5XX-服务器错误(Server Error)表示服务器不能完成对请求的处理：如 500
+
+    // 100: post请求 发送header确认是否可以访问
+    // 200: OK
+    // 304: 自上次请求资源没有发生变化 可以使用缓存
+    // 404: 请求资源不存在
+    // 500: 服务端错误
+
+
+    // 200 OK
+    // 204 No Content
+    // 301 Moved Permanently：永久性重定向
+    // 302 Found
+    // 303 See Other：表示请求的资源被分配了新的URL，应使用GET方法定向获取请求的资源；
+    // 304 Not Modified
+    // 400 Bad Request
+    // 401 Unauthorized：未经许可，需要通过HTTP认证
+    // 403 Forbidden：服务器拒绝该次访问（访问权限出现问题）
+    // 404 Not Found：表示服务器上无法找到请求的资源
+
+
+
+
+    // 抽象语法树AST：它表示了源代码所对应的数据结构。
+    // 编译型语言 & 解释型语言：计算机并不能直接识别高级语言 只能理解机器语言，执行前必须把高级语言翻译成机器语言。
+    //  翻译的方式有两种：两种方式只是翻译的时间不同
+    //    编译型语言写的程序在执行前 需要有一个专门的编译过程 把程序编译成计算机语言文件 以后运行的话就不需要重新翻译了 直接使用编译结果
+    //    解释型语言在程序执行的时候才翻译(边执行边编译)
+    // 传统的编译语言在执行前会经历三个步骤：统称为“编译”
+    //  1. 分词/词法分析：将字符串分解成有意义的代码块（词法单元）
+    //  2. 解析/语法分析：语言引擎配合编译器将词法单元转换成抽象语法树
+    //  3. 代码生成：基于AST生成可执行代码的过程
+
+
+
+    // 滑动
+    // father: white-space: nowrap; overflow: hidden;
+    // chidren: display: inline-block;
+
+
+
+
+
+
+  
+    // 链表 VS 数组
+    // 链表： 1. 内存上存储：不需要连续空间
+    //       2. 写：效率高
+    //       3. 读：效率低（因为要从head开始遍历）
+
+    // 数组： 1. 内存上存储：是一块连续的区域
+    //       2. 写：效率低（因为所操作的索引之后的元素都要移动）
+    //       3. 读：效率高（因为内存中是连续的 知道每一个元素的内存地址）
+
+
+    // 上移下移
+    // const arr = [1,2,3,4,5]
+
+    // function fn(i, t) {
+
+    //   if (i < t) {
+    //     t -= 1
+    //   }
+      
+    //   arr.splice(t, 0, ...arr.splice(i, 1))
+    // }
+
+    // fn(2, 4)
+
+
+    
+    // Object.is()，其行为与===基本一致，不过有两处不同：
+    // +0不等于-0。
+    // NaN等于自身。
+
 		
 
 		// js 文本框监听粘贴事件，获取粘贴板上的图片实现预览:  在事件对象e.clipboardData.items(arr)下
@@ -207,7 +1146,43 @@
 			// 	return true
 			// }
 
-		// DOM
+
+
+
+
+    // DOM
+    // Element name 会被当作document下的属性
+    // Element id 会被当作window下的属性
+
+    // box => HTMLDivElement => HTMLElement => Element => Node => EventTarget => Object
+
+    // clientLeft/Top：padding到border的距离
+    // clientWidth/Height：元素宽度（不包含border）
+
+    // offsetLeft/Top：和最近父元素的距离
+    // offsetWidth/Height：元素宽度（包含border）
+
+    // scrollWidth/Height：同client
+    // scrollLeft/Top：元素内滚动距离
+
+    // window.innerHegiht/Width：视口大小
+    // window.screen.height/width：客户端分辨率
+
+    // event:
+    // offsetX/Y：相对于事件源的鼠标坐标
+    // clientX/Y：相对于浏览器视口的鼠标坐标
+    // screenX/Y：相对于屏幕的鼠标坐标
+
+    // dom.getBoundingClientRect()：返回4个属性 距离浏览器视口的距离
+    
+
+
+
+
+    
+    // console.log(ul.getElementsByTagName('*'))   //子孙节点
+    // console.log(ul.querySelector('*'))          //子孙节点
+    // console.log(ul.children | childNodes)                    //子节点
 
 		// const box = document.getElementById('box')
 		// const element = document.createElement('div')
@@ -217,7 +1192,7 @@
 		// log(element.nodeType)		// 1
 		// log(attribute.nodeType)	// 2
 		// log(text.nodeType)			// 3
-		// log(document.nodetype) // 9
+		// log(document.nodeType) // 9
 
 		// log(element.nodeName)		// DIV: 标签名大写
 		// log(attribute.nodeName)	// id: 属性名
@@ -250,20 +1225,77 @@
 		// normalize() // 这个方法唯一的作用就是处理文档树中的文本节点。 由于解析器的实现或 DOM 操作等原因，可能会出现文本节点不包含文本，或者接连出现两个文本节点 的情况。当在某个节点上调用这个方法时，就会在该节点的后代节点中查找上述两种情况。如果找到了 空文本节点，则删除它;如果找到相邻的文本节点，则将它们合并为一个文本节点
 
 		// log(document.referrer) // 取得来源页面的URL
+    
 
-		// 修改 className 时，如果新类关联了与此前不同的 CSS 样式，那么就会立即应用新的样式。
+    // 使元素滚动至视口
+    // document.querySelector('input').scrollIntoView(true)
+
+    // 判断节点是不是另一个节点的子节点
+    // document.documentElement.contains(document.body) // true
+    // document.body.parentNode === document.documentElement // true
+
+
+    // 修改 className 时，如果新类关联了与此前不同的 CSS 样式，那么就会立即应用新的样式。
+    // div#box | p.box | [title] | [title][name] | div [title] | div td > p | div td + p | a.red :visited
 
 		// 动态添加样式：1. 动态创建style标签, createTextNode到标签内, 添加到head中；2. 动态创建link标签引入(createElement('link'))；
-		// script同理。
+    // script同理。
+    
+    // 批量读写css样式
+    // Object.assign(myDiv.style, { // 假批量
+    //   color: '#f00'
+    // })
 
-		// classList 属性是新集合类型 DOMTokenList 的实例
+    // myDiv.style.cssText  // 可读写
+
+    // myDiv.setArrtibute('style')  // 可读写 get
+
+    // 行内样式 & 内联样式
+    // window.getComputedStyle(mtDiv, null) // {}   // 只读
+
+    // classList 属性是新集合类型 DOMTokenList 的实例
 		// add(value):将给定的字符串值添加到列表中。如果值已经存在，就不添加了
 		// remove(value):从列表中删除给定的字符串
-		// toggle(value):如果列表中已经存在给定的值，删除它;如果列表中没有给定的值，添加它
+    // toggle(value):如果列表中已经存在给定的值，删除它;如果列表中没有给定的值，添加它
+
+
+    // css三大特性：继承性 层叠性 优先性
+    // 继承：text-，font-，line-，color
+    // 优先性：权重。!important ∞；行内样式 1000；id 100；class 10；元素 1；
+    // 层叠：相同样式后面定义的覆盖前面定义的 不同样式会重叠生效
+
+    // sass:
+    // 声明变量 $w: 5px !global;
+    // @import "rounded-corners", "text-shadow", "url", url(""); @import可以内嵌
+    // .a { @extends .className }
+    // $grid-width: 40px;
+    // $gutter-width: 10px;
+    // @function grid-width($n) {
+    //   @return $n * $grid-width + ($n - 1) * $gutter-width;
+    // }
+    // #sidebar { width: grid-width(5); }
+
+    // <div>
+    //   <img />
+    // </div>
+    // img {
+    //   left: 50%;  // 先偏移父元素的一半 再偏移子元素的一半使子元素X轴居中; 这样在窗口缩小 父元素width小于子元素宽度时 子元素在不改变width的情况下还能X轴居中
+    //   transform: translateX(-50%);
+    // }
+
+    // DOM事件流
+    // 捕获阶段 - 目标阶段 - 冒泡阶段
+
+    // document.createDocumentFragment() ： 创建一个文档片段占位符 最后只需要一次现场更新 && 渲染DOM
+
+    // ontextInput
+    // onDOMNodeRemoved onDOMNodeInsertedIntoDocument event.relatedNode属性中包含一个对父级节点的引用
+
+    // postMessage(数据, 发送页面源地址); onmessage 接收事件 参数：data，origin，source
 
 		// DOM焦点
 		// document.activeElement 属性，这个 属性始终会引用 DOM 中当前获得了焦点的元素
-		// document.hasFocus()
+		// document.hasFocus() focus()
 
 		// 当前选择的内容
 		// window.getSelection().toString()
@@ -314,6 +1346,7 @@
 
 
 
+
 	// 函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）
 	// 尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用帧，取代外层函数的调用帧就可以了
 	// 这就叫做"尾调用优化"（Tail call optimization），即只保留内层函数的调用记录
@@ -326,7 +1359,14 @@
 		// 	if (num == 1) return total
 		// 	return arguments.callee(num - 1, total * num)
 		// }
-		// log(fn(5, 1))
+    // log(fn(5, 1))
+
+    // let n = 5
+    // let total = 1
+    // while (n) {
+    //   total *= n --
+    // }
+    // log(total)
 
 
 		// 函数式编程有一个概念，叫做柯里化（currying），意思是将多参数的函数转换成单参数的形式。这里也可以使用柯里化。
@@ -352,222 +1392,23 @@
 
 		// factorial(5) // 120
 
-	// // rest: 剩余参数
-	// function fn({ a, ...rest }) {
-	// 	log(rest)	// { b: 2, c: 3 }
-	// }
-	// fn({ a: 1, b: 2, c: 3 })
-
-	// 设置函数参数必传小技巧
-	// function err(params) {throw new Error(params + 'is required')}
-	// function fn(params = err('params')) {}
-	// fn()
-
-// 子代 不同于 后代
-// document.querySelector('input[type=file]').files[0];
-// document.querySelectorAll("div.note, div.alert")
-// document.querySelector("#my-id").querySelectorAll("img")
-
-// React 标准化了事件对象，因此在不同的浏览器中都会有相同的属性
-
-	// // 二叉树遍历
-	// const tree = {
-	// 	value: "tree",
-	// 	left: {
-	// 		value: '1',
-	// 		left: {
-	// 			value: '2',
-	// 		},
-	// 		right: {
-	// 			value: '3',
-	// 			left: {
-	// 				value: '4',
-	// 			},
-	// 			right: {
-	// 				value: '5',
-	// 			}
-	// 		}
-	// 	},
-	// 	right: {
-	// 		value: 'a',
-	// 		left: {
-	// 			value: 'b',
-	// 		},
-	// 		right: {
-	// 			value: 'c',
-	// 			left: {
-	// 					value: 'd',
-	// 			},
-	// 			right: {
-	// 					value: 'e',
-	// 			}
-	// 		}
-	// 	}
-	// }
-	// let result = []
-
-	// // myBfs
-	// function fn(data) {
-	// 	if (typeof data !== 'object') return
-	// 	for	(let key in data) {
-	// 		if (key === 'value') {
-	// 			result.push(data.value)
-	// 		} else {
-	// 			fn(data[key])
-	// 		}
-	// 	}
-	// }
-	// fn(tree)
-	// log(result)
-
-	// // 深度遍历
-	// function bfs(item) {
-	// 	if (item) {
-	// 		bfs(item.left)
-	// 		result.push(item.value)
-	// 		bfs(item.right)
-	// 	}
-	// }
-	// bfs(tree)
-	// log(result)
-	// // 广度遍历
-	// let result = []
-	// let stack = [tree] // 先将要遍历的树压入栈
-	// let count = 0 // 用来记录执行到第一层
-	// let bfs = function () {
-	// 	let node = stack[count]
-	// 	if (node) {
-	// 		result.push(node.value)
-	// 		if (node.left) stack.push(node.left)
-	// 		if (node.right) stack.push(node.right)
-	// 		count ++
-	// 		bfs()
-	// 	}
-	// }
-	// bfs();
-	// log(stack)
-	// log(count)
-	// console.log(result)
-		
-
-		// let o = {
-    //   a: {
-    //     b: {}
-    //   },
-    //   c: {
-    //     d: {
-    //       e: {},
-    //       f: {
-    //         g: {
-    //           x: 'x'
-    //         }
-    //       },
-    //       h: {
-    //         i: 'i'
-    //       }
-    //     }
-    //   },
-    //   j: {
-    //     k: 'j'
-    //   }
+    // // rest: 剩余参数
+    // function fn({ a, ...rest }) {
+    // 	log(rest)	// { b: 2, c: 3 }
     // }
+    // fn({ a: 1, b: 2, c: 3 })
 
-    // o = {
-    //   a: {
-    //     b: {
-    //       c: 'c'
-		// 		},
-		// 		x: {}
-    //   },
-    //   d: {
-    //     e: 'e'
-    //   },
-    //   f: {
-    //     g: {
-		// 			h: {
-		// 				k: 'k'
-		// 			}
-		// 		}
-    //   }
-		// }
+    // 设置函数参数必传小技巧
+    // function err(params) {throw new Error(params + 'is required')}
+    // function fn(params = err('params')) {}
+    // fn()
 
-		// // 深度遍历
-		// let a
-		// function fn(obj) {
-		// 	if (typeof obj == 'object') {
-		// 		for (let key in obj) {
-		// 			log(key)
-		// 			if (fn(obj[key]) == 'e') {
-		// 				a = obj[key]
-		// 				return 'e'
-		// 			}
-		// 		}
-		// 	}
-		// 	return obj
-		// }
-		// 广度遍历
-		// let data = [o]
-		// let count = 0
-		// function fn() {
-		// 	const node = data[count]
-		// 	if (node && typeof node === 'object') {
-		// 		for (let key in node) {
-		// 			log(key)
-		// 			const item = node[key]
-		// 			if (typeof item === 'object') {
-		// 				data.push(item)
-		// 			}
-		// 			if (item == 'e') {
-		// 				return node
-		// 			}
-		// 		}
-		// 	}
-		// 	count ++
-		// 	return fn()
-		// }
-		// log(fn(data))
-		// log(count)
-		// log(data)
+    // 子代 不同于 后代
+    // document.querySelector('input[type=file]').files[0];
+    // document.querySelectorAll("div.note, div.alert")
+    // document.querySelector("#my-id").querySelectorAll("img")
 
-		// // 实例原型优先级 && 覆盖
-		// class Ft {
-		// 	constructor() {
-		// 		// this.a = () => {log('ft-实例')}
-		// 		this.ft = 'ft'
-		// 	}
-
-		// 	static st1 = 'st'
-		// 	static st2() {log('st')}
-
-		// 	a() {log('ft-原型')}
-		// }
-
-		// class Fn extends Ft {
-		// 	constructor(props) {
-		// 		super(props)
-		// 		// this.a = () => {log('实例')}
-		// 	}
-
-		// 	a() {log('原型')}
-		// }
-
-
-		// const f = new Fn()
-
-		// log(f)
-		// f.a()
-
-		// log(Object.getPrototypeOf(f) === Fn.prototype)
-		// log(Object.getPrototypeOf(Fn.prototype) === Ft.prototype)
-		// log(Object.getPrototypeOf(Ft.prototype) === Object.prototype)
-
-		// log(Ft.st1)
-		// Ft.st2()
-
-		// log(Fn.st1)
-		// Fn.st2()
-
-		// log(Object.getPrototypeOf(Fn) === Ft.prototype)
+    // React 标准化了事件对象，因此在不同的浏览器中都会有相同的属性
 
 
 
@@ -594,22 +1435,6 @@
 		// }
 		// fn([1,2,3,4])
 
-		// document.onclick = (function() {
-		// 	// 事件自调用，函数内代码只会运行一次
-		// 	log(1)
-		// 	var div = null	// 闭包变量
-		// 	return function() {
-		// 		// 每点击一次都会运行的部分
-		// 		if (!div) {
-		// 			// 只第一次点击会运行的部分，因为闭包变量
-		// 			log(3)
-		// 			div = 1
-		// 		}
-		// 		log(2)
-		// 		return div
-		// 	}
-		// })()
-
 		// // 遍历数组
 		// const arr = [1,2,3,4,5]
 		// for (let i = 0, item; item = arr[i ++]; ) {
@@ -626,7 +1451,30 @@
 		// null == undefined 和自己; 除此之外不和任何类型 ==
 		// ①、如果有一个操作数是布尔值，则在比较相等性之前先将其转换为数值——false转换为0，而true转换为1；
 		// ②、如果一个操作数是字符串，另一个操作数是数值，在比较相等性之前先将字符串转换为数值
-		// ③、如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的基本类型值按照前面的规则进行比较
+    // ③、如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的类型值判断是不是基础类型，不是的话再调用toString，按照前面的规则进行比较
+
+    // 如果两个值具有相同类型，会进行===比较，返回===的比较值
+    // 如果两个值不具有相同类型，也有可能返回true
+    // 如果一个值是null另一个值是undefined，返回true
+    // 如果一个值是string另个是number，会把string转换成number再进行比较
+    // 如果一个值是true，会把它转成1再比较，false会转成0
+    // console.log( false == null )      // false
+    // console.log( false == undefined ) // false
+    // console.log( false == 0 )         // true
+    // console.log( false == '' )        // true
+    // console.log( false == NaN )       // false
+
+    // console.log( null == undefined ) // true
+    // console.log( null == 0 )         // false
+    // console.log( null == '' )        // false
+    // console.log( null == NaN )       // false
+
+    // console.log( undefined == 0)   // false
+    // console.log( undefined == '')  // false
+    // console.log( undefined == NaN) // false
+
+    // console.log( 0 == '' )  // true
+    // console.log( 0 == NaN ) // false复制代码
 		// const a = {
 		// 	i: 0,
 		// 	valueOf: function() {
@@ -687,24 +1535,6 @@
 
 
 
-  // a b n n
-  // 1 1 2 3 5 8 13 21
-  // function fn(n, a = 1, b = 1) {
-  //   if (n <= 2) return b
-  //   return fn(n - 1, b, a + b)
-  // }
-  // function fn(n) {
-  //   if (n <= 2) return 1 
-  //   let a = 1
-  //   let b = 1
-  //   for(let i = 3; i <= n; i++ ) {
-  //     [a, b] = [b, a + b]
-  //   }
-  //   return b
-  // }
-
-
-
     // ts
     // 定义函数类型
     // interface fc {
@@ -749,44 +1579,28 @@
       */
   
     // 触发事件
-    //   const e = document.createEvent('Event');
-    //   e.initEvent('resize', true, true);
-    //   window.dispatchEvent(e || new Event('resize));
+    // window.addEventListener('yy', (e) => log(e), true)
 
+    // // 1.
+    // const e = document.createEvent('Event')
+    // e.initEvent('yy', true, true)
+    // e.data = 'data'
 
-    // 节流和防抖：限制函数触发周期
-    // 节流：规定周期内只执行一次(window.onscroll)
-    // 防抖：操作完毕才执行(input onchange)
-
-    // function fn() {log(1)}
-
-    // function throttle(fn, limit, delay) {
-    //   let time = 0
-    //   let timeout
-    //   return function () {
-    //     clearTimeout(timeout)
-    //     const now = new Date().getTime()
-    //     if (now - time >= limit) {
-    //       fn()
-    //       time = now
-    //     } else {
-    //       timeout = setTimeout(fn, delay)
-    //     }
+    // // 2.
+    // const e = new CustomEvent('yy', {
+    //   detail: {
+    //     data: 'data'
     //   }
-    // }
-    // function throttle(fn, limit) {
-    //   let b = false
-    //   return function () {
-    //     if (b) return
-    //     b = true
-    //     setTimeout(() => {
-    //       fn()
-    //       b = false
-    //     }, limit)
-    //   }
-    // }
+    // })
 
-    // window.onscroll = throttle(fn, 1000, 300)
+    // window.dispatchEvent(e)
+
+
+    
+
+    
+
+
 
     // function fn() {
     //   const CSV = 'a,b\na,1\nb,2\n'
@@ -804,12 +1618,12 @@
 
 
     // BFC（Block Formatting Context）: 
-    // 是一个页面上一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然
+    // 是一个页面上一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然，也有一些内部规则
     // 它决定了块级元素如何对它的子元素进行布局，以及其他元素与它的关系
     // 触发条件：
     // 1.float的值不为none
     // 2.overflow的值不为visible
-    // 3.position的值不为static、releative
+    // 3.position的值不为static、relative
     // 4.display的值为table-cell、tabble-caption、inline-block
     // 5.display为 flex 或 inline-flex元素的直接子元素
     // 6.display为 grid 或 inline-grid 元素的直接子元素
@@ -823,6 +1637,1559 @@
     // js清除浏览器缓存的几种方法
 
     
+    
+
+
+    // const registerCallBackUrl = `${window.location.href}&withCoupon=1${Object.keys(params).reduce((pre, next) => pre + `&${next}=${params[next]}`, '')}`
+
+    // 严格模式 'use strict': 可以在作用域内部进行较为严格的错误条件检测
+    // 1. 不允许意外创建全局变量 必须先声明后使用 不能delete删除var创建的变量
+    // 2. 操作对象：对只读属性的对象赋值；对不可配置的对象delete；对不可拓展的对象添加属性
+    // 3. 函数参数名不能重复；严格模式下arguments与参数完全独立：对参数重新赋值不会影响arguments
+    // 4. this 始终指向指定的值（通过call apply bind），否则指向 undefined 而不指向window
+
+
+    // 前端预览图片
+    // 1. new FildReader().readAsDataURL(file).onload(info => info.result)
+    // 2. window.URL.createObjectURL(blob)
+    // 3. canvas => base64
+
+    // new FormData().append('', file)
+
+  
+    
+
+
+    // fetch
+    // fetch('https://img.alicdn.com/tfs/TB1U1V4XeH2gK0jSZFEXXcqMpXa-1200-1200.png', {
+    //   // method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //   // mode: "cors", // no-cors, cors, *same-origin
+    //   // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    //   // credentials: "same-origin", // include, *same-origin, omit
+    //   // redirect: "follow", // manual, *follow, error
+    //   // referrer: "no-referrer", // no-referrer, *client
+    //   // body: JSON.stringify(data), // body data type must match "Content-Type" header
+    //   // headers: {
+    //   //     // "Content-Type": "application/json",
+    //   //     // "Content-Type": "application/x-www-form-urlencoded",
+    //   //     // 'Cache-Control': 'no-cache'
+    //   // },
+    // })
+    //   .then(res => res.blob())
+    //   .then(res => {
+    //     log(res)
+    //     const url = URL.createObjectURL(res)
+    //     log(url)
+    //     document.querySelector('img').src = url
+    //   })
+
+    // var anotherRequest = new Request(myRequest, myInit)
+    // // 这非常有用，因为请求和响应主体只是一个用途。制作这样的副本允许您再次使用请求/响应，同时init根据需要改变选项。必须在阅读正文之前制作副本，并且阅读副本中的正文也会在原始请求中将其标记为已读。
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "text/plain");
+
+    // 当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 即使该 HTTP 响应的状态码是 404 或 500。相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），仅当网络故障时或请求被阻止时，才会标记为 reject。
+
+    // web 离线检测 navigator.onLine // boole
+    // web 在线离线 事件 online offline
+
+    // 表单 submit reset
+    // <input type="reset" />
+    // <button type="reset">Reset Form</button>
+
+    // form.submit() // reset()
+
+    // 表单中第一个控件元素
+    // field1 = form.elements[0]
+    // 表单中名为textbox1的控件元素s
+    // field2 = form.elements["textbox1"]
+
+    // pattern input约束字段
+    // checkValidity 表单或表单元素检测有效性：可以自己写一个
+
+    // contenteditable: 给任意元素设置该属性 可变为可编辑元素 
+
+
+
+
+    // 创建指定长度的数组
+    // [...new Array(5).keys()]
+    // Array.from({ length: 5 })
+    //  伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）
+    //  可迭代对象（可以获取对象中的元素,如 Map和 Set 等）
+
+    // defer与async的区别是：defer要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；async一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。一句话，defer是“渲染完再执行”，async是“下载完就执行”。另外，如果有多个defer脚本，会按照它们在页面出现的顺序加载，而多个async脚本是不能保证加载顺序的
+    // import()类似于 Node 的require方法，区别主要是前者是异步加载，后者是同步加载
+    // CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+    // CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+
+
+    // this传递
+    // function fn(f) {
+    //   f()
+    // }
+    // function Fn() {
+    //   this.f = function() {
+    //     log(this)
+    //   }
+    //   this.f2 = () => {
+    //     log(this)
+    //   }
+    // }
+
+    // fn(new Fn().f)  // window
+    // fn(new Fn().f2) // Fn{}
+
+    
+
+
+    // 自定义事件
+    // const box = document.getElementById('box')
+    // box.addEventListener('testEvent', (e) => {
+    //   console.log(e)
+    // }, false)
+
+    // const event = document.createEvent('HTMLEvents')
+    // event.initEvent('testEvent', false, false)// 事件是否冒泡 默认false冒泡; 是否可以用 preventDefault() 方法取消事件
+
+    // box.dispatchEvent(event)
+
+
+    // [1, 4, -5, 10].find((n) => n < 0, obj) // -5 findIndex 这两个方法都可以接受第二个参数，用来绑定回调函数的this对象
+    // function f(v){
+    //   return v > this.age;
+    // }
+    // let person = {name: 'John', age: 20};
+    // [10, 12, 26, 15].find(f, person); 
+
+    // Array.of(1, 2) // [1, 2]
+
+    // 截数组
+    // const arr = [1,2,3,4,5,6,7]
+    // 1. const [first, ...rest] = arr
+    // 2. arr.slice(1, arr.length)
+
+    // 父窗口通过window.open获取子窗口；子窗口通过window.opener window.parent获取父窗口
+
+    // 嵌套解构赋值
+    // const { a: { b: { c: x = 'default' }, a, b } } = {a: {b: {c: 1}}}  // 解构赋值别名使用默认值
+    // log(a, b)  // error ,a ,b
+    // log(x)  // 1
+    // function move({x = 0, y = 0} = {}) {  // 函数解构赋值也使用默认值
+    //   return [x, y]
+    // }
+    // log(move())  // 不会报错
+
+    
+
+    // const obj = new Object(function(){})  // 传什么类型的值就生成什么类型的对象实例
+    // console.log(obj instanceof Function)
+
+    // 基本包装类型
+    // 为了便于操作基本类型值，ECMAScript 还提供了 3 个特殊的引用类型:Boolean、Number 和 String。这些类型与本章介绍的其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。 实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们 能够调用一些方法来操作这些数据。来看下面的例子。
+    //     var s1 = "some text";
+    //     var s2 = s1.substring(2);
+    // 这个例子中的变量 s1 包含一个字符串，字符串当然是基本类型值。而下一行调用了 s1 的 substring()方法，并将返回的结果保存在了 s2 中。我们知道，基本类型值不是对象，因而从逻辑上 讲它们不应该有方法(尽管如我们所愿，它们确实有方法)。其实，为了让我们实现这种直观的操作， 后台已经自动完成了一系列的处理。当第二行代码访问 s1 时，访问过程处于一种读取模式，也就是要 从内存中读取这个字符串的值。而在读取模式中访问字符串时，后台都会自动完成下列处理。
+    // (1) 创建 String 类型的一个实例;
+    // (2) 在实例上调用指定的方法;
+    // (3) 销毁这个实例。
+
+    // localeCompare()  
+    // var stringValue = "yellow";
+    // alert(stringValue.localeCompare("brick")); //1
+    // alert(stringValue.localeCompare("yellow")); //0
+    // alert(stringValue.localeCompare("zoo")); //-1
+
+    // alert(String.fromCharCode(104, 101, 108, 108, 111)); //"hello"
+
+    // var uri = "http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start";
+    // decodeURI() decodeURIComponent()
+    // //http%3A%2F%2Fwww.wrox.com%2Fillegal value.htm%23start
+    // alert(decodeURI(uri));
+    // //http://www.wrox.com/illegal value.htm#starttabulator
+    // alert(decodeURIComponent(uri))
+
+    // Math.max() min() 技巧
+    // var max = Math.max.apply(Math, values);
+
+    // input 只允许输入？？？
+    // <input onkeyup="value=value.replace(/[^0-9]/g,'')" onpaste="value=value.replace(/[^0-9]/g,'')" oncontextmenu = "value=value.replace(/[^0-9]/g,'')">
+
+
+    // let totalS = 62 
+
+    // function countDown() {
+    //   if (totalS >= 0) {
+    //     m = transition(Math.floor(totalS / 60))
+    //     s = transition(totalS % 60)
+    //     timeStr = '' + m[0] + m[1] + '分' + s[0] + s[1] + '秒'
+    //     document.body.innerHTML = timeStr
+    //     --totalS
+    //   } else {
+    //     clearInterval(timer)
+    //   }
+    // }
+
+    // timer = setInterval('countDown()', 1000)
+
+    // function transition(str) {
+    //   return str < 10 ? '0' + str : str + ''
+    // }
+
+    // callee
+    // function fn() {
+    //   log(arguments.callee)
+    // }
+
+    
+    // 当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。 而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境
+    // js运行时进入全局环境，生成全局执行上下文
+    // 进入函数，生成函数执行上下文(调用帧)
+    // 通过栈的存取方式来管理执行上下文（执行栈 | 调用栈 | call stack）
+    // 栈遵循"后进先出(Last in First Out)"的规则
+
+    // 作用域：限制代码范围内变量的可用性
+    // 作用域链作用：本质上是一个指向变量对象的指针列表 只引用但不实际包含变量对象(保证执行环境内变量的合法、有序访问;作用域的前端，始终都是当前执行环境的变量对象(如果是函数执行环境 AO则充当其变量对象))
+    // 函数的对象上下文 => this
+
+    // 当调用一个函数：将该函数压入执行栈并创建执行上下文
+
+    // 执行上下文：每次进入函数都会创建一个完全不同的执行环境; 运行完毕即销毁
+    // 执行环境组成: 顺序查找
+      // 1.词法环境：存储函数 let const 声明
+      // 词法环境内部的环境记录（Environment Record）；
+      // 一个指向外层词法环境的可空引用（Reference to the outer environment）；
+      // this
+      // 2.变量环境：存储var声明
+      // 变量对象VariableObject（形参 变量 函数声明）/ ActivationObject: （arguments 形参 变量 函数声明）;
+      // 作用域链([[Scopes]]：由当前和父级变量对象生成);
+      // this;设置 this 值
+
+    // 在词法环境内部，维护了一个小型栈结构，栈底是函数最外层的变量，进入一个作用域块后，就会把该作用域块内部的变量压到栈顶；当作用域执行完成之后，该作用域的信息就会从栈顶弹出，这就是词法环境的结构
+    // 词法作用域[[scopes]]就是指作用域是由代码中函数声明的位置来决定的，所以词法作用域是静态的作用域，通过它就能够预测代码在执行过程中如何查找标识符
+
+    // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级作用域链的 是完全共享的
+    // ：内部函数的作用域链仍然保持着对父执行环境活动对象的引用
+
+    // 前端资源优化
+    // 1. 文件压缩
+    // 2. 文件合并 减少http 请求
+    // 3. cdn静态资源托管
+    // 4. 懒加载（路由 图片）动态加载
+    // 5. 节流 防抖
+
+    // 伪数组：
+    // 1. 按索引的方式存储数据
+    // 2. 具有length属性
+    // 3. 原生部署iterator遍历器接口
+    // 4. 不继承Array.prototype 也就不具有Array的方法
+    // => Array
+    // 1. Array.prototype.slice.call(a)
+    // 2. [...a]
+    // 3. Array.from(a)
+    
+    
+    // 1. cookie会在http请求中携带 
+    // 2. 存储空间：cookie存储大小为4k / webStorage为5M
+    // 3. 有效期：cookie手动设置有效期 / localStorage永久存储 sessionStorage会话关闭
+    // 4. 作用域不同 cookie有path概念 仅存储在某路径下 / webStorage不会
+
+
+
+    // react知识
+    // 重复代码逻辑：就要考虑复用 1. 高阶函数 2. HOC 3. renderProps 4. Provider/Consumer 5. hooks
+
+    // 为什么不在componentWillMount中请求数据？
+    // 如果使用服务端渲染，componentWillMount会执行多次；
+    // componentDidMount中DOM元素已经初始化完毕，可以对DOM元素进行操作 不会阻碍更新
+
+    // react 的优点？
+    //   首先 react的声明式(直接声明DOM元素和属性)让代码更直观 写法更灵活
+    //   组件化开发 组件可复用 可维护性高 符合模块化开发的思想
+    //   用虚拟DOM 和 diff算法来操作DOM 提高了性能
+    //   以facebook为背景 有着很成熟的生态圈和发展潜力
+    //   个人喜欢react的原因：写法灵活 相较于vue也可说复杂 比较能锻炼思维 代码优雅
+    //   使用框架的好处：用框架规则来规范代码 使应用工程化，提高可维护性，组件化，用state来控制交互逻辑 更简单
+    // 虚拟DOM
+    // 虚拟DOM和diff算法？
+    //   虚拟DOM是真实DOM的抽象层 他是一个轻量级的js对象 所拥有的属性极少 而真实DOM中创建一个节点需要继承上百条属性 react在初始化的时候就会建立一个虚拟DOM树 render方法的返回值就是虚拟DOM
+    //   当状态发生改变的时候 react会收集之前所有的操作进行一个合并 然后生成一个新的虚拟DOM树 跟旧树进行对比 通过diff算法找出最小改变 更新到真实DOM当中进行一次统一的重绘 以减少没必要的DOM读写
+    //   而标准DOM每进行一次DOM操作就会重绘一次DOM树
+    //   虚拟DOM的缺点：在应用初始化首次渲染大量DOM时，由于多了一层虚拟DOM的计算，会慢一些
+    // diff算法
+    //   diff算法：是DOM树之间层对层比较 大大减少了需要遍历子节点的复杂度 因为在web应用中很少把一个组件节点移动到这颗树的其他层次(结构稳定) 它们通常只是在孩子节点的同层之间移动
+    //     比如说在对比过程中发现两个节点的类型不一样 那么直接删除这个节点和它的子节点并重新创建添加 即创建以这个节点为根的子树，如果相同 就进行下一步更深的比较虚拟DOM
+    // key
+    //     兄弟组件之间需要标识唯一不同的key来让react记住这些元素 来简化更新的过程：因为在做diff的时候 如果元素有key react会去旧树中的同层中寻找存在该key的元素并进行对比 相同则复用不同则重建，没有的话就跟相同位置的元素进行比较。会大大提高更新过程的效率
+    //     为什么key值最好不要用数组索引下标？如果用数组索引值来定义key的话 当数组新增或删除元素 这个元素之后所有元素的key值就会发生改变但这些元素本身并没有发生改变只是移动了位置 从而导致了没必要的更新
+    // 如果兄弟组件内的元素不会发生改变可以使用数组索引
+    // react优化
+    // react 优化途径？
+    //   reactElement属性尽量使用缓存变量 以减少更新代价
+    //   使用shouldcomponentupdate或PureComponent或Memo来进行对比阻止无必要渲染
+    //   render函数内尽量不要做副作用或复杂计算
+    //   元素结构会改变的层次使用key
+    //   如果使用Redux 可以使用Redux中间件reselect来把store的state来进行缓存重用
+    //   懒加载组件 import方法动态 配合React Lazy Suspense
+    //   使用Fragment减少额外标签的创建
+
+    // redux运行流程
+    // redux 运行流程？
+    //   首先view视图层发出action 通过dispatch将动作传递到store
+    //   store调用reducer 通过接受的state和action来重新计算state并返回一个新state给store的state
+    //   state发生改变 执行所有通过subscribe订阅的函数来完成视图的重渲
+    // Js代码优化
+    // js 代码性能优化
+    //   script标签使用defer属性：跟文档同时加载 在文档加载完后执行 anync 跟文档同时加载 加载完立刻执行
+    //   尽量减少或批量化DOM操作
+    //   对重复访问的dom对象使用局部变量保存 否则每次访问都要去DOM操作 而且每次使用完毕进行销毁
+    //   元素加事件尽量使用时间委托 因为遍历DOM元素会影响性能
+    //   尽量避免全局变量的搜索 声明局部变量 避免作用域链的查找
+    //   switch比if else要快 for in是最浪费性能的一种循环 每次都要通过原型链搜索属性
+    //   遍历数组，应先缓存数组长度
+    //   处理数据时的尾调用递归优化
+    //   其他的还要落实在具体的代码中
+    // 单向数据流
+    // 单向数据流？
+    //   单向数据流是指只能从一个方向一个源头来修改状态 它限制了修改状态的方式 让状态变的可追踪 易调试 出了问题	可以更快速的找到问题所在 所以比如父给子传值 这个值在子组件内不得修改 修改了就不符合单向数据流会让应用内数据的流向变得繁琐 会导致一系列问题
+
+    // setState更新机制原理？
+    //   setState是通过一个更新机制 batch update 来实现的 在MVC或者是MVVM框架中可以理解为将一段时间内对model的修改批量更新至view的过程
+    //   每次setState会将新state放入队列当中 然后根据一个变量来判断是否直接更新state 这个变量默认为false 也就是直接同步更新state 但是当通过react事件或生命周期调用的setState react会调用一个函数来修改这个变量为ture 从而放入等待队列中一步批量更新
+    //   当react的生命周期被调用或者react合成事件被触发时，会将变量isBatchingUpdates设置为true，表示开启了一个事务；
+    //   当setState时，先将待更新的state放入更新队列([] _pendingStateQueue)；
+    //   然后判断isBatchingUpdates为true：则将调用setState的组件实例也放入一个队列([] dirtyComponents)，等待批量更新；否则为false则直接进入该组件的更新流程
+    //   当组件更新完毕并且调用callback完成后会将isBatchingUpdates重置为false，表示当前事务已完成。
+      
+
+    // react初始化渲染原理
+    // react-babel 会将标签编译成React.createElement(), 返回一个DOM描述对象（虚拟DOM）
+    // {
+    // $$typeof: Symbol(react.element),	
+    // key: null,	
+    // type: "div",	
+    // props: {a: "a", children: "1"},	
+    // ref: null,	
+    // _owner: null,	
+    // _store: {validated: false}, 
+    // _self: null,	
+    // _source: null,
+    // __proto__: Object
+    // }
+
+    // 判断Element类型：1.DOM描述对象或数组 2.基础数据类型
+    // 1. 步骤：首先判断type，1.1 原生DOM字符串 1.2 组件函数：
+    //       1.1 直接调用ReactDOMComponent.mountComponent：生成真实DOM元素，再将children插入为子元素判断类型重复以上
+    //       1.2 调用ReactCompositeComponentWrapper.mountComponent：react会生成组件实例 FuncComponent：Func(props)；ClassComponent：new Func(props).render()，调用生命周期，返回Element判断类型重复以上
+    // 2. 是基础类型再判断是不是空类型 2.1 string | number 2.2. undefined null false true
+    //       2.1 ReactDOMTextComponent
+    //       2.2 ReactDOMEmptyComponent
+    // 调用这些方法生成真实DOM对象并插入到对应container
+
+
+
+    // MVC和MVVM
+    // MVC和MVVM？
+    //   都是软件架构方式
+    //   MVC：View传送指令到Controller；Controller完成业务逻辑后更改Medol；Medel将数据发送至View 实现视图的更新 数据流向是单向的  缺点 View和Model紧密联系 耦合度太高
+    //   MVVM：将数据双向绑定做为核心 VM充当视图和数据源的观察者 View和Model之间没有联系 View的改变会传送至VM VM完成业务逻辑更新Model；反之亦然
+    //   View的变化会修改数据源Model；Model的变化也会反映在视图上 优点 低耦合度 View和Model不能直接交互 当View改变Model可以不用发生改变 反之亦然；提高重用性；可测试性高
+
+    // 数据双向绑定原理？
+    //   通过 数据劫持 结合 发布订阅者模式 实现的
+    // CMD和AMD
+    // CMD和AMD？
+    //   都是模块化开发规范
+    //       commonJS:  服务端的模块化规范 nodeJS采用了这个规范
+    //   AMD：推崇依赖前置（依赖提前执行）；需要用到对应的库 RequireJS；它主要解决两个问题：JS文件的依赖关系 JS依赖文件加载时会阻塞页面渲染；而且不会污染全局环境
+    //         requireJS加载的函数是异步加载的 这样浏览器不会失去响应；只有模块加载完毕才会执行回调 解决了文件依赖问题
+    //   主要通过difine方法将代码定义为模块 require方法将模块引入加载
+    //   require方法接受两个参数第一个参数为数组 表示所依赖模块 第二个参数是模块记载完成执行的回调函数
+    //   CMD：推崇依赖就近（用到才加载）；
+    //   最大的区别：对依赖模块的执行时机不同
+    
+    // 什么情况redux
+    // 什么情况下使用Redux？
+    //   redux就是一个状态管理器 用来共享状态 免去组件间的传值 所以：
+    //   组件内某些状态需要共享
+    //   页面内交互逻辑复杂 一个状态需要改变全局多个组件逻辑
+    //   与服务器大量交互且多数据源
+    //   如果需求达不到则不需使用redux
+    // redux缺点
+    // Redux 缺点？
+    // 需求达不到不需要使用 无疑增加了代码量
+    // 更改一处状态需要调用多个文件来协同处理 actionCreator啦reducer啦connect啦
+    // 需要发送异步action还需要通过中间件来处理 它整体的逻辑是不简单的
+    // reducer纯函数
+    // reducer纯函数？
+    // 1.它的返回结果只依赖于他的参数 不依赖外部
+    // 同样的输入必定的发哦同样的输出
+    // 所以返回值不接受不纯的方法 比如random随机
+    // 2.在执行过程中不对外具有副作用
+    // 容器组件
+    // 容器组件和UI组件？
+    // UI组件只负责展示 不具有业务逻辑
+    // 没有状态 数据只依赖于props
+    // react和vue的区别
+    // react和vue的区别？
+    //     virtual DOM不一样,vue会跟踪每一个组件的依赖关系,不需要重新渲染整颗组件树.而对于React而言,每当应用的状态被改变时,这颗DOM树和它的子树都会重新渲染,需要shouldComponentUpdate这个钩子来控制
+    //     Vue封装了大量的API，react主要构建UI 内置API很少 很多功能需要自己来写逻辑 或者引用第三方
+    //     vue书写html结构更趋向于原生写法 而react是声明式的 将html结构嵌入js代码 写法更自由更灵活
+
+    // redux 三大原则
+    // 单一数据源：只存在一个state 只存在一个store
+    // state：只能通过显示的dispatch一个action来更改state
+    // reducer是一个纯函数：只能通过纯函数来修改state
+
+
+
+
+
+
+    // 其他知识
+    // fetch && xhr && axios
+    // fetch：ES新规范；免封装 语法简洁语义化；基于promise设计 解决回调地狱问题；可以设置不透传cookie
+    // 缺点：不能中断请求，没有获取当前请求状态的方法
+
+
+    // 像素
+    // 物理像素和逻辑像素？
+    // 物理像素=设备独立像素 逻辑像素=CSS像素
+    // dpr 等于 物理像素比逻辑像素 window.devercePR
+    // iphone6  375*667
+    // Onload 
+    // onload事件？
+    // 对象: window image
+    // 标签: body img script iframe
+    // post  get
+    // ajax post和get的区别？
+    // （1）使用Get请求时,参数在URL中显示,而使用Post请求,则不会显示出来； 
+    // （2）Post传输的数据量大，可以达到2M，而Get方法由于受到URL长度的限制,只能传递大约1024字节. 
+    // （3）Get请求请求需注意缓存问题,Post请求不需担心这个问题； 
+    // （4）Post请求必须设置Content-Type值为application/x-form-www-urlencoded； 
+    // （5）发送请求时,因为Get请求的参数都在url里,所以send函数发送的参数为null,而Post请求在使用send方法时,却需赋予其参数； 
+    // （6）GET方式请求的数据会被浏览器缓存起来，因此其他人就可以从浏览器的历史记录中读取到这些数据，例如账号和密码等。在某种情况下，GET方式会带来严重的安全问题。而POST方式相对来说就可以避免这些问题。
+    // 对象遍历：Object.keys for in Object.getOwnPropertyNames
+    // Object.keys: 遍历对象的自有的 可枚举属性
+    // For in: 遍历对象的自有和原型的 可枚举属性
+    // Object.getOwnPropertyNames: 遍历对象的自有的 可枚举不可枚举属性
+    // 继承
+    // 继承？
+    // 1.原型继承(拷贝继承,原型链继承)：将父类的实例赋给子类构造器的prototype,将父类的原型通过遍历的方式赋给子类构造器原型
+    // 2.构造继承：将父类构造函数的作用域指向子类F.apply(s,arguments)
+    // 3.实例继承：子类内部返回父类实例
+    // 4.组合继承：结合构造继承与原型继承
+    // 5.寄生组合继承：结合构造继承，通过寄生的方式砍掉父类的实例方法，
+    // 创建一个空类，把父类的原型赋给空类的原型，再把这个实例赋给子类构造器的原型
+    // ES6类继承：
+    // 面向对象
+    // 面向对象式编程：重用性、灵活性和扩展性 把程序模块化 这些模块可以在类的外部被调用，符合编程思维的高内聚低耦合（继承，封装，多态）
+    // Ajsx
+    // ajax步骤？
+    // 创建XHR对象
+    // 调用open方法创建请求
+    // 调用send方法发送请求
+    // onreadystatechange获取请求的状态码
+    // 判断状态码是否成功
+    // 调用ajax的responseText属性返回数据
+    
+
+    // CSS伪元素清除浮动？
+    // ::after {content: “”, display:block, clear:both, height: 0, visibility: hidden}
+    
+    // 箭头函数和普通函数的区别？
+    // 不绑定this(this指向为上下文的作用域) 不绑定arguments
+    // 没有原型属性 不能构造实例(不能使用new操作符)
+
+    // Let和const
+    // let和const？
+    // Var声明的变量会挂载在window上, let const则不会
+    // 有自己独立的块级作用域
+    // 不存在变量提升 必须先声明后使用
+    // 相同作用域内不可以重复声明 不可以同时声明多个变量
+    // 暂时性死区
+    // Const 不允许被重新赋值 声明时必须立刻赋值
+    
+
+    // window 提供js与浏览器交互的方法与接口
+    // Window(BOM浏览器对象模型)：window.open
+    // Navigator 访问者的浏览器信息 userAgent
+    // History：浏览器历史信息 包括前进forward后退goback一些方法
+    // Location：当前url地址和一些跳转的方法
+    // Screen: 用户显示器的分辨率详细信息
+
+    // 内存泄漏
+    // 内存泄漏的原因？
+    // 意外的全局变量设置
+    // 定时器没有被清除
+    // 一些循环的回调
+    // 闭包生成的变量
+
+    // 闭包
+    // 闭包的特点？
+    // 函数总能访问其外部函数所声明的变量
+    // 这些变量不会被垃圾回收机制回收
+    // 容易引起内存泄漏
+    // 垃圾回收机制
+    // JS的垃圾回收机制会按固定的时间周期性的执行
+    // 最常见的方式是 1. 标记清除
+
+    // 2. 引用计数
+
+
+
+    // JS预解析
+    // js预解析？
+    // Js引擎
+    // 单线程和事件循环
+    // 单线程和事件循环？
+    // Js是单线程的脚本：代码按顺序执行 前面任务处理好才会执行后边的 他会阻塞程序的运行
+    // 但是js当中又有很多异步操作 所以它又有一个事件循环的机制：
+    // 程序在执行时 当遇到异步函数 js会将它在浏览器的事件表中进行记录 然后继续向下执行 当这个异步时间结束之后 事件表会将它的回调函数添加至事件队列等待执行 当执行栈的程序执行完毕 js会轮询事件队列 将它发现的函数置入执行栈执行；执行栈为空时 则继续轮训事件列表
+
+    // 事件队列又分为宏任务队列和微任务队列：
+    // 宏任务：定时器
+    // 微任务：new Promise；new MutaionObserver
+    // 首先运行一个宏任务，在主函数执行完毕后 当前宏任务执行完毕前 会查找微任务队列并执行清空队列 然后再执行一个宏任务（每次事件循环只会拿出一个宏任务） 当前任务执行完成再执行到期的延迟任务 如此循环；微任务和宏任务是绑定的，每个宏任务在执行时，会创建自己的微任务队列
+
+    // 调用栈：解析器去处理程序的机制，是一种栈数据结构：能够追踪子任务的运行状态
+
+    // 如果 setTimeout 存在嵌套调用，那么系统会设置最短时间间隔为 4 毫秒，在 Chrome 中，定时器被嵌套调用 5 次以上，系统会判断该函数方法被阻塞了
+    // 未激活的页面，setTimeout 执行最小间隔是 1000 毫秒
+    // 延时执行时间有最大值
+
+    // 定时器=》渲染进程创建回调任务（任务name 发起时间 延迟时间）=》将任务添加进延迟队列（宏任务）=》主线程任务调度计算出到期任务并执行
+
+    // XMLHttpRequest=》交给网络进程和其他线程去执行请求=》将执行结果通过ipc通信的方式通知渲染进程=》渲染进程将回调任务push到事件队列末尾
+
+    // 主线程一直是依次执行一个队列中的任务，这里的多个队列和优先级，是另外一个调度系统，决定了先把哪个任务放入主线程的执行队列中
+
+    // node event loop
+    // timer => i/o cb => poll => check => close cb
+
+    // 计时器（timers）：本阶段执行setTimeout() 和 setInterval() 计划的回调；
+    // I/O 回调： 执行几乎全部发生异常的 close 回调， 由定时器和setImmediate()计划的回调；
+    // 轮询（poll）： 
+      // 如果timer队列不为空：回到timer阶段执行回调
+      // 如果timer队列为空且轮询队列不为空：清空轮询队列
+        // 如果Immediate队列为空：继续等待
+        // 如果Immediate队列不为空：进入下一阶段 check 执行Immediate回调
+    // 检查（check）： 调用 setImmediate() 的回调；
+    // close callbacks： 例如 socket.on('close', ... );
+
+    // process.nextTick // 事件循环每个阶段前执行
+    // setTimeout // timer和事件轮询poll阶段执行
+    // setImmediate // check 事件轮询后timer列表为空而setImmediate队列有任务 就会进入到这个阶段（在主环境里 或先于timer或晚于timer 不确定）（在队列回调中 总是先于timer执行：因为回调执行时会将Immediate任务第一时间添加进Immediate队列，回调执行完会进入轮询阶段，轮询阶段完成后会马上进入check阶段）
+
+
+    // 二叉树？
+    // 是指数据结构中每个节点最大有两颗子树
+
+    // 复杂度？
+    // 时间复杂度：执行算法所需要的计算工作量(时间)
+    // 空间复杂度：执行算法所需要的内存空间(内存占用)
+
+    // CSS选择器？
+    // 通配符选择器
+    // 元素选择器
+    // 类选择器 单类和多类
+    // ID选择器
+    // 属性选择器 具体属性 部分属性
+    // 派生选择器 后代选择器 子选择器 相邻兄弟 关联选择器
+    // 群组选择器
+    // 伪类选择器 hover nth-of-type nth-child
+    // 伪元素选择器
+
+    // script元素
+    // Async：立即下载脚本 异步下载 不妨碍文档的加载（跟文档同时加载）加载完成后立即执行且不保证执行顺序 只对外部引入代码有效
+    // Defer：立即下载脚本 异步下载 不妨碍文档的加载（跟文档同时加载）等待所有文档加载完毕后执行  只对外部引入代码有效
+    // Script放入</body>前的好处：解析文档按顺序线性加载 放在body末尾说明文档全部加载完毕再加载js代码（不妨碍文档的加载）
+    // 返回为false的值
+    // 0
+    // “”
+    // Null
+    // Undefined
+    // NaN
+    // false
+    // 强制类型转换
+    // Number() Bloean() parseInt() parseFloat() toString() String()
+
+
+    // 工作当中最难解决的问题
+    // 自己的技术栈
+
+    // 平时学习途径？
+    // 后期:
+    // 慕课网 网易云课堂 腾讯课堂 
+    // github 知乎 csdn 掘金 简书
+
+
+    // flex：
+    // // 父元素
+    // flex-direction: row(默认) | row-reverse | column | column-reverse // 主轴排列方式（行 | 列）
+    // flex-wrap: nowrap | wrap | wrap-reverse;  // 主轴放不下 换行 | 不换行
+    // justify-content: flex-start | flex-end | center | space-between | space-around // 主轴方向对齐方式
+    // align-items: flex-start | flex-end | center | baseline | stretch // 侧轴方向对齐方式
+    // align-content
+    // flex-flow: flex-direction || flex-wrap
+    // // 子元素
+    // order: number // 项目的排列顺序。数值越小，排列越靠前，默认为0
+    // flex-grow: number // 项目所占剩余空间比例 默认为0，即如果存在剩余空间，也不放大
+    // flex-shrink // 项目缩小比例，默认为1，即如果空间不足，该项目将缩小
+    // flex-basis
+    // align-self: // 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch
+    // flex: flex-grow || flex-shrink || flex-basis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // function fn(str) {
+    //   const { length } = str
+    //   let b = Math.floor(length / 3)
+    //   const n = length % 3
+    //   const splitArr = str.split('')
+    //   const head = splitArr.splice(0, n)
+
+    //   if (b > 0) {
+    //     for (let { length } = splitArr, i = length - 1; i >= 0; i --) {
+    //       if (i == 0) break
+    //       if (!(i % 3)) {
+    //         splitArr[i] = ',' + splitArr[i]
+    //       }
+    //     }
+    //   }
+    //   return [...head, n ? ',' : '', ...splitArr].join('')
+    // }
+
+    // log(fn('1234567890')) // 12,345,678   // 1,234,567
+
+
+
+
+
+
+
+    // 8 // 2 2 2
+    // 7 // 7
+    // 6 // 2 3
+
+    // function calculate(n) {
+    //   let i = 2
+    //   let total = n
+    //   const ret = []
+    //   while (i !== n) {
+    //     const divisor = total / i
+    //     if (Math.floor(divisor) === divisor) {
+    //       total = divisor
+    //       ret.push(i)
+    //       i = 2
+    //     } else {
+    //       i ++
+    //     }
+    //   }
+    //   return ret
+    // }
+
+    // log(calculate(12))
+
+
+    // function fn() {
+    //   log(this)
+    //   const { length } = this
+    //   let ret = this
+    //   let i = 0
+    //   let emptyStart = 0
+      
+    //   while (this[i] === ' ') {
+    //     i ++
+    //     ret = this.slice(i)
+    //   }
+
+    //   emptyStart = i
+    //   i = length - 1
+
+    //   while (this[i] === ' ') {
+    //     i --
+    //     ret = this.slice(emptyStart, i + 1)
+    //   }
+
+    //   log(1, ret)
+    // }
+
+    // fn.call(new String('   abc   '))
+
+
+
+
+
+    // 真正意义的浅拷贝
+    // Object.create(
+    //   Object.getPrototypeOf(o),
+    //   Object.getOwnPropertyDescriptors(o)
+    // )
+
+    // 单例
+    // const Singleton = (function () {
+    //   let instance
+    //   return function Singleton() {
+    //     if (!instance) {
+    //       instance = this
+    //     }
+    //     return instance
+    //   }
+    // })()
+
+    // const a = new Singleton()
+    // const b = new Singleton()
+    // dir(Singleton)
+
+
+
+    // function promisify(targetFunc) {
+    //   return function (...args) {
+    //     return new Promise((rl, rj) => {
+    //       args.push(function callback(err, data) {
+    //         if (err) {
+    //           return rj(err)
+    //         }
+    //         rl(data)
+    //       })
+    //       targetFunc.apply(this, args)
+    //     })
+    //   }
+    // }
+
+    // const fsp = new Proxy(fs, {
+    //   get(target, key, r) {
+    //     return promisify(target[key])
+    //   }
+    // })
+
+  
+
+    // new实现
+    // function customNew(constructor, ...rest) {
+    //   // 1.
+    //   const instance = Object.create(constructor.prototype)
+    //   // 2.
+    //   // const instance = {}
+    //   // Object.setPrototypeOf(instance, constructor.prototype)
+
+    //   const ret = constructor.apply(instance, rest)
+    //   return ret || instance
+    // }
+
+
+    // 原型链继承：S.prototype = new F() 将构造函数的原型设置为另一个构造函数的实例对象
+    // 构造继承：F.call(s = new S()) 绑定子类实例调用父类构造器，继承父类实例属性
+    // 寄生式继承：创建一个空Constructor 让其prototype = F.prototype | {}(主要用于继承字面量对象); 返回 new Constructor() | Object.create(F.prototype)
+    // 组合式继承：原型链继承 + 构造继承 
+    // 寄生组合式继承：寄生式继承 + 组合式继承 将S.prototype = 寄生式继承的返回  解决1.父类构造器被调用两次 2.父类实例被继承两次
+
+    // // 父类
+    // function F() {
+    //   log('F')
+    //   this.a = 1
+    // }
+    // F.prototype.b = 2
+
+    // // 子类
+    // function S(F) {
+    //   F.call(this)  // 构造继承
+    // }
+
+    // // 寄生继承
+    // function EmptyConstructor() {}
+    // EmptyConstructor.prototype = F.prototype
+
+    // const o = Object.create(F.prototype)  // es6
+
+    // // 原型链继承
+    // S.prototype = new EmptyConstructor() || o
+
+    // S.prototype.d = () => {}  // 要放在原型链继承后定义原型属性
+
+    // // 设置子类丢失的constructor
+    // S.prototype.constructor = S  // es5
+    // Object.defineProperty(S.prototype, 'contructor', {  // es6
+    //   value: S,
+    //   enumerable: false,  // 使用了define但不配置属性默认都为false；自定义属性默认都为true
+    //   writable: true,
+    //   configurable: true
+    // })
+
+    // // 寄生组合式继承
+    // const s = new S(F)
+    // log(s)
+
+    
+
+
+
+
+    // Promise: then catch 方法会默认返回一个最终 promiseStatus 为 resolved 的 new Promise resolve(returnValue)
+
+    // const promise = new Promise((rs, rj) => {
+    //     // setTimeout(rs, 1000, 'succ')
+    //     setTimeout(rj, 1000, 'err')
+    //     // throw 也相当于reject
+    //   })
+    //     // .catch(err => {
+    //     //   // throw new Error('catch')
+    //     //   return 2222
+    //     // })
+    
+    // async function fn() {
+    //   // async会返回一个promise 它的最终状态是根据内部await拿到的状态决定的
+    //   //    如果有一个await接收到了reject状态 那么此函数的promise直接返回reject并return(除非捕获异常到了try catch)
+    //   //    如果所有await执行完毕并没有接收到reject状态 那么此函数的promise返回resolved(returnValue); 如果return值为Promise，那么此函数返回值为此promise而不是async的promise
+    //   const res = await promise
+    //   log('resolving') // await如果不返回resolve状态（返回reject或者不返回这两个状态也就是pending状态） 会直接return此promise 所以这行代码及以后的不执行
+    //   return res // resolve(res)
+    // }
+
+    // async function fn() {
+    //   const a = new Promise((rs) => { setTimeout(rs, 1000, 1) })
+    //   const b = new Promise((rs) => { setTimeout(rs, 2000, 2) })
+
+      // async函数内promise并行执行
+      // 方式1
+      // const retA = await a
+      // const retB = await b
+      // 方式2
+      // const [retA, retB] = await Promise.all([a, b])
+
+      // log(retA, retB)
+    // }
+
+    // const f = fn()
+
+    // log(f)
+
+    // f
+    //   .then(res => {
+    //     log('then')
+    //     log(res)
+    //   })
+    //   .catch(err => {
+    //     log('catch')
+    //     log(err)
+    //   })
+
+
+    // // 让await接收到rejected状态也继续往下执行
+    // async function asyncWrapper(promise) {
+    //   try {
+    //     const res = await promise
+    //     return [null, res]
+    //   } catch (e) {
+    //     return [e, null]  // 捕获await接收到的rejected 让它不返回此状态（返回一个成功状态）给yield函数的next().value.catch(让它给.then)
+    //   }
+    // }
+    
+    // const f = asyncWrapper()
+
+    // f.then(res => log(1, res)).catch(err => log(2, err))
+
+    
+    // Iterator：done: false和value: undefined属性都是可以省略的
+    // throw方法被捕获以后，会附带执行一次try块以后的next方法，如果还有yield继续执行next返回done：false（只抛错 不退出gen）
+    // return(ret)方法被捕获以后，会附带执行一次finally块中的next方法并且value为其yield value || return value，如没有finally，则相当于插入一条return ret；如果还有yield继续执行next返回done：true（退出gen）
+
+    // // Generator: 状态机, 还是一个遍历器对象生成函数
+    // // 调用它：返回一个指向内部状态的指针对象, 还是一个遍历器对象
+    // // 调用next 移动内部指针 返回当前阶段的信息
+
+    // function* fn() {
+    //   yield 1
+    //   yield 2
+    //   return 3 // {value: 3, done: true}: for of 不会遍历3（遍历到true就不返回了）
+    // }
+
+    // const f = fn()
+
+    // for(let value of f) {
+    //   log(value)
+    // }
+
+    // yield*命令可以很方便地取出嵌套数组的所有成员。
+
+    // function* iterTree(tree) {
+    //   if (Array.isArray(tree)) {
+    //     for(let i=0; i < tree.length; i++) {
+    //       yield* iterTree(tree[i]);
+    //     }
+    //   } else {
+    //     yield tree;
+    //   }
+    // }
+
+    // function* iterTree1(tree) {
+    //   for(let i=0; i < tree.length; i++) {
+    //     const item = tree[i]
+    //     if (Array.isArray(item)) {
+    //       yield* iterTree1(item)
+    //     } else {
+    //       yield item
+    //     }
+    //   }
+    // }
+
+    // const tree = [ 'a', ['b', 'c', [1, [2, 3], 4], 5], [[6, [7, 8], 9], 'd', 'e'] ];
+
+    // for(let x of iterTree(tree)) {
+    //   console.log(x);
+    // }
+
+    // log([...iterTree1(tree)])
+      
+
+
+    // // Generator 异步应用（async函数实现原理）
+    // function run(gen){
+    //   var g = gen();
+    //   function next(data){
+    //     var result = g.next(data);
+    //     if (result.done) return result.value;
+    //     result.value.then(function(data){
+    //       next(data);
+    //     });
+    //   }
+    //   next();
+    // }
+
+    // run(gen);
+  
+
+
+    // // Iterator遍历器：是一种接口，为各种不同的数据结构提供统一的访问机制
+    // //   使得数据结构的成员能够按某种次序排列
+    // //   供for...of消费
+
+    // // 一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）
+
+    // // Array
+    // // Map
+    // // Set
+    // // String
+    // // TypedArray
+    // // 函数的 arguments 对象
+    // // NodeList 对象
+
+    // // 会默认调用iterator的方法：for of;  解构赋值; 扩展运算符; yield*; Array.from(); Promise.all()
+
+    // const o = {
+    //   a: 1,
+    //   b: 2,
+    //   c: 3,
+    //   [Symbol.iterator]() {
+    //     const values = Object.values(this)
+    //     let count = 0
+    //     return {
+    //       next: () => {
+    //         const cur = values[count ++]
+    //         return {
+    //           value: cur,
+    //           done: !cur
+    //         }
+    //       }
+    //     }
+    //   }
+    //   * [Symbol.iterator]() {
+    //     for (let key in this) {
+    //       yield this[key]
+    //     }
+    //     const values = Object.values(this)
+    //     yield * values
+    //   }
+    
+    // }
+
+    // const iterator = o[Symbol.iterator]()
+
+    // log(iterator.next())
+    // log(iterator.next())
+    // log(iterator.next())
+    // log(iterator.next())
+
+    // log([ ...o ])
+
+    // for (let key of o) {
+    //   log(key)
+    // }
+
+
+    // function* entries(obj) {
+    //   // 1
+    //   for (let key of Object.keys(obj)) {
+    //     yield [key, obj[key]];
+    //   }
+    //   // 2
+    //   for (let key in obj) {
+    //     yield [key, obj[key]]
+    //   }
+    //   // 3
+    //   yield* Object.values(obj)
+    // }
+
+    // for (let [key, value] of entries(obj)) {
+    //   console.log(key, '->', value);
+    // }
+
+
+    // function createP(time) {
+    //   return new Promise((rs, rj) => {
+    //     setTimeout(() => {
+    //       log(time)
+    //       rs(time)
+    //     }, time * 1000)
+    //   })
+    // }
+
+  // const i = [
+  //   createP(1),
+  //   createP(2),
+  //   createP(3),
+  // ]
+
+  // const i = {
+  //   i: 0,
+  //   [Symbol.iterator]() {
+  //     console.log('iterator')
+
+  //     return {
+  //       next: () => {
+  //         const done = this.i ++ > 2
+  //         return {
+  //           value: new Promise((rs, rj) => {
+  //             createP(this.i).then(() => {
+  //               rs(this.i)
+  //             })
+  //           }),
+  //           done,
+  //         }
+  //       }
+  //     }
+  //   },
+  //   [Symbol.asyncIterator]() {
+  //     console.log('asyncIterator')
+  //     return {
+  //       next: () => {
+  //         return new Promise((rs, rj) => {
+  //           const done = this.i ++ > 2
+  //           createP(this.i).then(() => {
+  //             rs({
+  //               value: this.i,
+  //               done: done,
+  //             })
+  //           })
+  //         })
+  //       }
+  //     }
+  //   }
+  // }
+
+  // async function f() {
+  //   for await (const x of i) {
+  //     console.log('x', x);
+  //   }
+  // }
+
+  // f()
+
+  // async function* gen1() {
+  //   yield 'a';
+  //   yield 'b';
+  //   return 2;
+  // }
+
+  // async function* gen2() {
+  //   // result 最终会等于 2
+  //   const result = yield* gen1();
+  // }
+
+
+
+    // const arr = [7, 5, 3, 6, 4, 8, 1, 2]
+
+    // 冒泡排序：比较相邻两位，满足条件则将其向右移动一位（每一轮排序一位元素）；先写内循环
+    // function fn(arr) {
+    //   for (let j = 0, length = arr.length; j < length - 1; j ++) {  // 共比较length - 1轮，排到最后一位不用比较
+    //     for (let i = 0; i < length - j - 1; i ++) {  // 每一轮排序一位元素，将其放在最右侧
+    //       if (arr[i] > arr[i + 1]) {
+    //         let temp
+    //         temp = arr[i]
+    //         arr[i] = arr[i + 1]
+    //         arr[i + 1] = temp
+    //       }
+    //     }
+    //   }
+    // }
+
+    // 选择排序：依次拿每一位和后边所有元素进行比较，将最小的放在最左边
+    // function fn(arr) {
+    //   for (let i = 0, length = arr.length; i < length - 1; i ++) {  // 共比较length - 1轮，排到最后一位不用比较
+    //     for (let j = i + 1; j < length; j ++) { // 每一轮排序一位元素，将其放在最右侧
+    //       if (arr[i] > arr[j]) {
+    //         let temp
+    //         temp = arr[i]
+    //         arr[i] = arr[j]
+    //         arr[j] = temp
+    //       }
+    //     }
+    //   }
+    // }
+
+    // 快速排序：一个返回一轮排序的递归函数：找到数组中间值 小于放左边 大于放右边，返回这个新数组
+    // 思想：将原问题拆分为若干个原理相同的子问题，递归拿到字问题的解，组合为原问题的解
+    // function fn(arr){
+    //   if (arr.length <= 1) {
+    //     return arr
+    //   }
+
+    //   const pivotIndex = Math.floor(arr.length / 2)
+    //   const [pivot] = arr.splice(pivotIndex, 1)
+    //   const left = []
+    //   const right = []
+
+    //   for (let i = 0, item; item = arr[i ++];) {
+    //     if (item < pivot) {
+    //       left.push(item)
+    //     } else {
+    //       right.push(item)
+    //     }
+    //   }
+
+    //   // return fn(left).concat([pivot], fn(right))
+    //   return [...fn(left), pivot, ...fn(right)]
+    // }
+
+    // 插入排序 将每个元素跟已排序队列（i之前的也就是便利过的 就是已排序队列）进行比较、插入
+    // function fn(arr) {
+    //   for (let i = 1, { length } = arr; i < length; i ++) {
+    //     for (let j = 0; j < i; j ++) {
+    //       if (arr[i] < arr[j]) {
+    //         arr.splice(j, 0, arr.splice(i, 1)[0])
+    //       }
+    //     }
+    //   }
+    // }
+
+    // 归并排序：找一个中间点 将左右两个数组分别递归归并
+    // 思想：将数列递归两两拆分，拆分至每一组数列最小长度为1，分别进行处理为从小到大排列，再进行两两合并（两两拆分 => 两两合并(合并函数功能为将两个数组合并成从小到大排列，每个数组最小粒度为1)）
+    // function fn(arr) {
+    //   if (arr.length <= 1) {
+    //     return arr
+    //   }
+    //   const mid = Math.floor(arr.length / 2)
+    //   const left = arr.slice(0, mid)
+    //   const right = arr.slice(mid)
+
+    //   return merge(fn(left), fn(right))  // 写一个类似原生的简单方法当作原生用
+
+    //   function merge(a, b) {
+    //     const { length: aLength } = a
+    //     const { length: bLength } = b
+    //     const c = []
+    //     let i = 0, j = 0
+
+    //     while (i < aLength && j < bLength) {
+    //       if (a[i] < b[j]) {
+    //         c.push(a[i ++])
+    //       } else {
+    //         c.push(b[j ++])
+    //       }
+    //     }
+    //     while (i < aLength) {
+    //       c.push(a[i ++])
+    //     }
+    //     while (j < bLength) {
+    //       c.push(b[j ++])
+    //     }
+    //     console.log('将', a, '和', b, '合并为', c)
+    //     return c
+    //   }
+    // }
+
+    // log(fn(arr))
+    // log(arr)
+
+
+    // 去重并记录出现最多的元素次数
+    // var str = 'hkajfahfauhtasaabua';
+    // let max = 0
+    // let maxItem
+    // console.log([...str].reduce((prev, next) => {
+    //   const item = prev[next]
+    //   if (item === undefined) {
+    //     prev[next] = 0
+    //   } else {
+    //     const value = item + 1
+    //     prev[next] = value
+    //     if (value > max) {
+    //       max = value
+    //       maxItem = next
+    //     }
+    //   }
+    //   return prev
+    // }, {}))
+    // console.log(max)
+    // console.log(maxItem)
+
+    
+
+    
+
+    // 二叉查找树，也称二叉搜索树，或二叉排序树。其定义也比较简单，要么是一颗空树，要么就是具有如下性质的二叉树：
+    // （1） 若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；
+    // （2） 若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
+    // （3） 任意节点的左、右子树也分别为二叉查找树；
+    // （4） 没有键值相等的节点。
+
+    // 红黑树是每个节点都带有颜色属性的二叉查找树，颜色或红色或黑色。在二叉查找树强制一般要求以外，对于任何有效的红黑树我们增加了如下的额外要求:
+    // 性质1. 节点是红色或黑色。
+    // 性质2. 根节点是黑色。
+    // 性质3. 每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)
+    // 性质4. 从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。
+
+
+    // const obj = {
+    //   a: {
+    //     b: {
+    //       c: 1
+    //     }
+    //   }
+    // }
+
+    // log(g(obj, 'a.b.c.d', 2))
+
+    // function g(obj, path, defaultV) {
+    //   // 递归
+    //   const splitPath = path.split('.')
+    //   let i = 0
+    //   function find(tree) {
+    //     const key = splitPath[i ++]
+    //     const item = tree[key]
+    //     if (!key) {
+    //       return tree
+    //     } else if (!item) {
+    //       return defaultV
+    //     }
+    //     return find(item)
+    //   }
+
+    //   // 循环
+    //   let item = tree
+    //   while (splitPath[i]) {
+    //     const next = item[splitPath[i ++]]
+    //     if (next) {
+    //       item = next
+    //     } else {
+    //       return defaultV
+    //     }
+    //   }
+    //   return item
+      
+    //   return find(obj)
+    // }
+
+
+    // // 二叉树遍历
+    // const tree = {
+    // 	value: 'tree',
+    // 	left: {
+    // 		value: '1',
+    // 		left: {
+    //       value: '2',
+    // 		},
+    // 		right: {
+    // 			value: '3',
+    // 			left: {
+    // 				value: '4',
+    // 			},
+    // 			right: {
+    // 				value: '5',
+    // 			}
+    // 		}
+    // 	},
+    // 	right: {
+    // 		value: 'a',
+    // 		left: {
+    // 			value: 'b',
+    // 		},
+    // 		right: {
+    // 			value: 'c',
+    // 			left: {
+    //         value: 'd',
+    // 			},
+    // 			right: {
+    //         value: 'e',
+    // 			}
+    // 		}
+    // 	}
+    // }
+
+    
+    // const result = []
+    // let dp = 0
+    // const stack = [tree]
+
+    // function fn(data, d = 0) {
+    //   if (data) {
+    //     const { value, left, right } = data
+    //     result.push(value)
+    //     fn(left, d + 1)
+    //     fn(right, d + 1)
+    //   } else {
+    //     if (dp <= d) {
+    //       dp = d
+    //     }
+    //   }
+    // }
+
+    // fn(tree)
+
+    // log(result)
+    // log(dp)
+
+    // 结构深度
+    // function dfs(tree, d = 0) {
+    //   if (tree) {
+    //     const { left, right } = tree
+    //     if (!left && !right && dp < d) {
+    //       dp = d
+    //     }
+    //     dfs(left, d + 1)
+    //     dfs(right, d + 1)
+    //   }
+    // }
+    // dfs(tree)
+    // log(dp)
+
+    // 中序：21435 tree badce
+    // 先序：tree 12345 abcde
+    // 后序：24531 bdeca tree
+
+    // // 深度遍历
+    // function dfs(item) {
+    // 	if (item) {
+    // 		dfs(item.left)
+    // 		result.push(item.value)
+    // 		dfs(item.right)
+    // 	}
+    // }
+    // dfs(tree)
+    // log(result)
+
+    // // 广度遍历
+    // function bfs(i = 0) {
+    //   const node = stack[i ++]
+    //   if (node) {
+    //     const { value, left, right } = node
+    //     result.push(value)
+    //     left && stack.push(left)
+    //     right && stack.push(right)
+    //     bfs(i)
+    //   }
+    // }
+    // bfs()
+
+    // log(result)
+    
+
+    // function fn(data) {
+    // 	if (typeof data !== 'object') return
+    // 	for	(let key in data) {
+    // 		if (key === 'value') {
+    // 			result.push(data.value)
+    // 		} else {
+    // 			fn(data[key])
+    // 		}
+    // 	}
+    // }
+    // fn(tree)
+    // log(result)
+		
+
+		// let o = {
+    //   a: {
+    //     b: {}
+    //   },
+    //   c: {
+    //     d: {
+    //       e: {},
+    //       f: {
+    //         g: {
+    //           x: 'x'
+    //         }
+    //       },
+    //       h: {
+    //         i: 'i'
+    //       }
+    //     }
+    //   },
+    //   j: {
+    //     k: 'j'
+    //   }
+    // }
+
+    // o = {
+    //   a: {
+    //     b: {
+    //       c: 'c'
+		// 		},
+		// 		x: {}
+    //   },
+    //   d: {
+    //     e: 'e'
+    //   },
+    //   f: {
+    //     g: {
+		// 			h: {
+		// 				k: 'k'
+		// 			}
+		// 		}
+    //   }
+    // }
+
+		// // 深度遍历
+		// let a
+		// function fn(obj) {
+		// 	if (typeof obj == 'object') {
+		// 		for (let key in obj) {
+		// 			log(key)
+		// 			if (fn(obj[key]) == 'e') {
+		// 				a = obj[key]
+		// 				return 'e'
+		// 			}
+		// 		}
+		// 	}
+		// 	return obj
+		// }
+		// 广度遍历
+		// let data = [o]
+		// let count = 0
+		// function fn() {
+		// 	const node = data[count]
+		// 	if (node && typeof node === 'object') {
+		// 		for (let key in node) {
+		// 			log(key)
+		// 			const item = node[key]
+		// 			if (typeof item === 'object') {
+		// 				data.push(item)
+		// 			}
+		// 			if (item == 'e') {
+		// 				return node
+		// 			}
+		// 		}
+		// 	}
+		// 	count ++
+		// 	return fn()
+		// }
+		// log(fn(data))
+		// log(count)
+		// log(data)
+
+
+
+    // vue watch
+      // const source = {
+      //   demo: 1,
+      //   demo2: 2
+      // }
+      // const temp = JSON.parse(JSON.stringify(source))
+
+      // function watch(target) {
+      //   const handleTarget = Object.keys(target).reduce((pre, key) => {
+      //     pre[key] = {
+      //       set: (value) => {
+      //         target[key](value)
+      //         temp[key] = value
+      //       },
+      //       get() {
+      //         return temp[key]
+      //       }
+      //     }
+      //     return pre
+      //   }, {})
+      //   Object.defineProperties(source, handleTarget)
+      // }
+
+      // watch({
+      //   demo(value) {
+      //     log('demo set', value)
+      //   },
+      //   demo2(value) {
+      //     log('demo2 set', value)
+      //   }
+      // })
+
+      // source.demo2 = 3
+
+
+
+    // 树型结构最大深度
+    // let max = 0
+    // const fn = (data, i = 0) => {
+    //   i ++
+    //   data.forEach(item => {
+    //     const { children } = item
+    //     if (children && children.length > 0) {
+    //       if (i > max) {
+    //         max = i
+    //       }
+    //       fn(children, i)
+    //     }
+    //   })
+    // }
+    // fn(o)
+    // log(max)
+    // 树型结构数据总数item
+    // const fn = (data) => {
+    //   let max = 0
+    //   data.forEach(item => {
+    //     max ++
+    //     const { children } = item
+    //     if (children && children.length > 0) {
+    //       max += fn(children)
+    //     }
+    //   })
+    //   return max
+    // }
+    // log(fn(o))
+
+
+    // 斐波那契数列：从第三位开始 每一位都等于前两位之和
+    // 1 1 2 3 5 8 13 21
+    // function fn(n, a = 1, b = 1) {
+    //   if (n <= 2) return b
+    //   return fn(n - 1, b, a + b)
+    // }
+    // function fn(n) {
+    //   if (n <= 2) return 1
+    //   let a = 1
+    //   let b = 1
+    //   Array.from({ length: n - 3 }).forEach(item => {
+    //     [a, b] = [b, a + b]
+    //   })
+    //   return a + b
+    // }
+
+
     // 线性结构转树型结构
     // const source = [
     //   { id: 1, title: 'hello', parent: 0 },
@@ -834,6 +3201,28 @@
     //   { id: 7, title: 'hello', parent: 3 },
     //   { id: 8, title: 'hello', parent: 2 }
     // ]
+
+    // const fn = (data, p = 0) => {
+    //   const o = []
+
+    //   data.forEach(item => {
+    //     const { id, parent } = item
+
+    //     if (parent === p) {
+    //       const children = fn(data, id)
+
+    //       if (children.length) {
+    //         item.children = children
+    //       }
+          
+    //       o.push(item)
+    //     }
+    //   })
+
+    //   return o
+    // }
+
+    // console.log(fn(source))
 
     // function fn(arr, parent = 0) {
     //   const out = []
@@ -884,190 +3273,6 @@
     // log(fn(source))
 
 
-    // const registerCallBackUrl = `${window.location.href}&withCoupon=1${Object.keys(params).reduce((pre, next) => pre + `&${next}=${params[next]}`, '')}`
-
-    // 严格模式 'use strict': 可以在作用域内部进行较为严格的错误条件检测
-    // 1. 不允许意外创建全局变量 必须先声明后使用 不能delete删除var创建的变量
-    // 2. 操作对象：对只读属性的对象赋值；对不可配置的对象delete；对不可拓展的对象添加属性
-    // 3. 函数参数名不能重复；严格模式下arguments与参数完全独立：对参数重新赋值不会影响arguments
-    // 4. this 始终指向指定的值（通过call apply bind），否则指向 undefined 而不指向window
-
-
-    // 前端预览图片
-    // 1. new FildReader().readAsDataURL(file).onload(info => info.result)
-    // 2. window.URL.createObjectURL(blob)
-    // 3. canvas => base64
-
-    // new FormData().append('', file)
-
-    // vue watch
-      // const source = {
-      //   demo: 1,
-      //   demo2: 2
-      // }
-      // const temp = JSON.parse(JSON.stringify(source))
-
-      // function watch(target) {
-      //   const handleTarget = Object.keys(target).reduce((pre, key) => {
-      //     pre[key] = {
-      //       set: (value) => {
-      //         target[key](value)
-      //         temp[key] = value
-      //       },
-      //       get() {
-      //         return temp[key]
-      //       }
-      //     }
-      //     return pre
-      //   }, {})
-      //   Object.defineProperties(source, handleTarget)
-      // }
-
-      // watch({
-      //   demo(value) {
-      //     log('demo set', value)
-      //   },
-      //   demo2(value) {
-      //     log('demo2 set', value)
-      //   }
-      // })
-
-      // source.demo2 = 3
-
-      
-
-    // DOM
-    // 使元素滚动至视口
-    // document.querySelector('input').scrollIntoView(true)
-
-    // 判断节点是不是另一个节点的子节点
-    // document.documentElement.contains(document.body) // true
-    // document.body.parentNode === document.documentElement // true
-
-    // 批量设置css样式
-    // myDiv.style.cssText = "width: 25px; height: 100px; background-color: green";
-    // Object.assign(myDiv.style, {
-    //   color: '#f00'
-    // })
-    // 批量读取行内css样式
-    // myDiv.style.cssText  // 可读写
-    // myDiv.getArrtibute('style')  // 可读写 set
-    // 行内样式 & 内联样式
-    // window.getComputedStyle(mtDiv, null) // {}   // 只读
-
-    // 回流 & 重绘
-    // 页面加载时：浏览器把获取到的HTML代码解析成一个DOM Tree，DOM Tree包含display: none的元素；会把所有样式解析成 样式结构体；将DOM Tree和样式结构体组合后构建 render Tree；
-    // render Tree 和 DOM Tree区别：render Tree能识别样式，其中每个NODE都有自己的style，而且render Tree中不包含隐藏的节点和head节点，因为这些节点不会呈现且不会影响呈现
-    // 回流：当render Tree中一些节点因尺寸，布局，隐藏，内容等改变需要重新构建，这时浏览器会重新构造这部分渲染树
-    // 重绘：回流完成后，浏览器会重新绘制改变的部分和受影响的部分到屏幕中；或者NODE需要更改的属性只会影响外观而不会影响布局(非几何属性)，会触发重绘
-    // 回流一定会引起重绘
-    // 浏览器会优化回流和重绘操作：浏览器会维护一个队列，将回流和重绘操作放入这个队列，等队列中的操作到了一定数量或者到了一定时间就会进行一个批操作
-    // 自己的优化：批操作 直接改变className或cssText累加或setAttribute('style')；DOM元素批添加
-
-    // css三大特性：继承性 层叠性 优先性
-    // 继承：text-，font-，line-，color
-    // 优先性：权重。!important ∞；行内样式 1000；id 100；class 10；元素 1；
-    // 层叠：相同样式后面定义的覆盖前面定义的 不同样式会重叠生效
-
-    // sass:
-    // 声明变量 $w: 5px !global;
-    // @import "rounded-corners", "text-shadow", "url", url(""); @import可以内嵌
-    // .a { @extends .className }
-    // $grid-width: 40px;
-    // $gutter-width: 10px;
-    // @function grid-width($n) {
-    //   @return $n * $grid-width + ($n - 1) * $gutter-width;
-    // }
-    // #sidebar { width: grid-width(5); }
-
-    // DOM事件流
-    // 捕获阶段 - 目标阶段 - 冒泡阶段
-
-    // document.createDocumentFragment() ： 创建一个文档片段占位符 最后只需要一次现场更新 && 渲染DOM
-
-    // ontextInput
-    // onDOMNodeRemoved onDOMNodeInsertedIntoDocument event.relatedNode属性中包含一个对父级节点的引用
-
-    // postMessage(数据, 发送页面源地址); onmessage 接收事件 参数：data，origin，source
-
-
-    // fetch
-    // fetch(url, {
-    //   method: "POST", // *GET, POST, PUT, DELETE, etc.
-    //   mode: "cors", // no-cors, cors, *same-origin
-    //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //   credentials: "same-origin", // include, *same-origin, omit
-    //   headers: {
-    //       "Content-Type": "application/json",
-    //       // "Content-Type": "application/x-www-form-urlencoded",
-    //   },
-    //   redirect: "follow", // manual, *follow, error
-    //   referrer: "no-referrer", // no-referrer, *client
-    //   body: JSON.stringify(data), // body data type must match "Content-Type" header
-    // })
-    // var anotherRequest = new Request(myRequest, myInit)
-    // // 这非常有用，因为请求和响应主体只是一个用途。制作这样的副本允许您再次使用请求/响应，同时init根据需要改变选项。必须在阅读正文之前制作副本，并且阅读副本中的正文也会在原始请求中将其标记为已读。
-    // var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "text/plain");
-
-    // web 离线检测 navigator.onLine // boole
-    // web 在线离线 事件 online offline
-
-    // 表单 submit reset
-    // <input type="reset" />
-    // <button type="reset">Reset Form</button>
-
-    // form.submit() // reset()
-
-    // 表单中第一个控件元素
-    // field1 = form.elements[0]
-    // 表单中名为textbox1的控件元素s
-    // field2 = form.elements["textbox1"]
-
-    // pattern input约束字段
-    // checkValidity 表单或表单元素检测有效性：可以自己写一个
-
-    // contenteditable: 给任意元素设置该属性 可变为可编辑元素 
-
-
-
-    // 树型结构最大深度
-    // let max = 0
-    // const fn = (data, i = 0) => {
-    //   i ++
-    //   data.forEach(item => {
-    //     const { children } = item
-    //     if (children && children.length > 0) {
-    //       if (i > max) {
-    //         max = i
-    //       }
-    //       fn(children, i)
-    //     }
-    //   })
-    // }
-    // fn(o)
-    // log(max)
-    // 树型结构数据总数item
-    // const fn = (data) => {
-    //   let max = 0
-    //   data.forEach(item => {
-    //     max ++
-    //     const { children } = item
-    //     if (children && children.length > 0) {
-    //       max += fn(children)
-    //     }
-    //   })
-    //   return max
-    // }
-    // log(fn(o))
-
-
-    // defer与async的区别是：defer要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；async一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。一句话，defer是“渲染完再执行”，async是“下载完就执行”。另外，如果有多个defer脚本，会按照它们在页面出现的顺序加载，而多个async脚本是不能保证加载顺序的
-    // import()类似于 Node 的require方法，区别主要是前者是异步加载，后者是同步加载
-    // CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
-    // CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
-
-
     // tree selected
     // function fn(data) {
     //   data.forEach(item => {
@@ -1081,38 +3286,66 @@
     // fn(arr)
 
 
-    // 数组扁平化
+    // 节流和防抖：限制函数触发周期
+    // 节流：规定周期内只执行一次(window.onscroll)
+    // 防抖：操作完毕才执行(input onchange)
 
-    // const flatten = arr => {
-    //   arr.reduce((prev, item) => (
-    //     prev.concat(Array.isArray(item) ? flatten(item) : item)
-    //   ), [])
-    // }
+    // const f = () => log(1)
 
-    // Array.protype.flat()用于将数组“拉平”，变成一维数组，返回一个新数组。
-    // flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次
-    // flat()会跳过空格
-
-    // 创建指定长度的数组
-    // [...new Array(5).keys()]
-    // Array.from({ length: 5 })
-
-
-    // this传递
-    // function fn(f) {
-    //   f()
-    // }
-    // function Fn() {
-    //   this.f = function() {
-    //     log(this)
-    //   }
-    //   this.f2 = () => {
-    //     log(this)
+    // 节流
+    // const throttle = (fn, delay) => {
+    //   let time = 0
+    //   return function (...rest) {
+    //     const now = Date.now()
+    //     if (now - time > delay) {
+    //       time = now
+    //       fn.apply(this, rest)
+    //     }
     //   }
     // }
 
-    // fn(new Fn().f)  // window
-    // fn(new Fn().f2) // Fn{}
+    // document.onmousemove = throttle(f, 1000)
+    
+    // 防抖
+    // function fn(func, delay) {
+    //   let timer = null
+    //   return function (...rest) {
+    //     clearTimeout(timer)
+    //     timer = setTimeout(() => {
+    //       func.apply(this, rest)
+    //     }, delay)
+    //   }
+    // }
+
+    // 移动端模拟双击事件
+    // function fn() {
+    //   let time = 0
+    //   return (e) => {
+    //     time ++
+    //     setTimeout(() => {
+    //       time = 0
+    //     }, 400)
+    //     if (time > 1) {
+    //       log(2)
+    //     }
+    //   }
+    // }
+    // function fn() {
+    //   let time = 0
+    //   return (e) => {
+    //     if (Date.now() - time < 400) {
+    //       time = 0
+    //       log(2)
+    //     } else {
+    //       log(1)
+    //       time = Date.now()
+    //     }
+    //   }
+    // }
+
+    // document.onclick = fn(f, 1000)
+
+
 
     // createVNode
     // const o = [
@@ -1175,7 +3408,6 @@
 
 
 
-
     // ReactDOM.render 实现
     // function render(vNode, container) {
     //   if (typeof vNode === 'string') return container.appendChild(document.createTextNode(vNode))
@@ -1197,48 +3429,6 @@
     //   container.appendChild(el)
     // }
 
-
-    // 自定义事件
-    // const box = document.getElementById('box')
-    // box.addEventListener('testEvent', (e) => {
-    //   console.log(e)
-    // }, false)
-
-    // const event = document.createEvent('HTMLEvents')
-    // event.initEvent('testEvent', false, false)// 事件是否冒泡; 是否可以用 preventDefault() 方法取消事件
-
-    // box.dispatchEvent(event)
-
-
-    // [1, 4, -5, 10].find((n) => n < 0, obj) // -5 findIndex 这两个方法都可以接受第二个参数，用来绑定回调函数的this对象
-    // function f(v){
-    //   return v > this.age;
-    // }
-    // let person = {name: 'John', age: 20};
-    // [10, 12, 26, 15].find(f, person); 
-
-    // Array.of(1, 2) // [1, 2]
-
-    // 截数组
-    // const arr = [1,2,3,4,5,6,7]
-    // 1. const [first, ...rest] = arr
-    // 2. arr.slice(1, arr.length)
-
-    // 父窗口通过window.open获取子窗口；子窗口通过window.opener window.parent获取父窗口
-
-    // 嵌套解构赋值
-    // const { a: { b: { c: x = 'default' }, a, b } } = {a: {b: {c: 1}}}  // 解构赋值别名使用默认值
-    // log(a, b)  // error ,a ,b
-    // log(x)  // 1
-    // function move({x = 0, y = 0} = {}) {  // 函数解构赋值也使用默认值
-    //   return [x, y]
-    // }
-    // log(move())  // 不会报错
-
-    // 交换变量的值
-    // let x = 1;
-    // let y = 2;
-    // [x, y] = [y, x];
 
     // 递归几种情况 || 递归尾调用
     // const o = [
@@ -1342,77 +3532,41 @@
     //   console.log('sc')
     // }(0)
 
-    // function Func() {
-    //   this.name = 'name'
-    //   this.sayName = function() {
-    //     console.log(this.name)
-    //   }
+    // const createPromise = (url) => {
+    //   return () => (
+    //     new Promise((rs, rj) => {
+    //       const img = document.createElement('img')  // || new Image()
+    //       img.src = url
+    //       img.style.width = '100px'
+    //       img.style.height = '100px'
+    //       img.onload = function () {
+    //         log(url)
+    //         box.appendChild(img)
+    //         rs()
+    //       }
+    //     })
+    //   )
     // }
 
-    // Func.prototype = {
-    //   // constructor: Func,
-    //   b: 'b',
-    //   sayThis: function() {
-    //     console.log(this)
-    //   }
-    // }
-
-    // Object.defineProperties(Func.prototype, {
-    //   constructor: {
-    //     constructor: false,
-    //     value: Func
-    //   }
-    // })
-
-    // const o = New(Func)
-
-    // // o.sayThis()
-
-    // for (let key in o) {
-    //   log(key)
-    // }
-
-    // log(o)
-
-
-    // function New(fn) {
-    //   const obj = {}
-    //   fn.call(obj)
-    //   obj.__proto__ = fn.prototype
-    //   return obj
-    // }
-
-
-
-    // const arr = [2,2,2,2,1,1,1,2,2,4,4]
-    // const newArr = []
-    // const obj = {}
-    // for (let i of arr) {
-    //   obj[i] = true
-    // }
-    // console.log(Object.keys(obj))
-
-    // for (let i of arr) {
-    //   if (newArr.indexOf(i) == -1) {
-    //     newArr.push(i)
-    //   }
-    // }
-    // console.log(newArr)
+    // arr.map(url => createPromise(url)).reduce(
+    //   (prev, next) => prev.then(() => next()),
+    //   Promise.resolve()
+    // )
 
 
     // splice: 删除 插入 替换 截取
 
     // const arr = [{a: 1,b: {b2: 2}},[2,3,[4,5]],'c']
-    // function deepCopy(obj) {
-    //   let newObj = obj.constructor === Object ? {} : []
-    //   for (var key in obj) {
-    //     if (typeof obj[key] === 'object') {
-    //       newObj[key] = arguments.callee(obj[key])
-    //     } else {
-    //       newObj[key] = obj[key]
+    // function deepCopy(data) {
+    //   const ret = data instanceof Array ? [] : {}
+    //   for (let key in data) {
+    //     let value = data[key]
+    //     if (typeof value === 'object') {
+    //       value = deepCopy(value)
     //     }
+    //     ret[key] = value
     //   }
-    //   return newObj
+    //   return ret
     // }
 
     // const newArr = deepCopy(arr)
@@ -1423,82 +3577,29 @@
     // console.log(arr)
     // console.log(newArr)
 
-    // const obj = new Object(function(){})  // 传什么类型的值就生成什么类型的对象实例
-    // console.log(obj instanceof Function)
-
-    // 基本包装类型
-    // 为了便于操作基本类型值，ECMAScript 还提供了 3 个特殊的引用类型:Boolean、Number 和 String。这些类型与本章介绍的其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。 实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们 能够调用一些方法来操作这些数据。来看下面的例子。
-    //     var s1 = "some text";
-    //     var s2 = s1.substring(2);
-    // 这个例子中的变量 s1 包含一个字符串，字符串当然是基本类型值。而下一行调用了 s1 的 substring()方法，并将返回的结果保存在了 s2 中。我们知道，基本类型值不是对象，因而从逻辑上 讲它们不应该有方法(尽管如我们所愿，它们确实有方法)。其实，为了让我们实现这种直观的操作， 后台已经自动完成了一系列的处理。当第二行代码访问 s1 时，访问过程处于一种读取模式，也就是要 从内存中读取这个字符串的值。而在读取模式中访问字符串时，后台都会自动完成下列处理。
-    // (1) 创建 String 类型的一个实例;
-    // (2) 在实例上调用指定的方法;
-    // (3) 销毁这个实例。
-
-    // localeCompare()  
-    // var stringValue = "yellow";
-    // alert(stringValue.localeCompare("brick")); //1
-    // alert(stringValue.localeCompare("yellow")); //0
-    // alert(stringValue.localeCompare("zoo")); //-1
-
-    // alert(String.fromCharCode(104, 101, 108, 108, 111)); //"hello"
-
-    // var uri = "http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start";
-    // decodeURI() decodeURIComponent()
-    // //http%3A%2F%2Fwww.wrox.com%2Fillegal value.htm%23start
-    // alert(decodeURI(uri));
-    // //http://www.wrox.com/illegal value.htm#starttabulator
-    // alert(decodeURIComponent(uri))
-
-    // Math.max() min() 技巧  values.constuctor === Array.prototype
-    // var max = Math.max.apply(Math, values);
-
-    // input 只允许输入？？？
-    // <input onkeyup="value=value.replace(/[^0-9]/g,'')" onpaste="value=value.replace(/[^0-9]/g,'')" oncontextmenu = "value=value.replace(/[^0-9]/g,'')">
 
 
-    // let totalS = 62 
+    // 数组扁平化
 
-    // function countDown() {
-    //   if (totalS >= 0) {
-    //     m = transition(Math.floor(totalS / 60))
-    //     s = transition(totalS % 60)
-    //     timeStr = '' + m[0] + m[1] + '分' + s[0] + s[1] + '秒'
-    //     document.body.innerHTML = timeStr
-    //     --totalS
-    //   } else {
-    //     clearInterval(timer)
+    // const flatten = arr => {
+    //   arr.reduce((prev, item) => (
+    //     prev.concat(Array.isArray(item) ? flatten(item) : item)
+    //     [...prev, ...(Array.isArray(next) ? fn(next) : [next])]
+    //   ), [])
+    // }
+
+    // function flatten(arr){
+    //   while(arr.some(item=>Array.isArray(item))) {
+    //       arr = [].concat(...arr);
     //   }
+    //   return arr;
     // }
 
-    // timer = setInterval('countDown()', 1000)
+    // Array.protype.flat()用于将数组“拉平”，变成一维数组，返回一个新数组。
+    // flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次
+    // flat()会跳过空格
 
-    // function transition(str) {
-    //   return str < 10 ? '0' + str : str + ''
-    // }
-
-    // callee
-    // function fn() {
-    //   log(arguments.callee)
-    // }
-
-    // Object.create()  //用对象去（带原型带属性）创建新对象
-    //使用指定的原型对象及其属性去新建一个新的对象
-
-    // Object.keys && Object.values
-    // Object.entries方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（ enumerable ）属性的键值对数组
-
-    // 􏲒􏱁 resizeTo()􏱰 resizeBy()􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚􏱜􏱝􏰜􏱧􏱍􏷽􏲈􏲉􏲊􏽿􏴔􏰔􏳵􏵚 调整浏览器窗口大小
-
-    // 作用域：限制代码范围内变量的可用性
-    // 作用域链作用：保证变量的合法、有序访问;作用域的前端，始终都是当前执行的代码所在环境的变量对象
-    // 函数的对象上下文 => this
-    // 执行环境：每次进入函数都会创建一个完全不同的执行环境; 运行完毕即销毁
-    //    执行环境组成: 变量对象; 作用域属性[[Scopes]]; this,arguments;
-    //      变量对象：函数内所定义和用到的变量都保存在这个对象当中 arguments
-
-
+    
   </script>
 </body>
-
 </html>
