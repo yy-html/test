@@ -12,14 +12,18 @@
 
     }
     .box {
-      
+      height: 200px;
     }
+    .box:hover span {
+      color: red;
+    }
+    
   </style>
 </head>
 
 <body>
-  <div class="box">  
-
+  <div id="box">  
+    <input id="input" />
   </div>
   <!-- <script type="text/javascript" src="http://localhost:3000/commons-commons.js"></script>
   <script type="text/javascript" src="http://localhost:3000/bundle.js"></script> -->
@@ -27,9 +31,8 @@
   <!-- <div class="box" id="box" title="box">
   </div> -->
 
-  <script>const { log, dir } = console
-
-
+  <script>const { log, dir } = console;
+    
 
     // setInterval(function() {
     //     check()
