@@ -8,31 +8,109 @@
   <title>{{title}}</title>
   <style>
 
-    body * {
-
-    }
-    .box {
-      height: 200px;
-    }
-    .box:hover span {
-      color: red;
-    }
-    
   </style>
 </head>
 
 <body>
-  <div id="box">  
-    <input id="input" />
-  </div>
-  <!-- <script type="text/javascript" src="http://localhost:3000/commons-commons.js"></script>
-  <script type="text/javascript" src="http://localhost:3000/bundle.js"></script> -->
-  
-  <!-- <div class="box" id="box" title="box">
-  </div> -->
+  <div class="box" name="box">  
 
-  <script>const { log, dir } = console;
-    
+  </div>
+  <script>const { log, dir } = console
+
+    // 正向代理：客户端明确访问代理的地址，而不是服务器的地址
+    // 反向代理：客户端以为自己访问的是服务器（使用服务器地址），但其实访问的是反向代理
+
+    // 正向代理的过程，它隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求
+
+    // 正向代理代理的对象是客户端，反向代理代理的对象是服务端
+    // 正向代理隐藏真实客户端，反向代理隐藏真实服务端
+
+    // 反向代理指代理后端服务器响应客户端请求的一个中介服务器，代理的对象是服务端
+
+    // 大文件上传
+    // 前端：Blob.prototype.slice 切片二进制 并发上传 用index确定切片顺序 total确定是否传递完
+    // 服务端：合并
+
+    // 切片进度
+    // xhr.upload.onprogress
+    // 文件进度
+    // 切片/文件
+
+    // 断点续传
+    // 服务端保存已上传的切片 hash，前端每次上传前向服务端获取已上传的切片
+
+
+    // new URLSearchParams(location.search).get(key)
+
+
+    // command line api 
+    // $_: 返回最近返回的值
+    // $0 - $4: 返回最近选择的dom元素
+    // $(str): document.querySelector()
+    // $$(str): document.querySelectorAll()
+    // $x(path): 返回一个与给定 XPath 表达式匹配的 DOM 元素数组
+    // clear(): 清除控制台
+    // copy(var): 
+    // inspect(dom): element面板打开对应元素
+    // getEventListeners(dom): 
+    // unmonitor(function): 调用指定函数时，系统会向控制台记录一条消息，其中指明函数名称及在调用时传递到该函数的参数
+    // monitorEvents(dom, [events]) unmonitorEvents: 当在指定对象上发生一个指定事件时，将 Event 对象记录到控制台。您可以指定一个要监控的单独事件、一个事件数组或一个映射到预定义事件集合的常规事件“类型”
+
+
+
+    // class A {
+    //   constructor() {
+    //     this.c = 1
+    //   }
+    //   get a() {
+
+    //   }
+    //   b() {}
+    // }
+
+    // class B extends A {
+
+    // }
+
+    // log(new A())
+    // log(new B())
+
+    // B实例和B.prototype 下会copy a访问器属性 c不会copy到原型
+    // 此时B不能设置a属性
+
+  /* rgba的四个值分别为：红(R)、绿(G)、蓝(B)、透明度(A) */
+  // --whiteShadow: -15px -15px 25px rgba(255, 117, 117, .5);
+  // --blackShadow: 15px 15px 25px rgba(110, 40, 40, .2);
+  // box-shadow: inset var(--blackShadow),
+  //             inset var(--whiteShadow);
+
+    // 运算符：
+    //   宽泛：一元/二元/三元运算符：delete ++ -- void/+/? :
+    //   算术运算符：+ / -- %
+    //   赋值运算符：= *=
+    //   比较运算符：< !== ? :
+    //   位运算符：
+    //   逻辑运算符：! && ||
+    //   类型运算符：typeof instanceof
+    //   条件运算符：? :
+    //   具体：逗号运算符/new运算符/delete运算符
+
+    // 表达式：js短语，js引擎会计算出一个value
+    //   原始表达式：表达式的最小单位 常量直接量/变量/关键字/ 
+    //   初始化表达式：也叫对象/数组直接量 也属于原始表达式
+    //   函数定义表达式：函数直接量 某种意义上也可以成为初始化表达式
+    //   函数调用表达式
+    //   属性访问表达式
+    //   对象创建表达式
+    //   运算表达式：[运算符类型]表达式: 算数表达式
+
+    // 语句：具有副作用
+    //   表达式语句：赋值表达式语句/函数调用表达式语句
+    //   复合语句空语句
+    //   声明语句
+    //   条件语句 if else switch for
+
+
 
     // setInterval(function() {
     //     check()
@@ -52,6 +130,9 @@
     //   }
 
     //   check()
+    //   let a
+
+    //   log(("" + a / a)["length"] !== 1 || a % 20 === 0)
 
     // canvas.getContext("2d").drawImage(new Img,0,0,width,height)
     // canvas.toDataURL('image/jpeg', 0.93)
@@ -297,6 +378,8 @@
     // const observer = new MutationObserver((mutationsList) => {})
     // observer.observe(targetNode, config)
     // observer.disconnect()
+    // 尺寸观察者
+    // ResizeObserver
 
     // 前端工程化
     // 结构文件模块化/代码组件化
@@ -851,6 +934,10 @@
     // 登录表单:form-login
     // 新闻列表:list-news
 
+    // .el-button+.el-button {
+    //   margin-left: 10px;
+    // }
+
 
     // pointer-events: none; 阻止元素任何JS事件
 
@@ -865,6 +952,41 @@
     // 3. flex
     // 4. position + thransform / margin-left + thransform
     // 5. 父元素（diaplay：table） 子元素（display：table-cell vertical-middle）
+
+    // clip-path: polygon circle ellipse(50% 0, 100% 50%, 50% 100%, 0 50%)
+    // border-radius: 5em 1em 5em 1em / 5em 1em 5em 1em;
+    // width: min-content;
+    // box-shadow: 0 0 0 5px #000 inset,
+    //           0 0 0 10px #555 inset,
+    //           0 0 0 15px #999 inset;
+    // filter: blur... / drop-shadow(2px 2px 10px rgba(0,0,0,.5));
+
+    // 网格
+    // background: #58a;
+    // background-image: linear-gradient(white 2px, transparent 0),
+    //                   linear-gradient(to right, white 2px, transparent 0),
+    //                   linear-gradient(rgba(255, 255, 255, .5) 1px, transparent 0),
+    //                   linear-gradient(to right, rgba(255, 255, 255, .5) 1px, transparent 0);
+    // background-size: 75px 75px, 75px 75px, 15px 15px, 15px 15px;
+    // 条纹
+    // background: repeating-linear-gradient(60deg, #fb3 0, #fb3 15px, #58a 0, #58a 30px);
+    // 棋盘
+    // background: #eee;
+    // background-image:
+    //   linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0),
+    //   linear-gradient(45deg, rgba(0, 0, 0, .25) 25%, transparent 0, transparent 75%, rgba(0, 0, 0, .25) 0);
+    // background-size: 30px 30px;
+    // background-position: 0 0, 15px 15px;
+    // 饼图
+    // background: conic-gradient(lightblue 30%, yellowgreen 0, yellowgreen 50%, cyan 0);
+    // 回弹
+    // animation: bounce 3s both cubic-bezier(.7, .1, .3, 2);
+    // transform-origin: 1.4em -.4em;
+    // transition: transform .5s cubic-bezier(.25, .1, .3, 1.5);
+
+
+
+
 
 
     // JSON.stringify()
@@ -1043,6 +1165,8 @@
 
 
     // DOM
+    // Element name 会被当作document下的属性
+    // Element id 会被当作window下的属性
 
     // box => HTMLDivElement => HTMLElement => Element => Node => EventTarget => Object
 
@@ -1341,7 +1465,30 @@
 		// null == undefined 和自己; 除此之外不和任何类型 ==
 		// ①、如果有一个操作数是布尔值，则在比较相等性之前先将其转换为数值——false转换为0，而true转换为1；
 		// ②、如果一个操作数是字符串，另一个操作数是数值，在比较相等性之前先将字符串转换为数值
-		// ③、如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的类型值判断是不是基础类型，不是的话再调用toString，按照前面的规则进行比较
+    // ③、如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的类型值判断是不是基础类型，不是的话再调用toString，按照前面的规则进行比较
+
+    // 如果两个值具有相同类型，会进行===比较，返回===的比较值
+    // 如果两个值不具有相同类型，也有可能返回true
+    // 如果一个值是null另一个值是undefined，返回true
+    // 如果一个值是string另个是number，会把string转换成number再进行比较
+    // 如果一个值是true，会把它转成1再比较，false会转成0
+    // console.log( false == null )      // false
+    // console.log( false == undefined ) // false
+    // console.log( false == 0 )         // true
+    // console.log( false == '' )        // true
+    // console.log( false == NaN )       // false
+
+    // console.log( null == undefined ) // true
+    // console.log( null == 0 )         // false
+    // console.log( null == '' )        // false
+    // console.log( null == NaN )       // false
+
+    // console.log( undefined == 0)   // false
+    // console.log( undefined == '')  // false
+    // console.log( undefined == NaN) // false
+
+    // console.log( 0 == '' )  // true
+    // console.log( 0 == NaN ) // false复制代码
 		// const a = {
 		// 	i: 0,
 		// 	valueOf: function() {
@@ -1737,6 +1884,19 @@
 
     // 闭包：父函数被销毁时 子函数仍可以访问父函数所声明的变量和作用域链。多个子函数的的[[scopes]]都是同时指向父级作用域链的 是完全共享的
     // ：内部函数的作用域链仍然保持着对父执行环境活动对象的引用
+    // var f = (function() {
+    //   var n = 10;
+    //   return new Function('++n;console.log(n);');
+    // })();
+
+    // f(); // n is not defined
+
+    // 结论：该程序是对“程序3”的进一步印证和补充。由该程序可以得出的结论是：闭包函数的作用域是在编译它的时候确定的。
+
+    // 说明：
+    // 使用Function构造器可以创建一个function对象，函数体使用一个字符串指定，它可以像普通函数一样执行，并在首次执行时编译。因此，虽然在匿名函数内部定义了此function对象，但一直要到调用它的时候才会编译，即执行到“f()”时，而此时原函数的作用域已经不存在了。
+
+
 
     // 前端资源优化
     // 1. 文件压缩
@@ -1915,7 +2075,12 @@
 
     // 其他知识
     // fetch && xhr && axios
-    // fetch：ES新规范；免封装 语法简洁语义化；基于promise设计 解决回调地狱问题；可以设置不透传cookie
+    // fetch：
+      // ES新规范；免封装 语法简洁语义化；
+      // 基于promise设计 解决回调地狱问题；
+      // 可以设置不透传cookie；
+      // 采用模块化设计，API 分散在多个对象上（Response 对象、Request 对象、Headers 对象），更合理一些；相比之下，XMLHttpRequest 的 API 设计并不是很好，输入、输出、状态都在同一个接口管理，容易写出非常混乱的代码；
+      // 通过数据流（Stream 对象）处理数据，可以分块读取，有利于提高网站性能表现，减少内存占用，对于请求大文件或者网速慢的场景相当有用。XMLHTTPRequest 对象不支持数据流，所有的数据必须放在缓存里，不支持分块读取，必须等待全部拿到后，再一次性吐出来
     // 缺点：不能中断请求，没有获取当前请求状态的方法
 
 
@@ -2001,7 +2166,41 @@
     // JS的垃圾回收机制会按固定的时间周期性的执行
     // 最常见的方式是 1. 标记清除
 
+    // 这个算法把“对象是否不再需要”简化定义为“对象是否可以获得”.
+
+    // 这个算法假定设置一个叫做根root的对象(在Javascript里，根是全局对象). 垃圾回收器将从根开始, 找到所有从根开始引用的对象, 然后找这些对象引用的对象, 从根开始,垃圾回收器将找到所有可以获得的对象和所有不能获得的对象.
+
+    // 从2012年起, 所有现代浏览器都使用了标记-清除内存回收算法。所有对JavaScript垃圾回收算法的改进都是基于标记-清除算法的改进.
+
+    
+
     // 2. 引用计数
+    // 垃圾回收算法主要依赖于引用的概念. 在内存管理的环境中, 一个对象如果有访问另一个对象的权限（隐式或者显式）, 叫做一个对象引用另一个对象. 例如: 一个Javascript对象具有对它原型的引用（隐式引用）和对它属性的引用（显式引用）.
+
+    // 引用计数垃圾收集
+
+    // 这是最简单的垃圾收集算法.此算法把“对象是否不再需要”简化定义为“对象有没有其他对象引用到它”. 如果没有引用指向该对象（零引用）, 对象将被垃圾回收机制回收. 示例:
+
+    // let arr = [1, 2, 3, 4];
+    // arr = null; // [1,2,3,4]这时没有被引用, 会被自动回收
+    // 限制: 循环引用
+
+    // 在下面的例子中, 两个对象对象被创建并互相引用, 就造成了循环引用. 它们被调用之后不会离开函数作用域, 所以它们已经没有用了, 可以被回收了. 然而, 引用计数算法考虑到它们互相都有至少一次引用, 所以它们不会被回收.
+
+    // function f() {
+    // var o1 = {};
+    // var o2 = {};
+    // o1.p = o2; // o1 引用 o2
+    // o2.p = o1; // o2 引用 o1. 这里会形成一个循环引用
+    // }
+    // f();
+
+    // var div;
+    // window.onload = function(){
+    // div = document.getElementById("myDivElement");
+    // div.circularReference = div;
+    // div.lotsOfData = new Array(10000).join("*");
+    // };
 
 
 
@@ -2876,6 +3075,53 @@
     // bfs()
 
     // log(result)
+
+    // 循环:
+    // function cloneLoop(x) {
+    //   const root = {};
+
+    //   // 栈
+    //   const loopList = [
+    //       {
+    //           parent: root,
+    //           key: undefined,
+    //           data: x,
+    //       }
+    //   ];
+
+    //   while(loopList.length) {
+    //       // 深度优先
+    //       const node = loopList.shift();
+    
+    //       const parent = node.parent;
+    //       const key = node.key;
+    //       const data = node.data;
+
+    //       // 初始化赋值目标，key为undefined则拷贝到父元素，否则拷贝到子元素
+    //       let res = parent;
+    //       if (typeof key !== 'undefined') {
+    //           res = parent[key] = {};
+    //       }
+
+    //       for(let k in data) {
+    //           if (data.hasOwnProperty(k)) {
+    //               if (typeof data[k] === 'object') {
+    //                   // 下一次循环
+    //                   loopList.push({
+    //                       parent: res,
+    //                       key: k,
+    //                       data: data[k],
+    //                   });
+                      
+    //               } else {
+    //                   res[k] = data[k];
+    //               }   
+    //           }
+    //       }
+    //   }
+
+    //   return root;
+    // }
     
 
     // function fn(data) {
