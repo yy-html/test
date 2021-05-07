@@ -18,23 +18,28 @@
   <form name="test">
     <input name="input" />
   </form>
-  <!-- <script type="text/javascript" src="http://localhost:3000/commons-commons.js"></script>
-  <script type="text/javascript" src="http://localhost:3000/bundle.js"></script> -->
-  
-  <!-- <div class="box" id="box" title="box">
-  </div> -->
 
   <script>const { log, dir } = console
+
+  
+  
+
+//     什么是RESTful（Resources Representational State Transfer）架构：资源表现层状态转化
+// 　　（1）每一个URI代表一种资源；
+// 　　（2）客户端和服务器之间，传递这种资源的某种表现层；
+// 　　（3）客户端通过四个HTTP动词，对服务器端资源进行操作，实现"表现层状态转化"。
+
+
 
     // 正向代理：客户端明确访问代理的地址，而不是服务器的地址
     // 反向代理：客户端以为自己访问的是服务器（使用服务器地址），但其实访问的是反向代理
 
-    正向代理的过程，它隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求
+    // 正向代理的过程，它隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求
 
-    正向代理代理的对象是客户端，反向代理代理的对象是服务端
-    正向代理隐藏真实客户端，反向代理隐藏真实服务端
+    // 正向代理代理的对象是客户端，反向代理代理的对象是服务端
+    // 正向代理隐藏真实客户端，反向代理隐藏真实服务端
 
-    反向代理指代理后端服务器响应客户端请求的一个中介服务器，代理的对象是服务端
+    // 反向代理指代理后端服务器响应客户端请求的一个中介服务器，代理的对象是服务端
 
     // 大文件上传
     // 前端：Blob.prototype.slice 切片二进制 并发上传 用index确定切片顺序 total确定是否传递完
@@ -2797,6 +2802,25 @@
   //   // result 最终会等于 2
   //   const result = yield* gen1();
   // }
+
+
+    // 反转字符串
+    // function reverse(str) {
+    //   const arr = str.split('')
+    //   const { length } = arr
+    //   const mid = Math.floor(length / 2)
+    //   const lastIdx = length - 1
+
+    //   let i = 0
+    //   while (i < mid) {
+    //     [arr[i], arr[lastIdx - i]] = [arr[lastIdx - i], arr[i]]
+    //     i ++
+    //   }
+
+    //   return arr.join('')
+    // }
+
+    // log(reverse('12345678'))
 
 
 
