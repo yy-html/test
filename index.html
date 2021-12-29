@@ -17,6 +17,30 @@
   </div>
   <script>const { log, dir } = console
 
+  // function t(n) {
+  //   if (n <= 1) return 1
+  //   return t(n - 1)
+  // }
+
+  // function t2(n) {
+  //   if (n <= 1) return 1
+  //   return () => {
+  //     return t2(n - 1)
+  //   }
+  // }
+
+  // function j(f) {
+  //   let r = f
+  //   while (typeof r === 'function') {
+  //     r = r()
+  //   }
+  //   return r
+  // }
+
+  // // t2 & j => gen
+
+  // console.log(j(t2(99999999)))
+
     // 正向代理：客户端明确访问代理的地址，而不是服务器的地址
     // 反向代理：客户端以为自己访问的是服务器（使用服务器地址），但其实访问的是反向代理
 
@@ -2114,6 +2138,48 @@
     // 5.寄生组合继承：结合构造继承，通过寄生的方式砍掉父类的实例方法，
     // 创建一个空类，把父类的原型赋给空类的原型，再把这个实例赋给子类构造器的原型
     // ES6类继承：
+    // "use strict";
+
+    // function _possibleConstructorReturn(self, call) {
+    //   return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    // }
+
+    // function _inherits(subClass, superClass) {
+    //   subClass.prototype 
+    //     = Object.create(
+    //         superClass && superClass.prototype, 
+    //         {
+    //           constructor: { value: subClass, enumerable: false, writable: true, configurable: true }
+    //         }); 
+    //   if (superClass) {
+    //     Object.setPrototypeOf 
+    //       ? Object.setPrototypeOf(subClass, superClass) 
+    //       : subClass.__proto__ = superClass;
+    //   }
+    // }
+
+    // function _classCallCheck(instance, Constructor) {
+    //   if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); }
+    // }
+
+    // var A = function A() {
+    //   _classCallCheck(this, A);
+    // };
+
+    // var B = function (_A) {
+    //   _inherits(B, _A);
+
+    //   function B() {
+    //     _classCallCheck(this, B);
+
+    //     const a = _possibleConstructorReturn(this, (B.__proto__ || Object.getPrototypeOf(B)).apply(this, arguments));
+    //     log(a)
+    //     return a
+    //   }
+
+    //   return B;
+    // }(A);
+    
     // 面向对象
     // 面向对象式编程：重用性、灵活性和扩展性 把程序模块化 这些模块可以在类的外部被调用，符合编程思维的高内聚低耦合（继承，封装，多态）
     // Ajsx
@@ -2460,7 +2526,7 @@
     // }
 
 
-    // 原型链继承：S.prototype = new F() 将构造函数的原型设置为另一个构造函数的实例对象
+    // 原型链继承/类式继承：S.prototype = new F() 将构造函数的原型设置为另一个构造函数的实例对象
     // 构造继承：F.call(s = new S()) 绑定子类实例调用父类构造器，继承父类实例属性
     // 寄生式继承：创建一个空Constructor 让其prototype = F.prototype | {}(主要用于继承字面量对象); 返回 new Constructor() | Object.create(F.prototype)
     // 组合式继承：原型链继承 + 构造继承 
